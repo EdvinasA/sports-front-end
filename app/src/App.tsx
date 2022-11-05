@@ -35,6 +35,15 @@ class App extends React.Component<{}, WorkoutState>  {
       );
   }
 
+  createWorkout() {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({date: new Date()})
+  };
+  fetch("https://localhost:7173/api/workout/1/create", requestOptions);
+  }
+
   render() {
     return (
       <div className="App">
@@ -51,6 +60,9 @@ class App extends React.Component<{}, WorkoutState>  {
               </div>
             </div>
           ))}
+          <div>
+            <button onClick={this.createWorkout}>Create workout</button>
+          </div>
       </div>
     );
   }
