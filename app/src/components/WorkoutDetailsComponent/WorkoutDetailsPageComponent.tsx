@@ -1,6 +1,6 @@
 import React from 'react';
-import { WorkoutDetails } from '../models/workout';
-import './WorkoutDetailsPage.scss';
+import { WorkoutDetails } from '../../models/workout';
+import './WorkoutDetailsPageComponent.scss';
 
 export interface WorkoutDetailsProps {
     workout: WorkoutDetails,
