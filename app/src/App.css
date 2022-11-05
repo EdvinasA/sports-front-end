@@ -36,3 +36,25 @@
     transform: rotate(360deg);
   }
 }
+
+.workout-list-wrapper {
+  width: 100%;
+  max-width: 600px;
+  padding: 0 1em;
+  margin: 0 auto;
+}
+
+.workout-item {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  text-align: center;
+  margin: 10px;
+}
+
+.workout-item-column1 {
+
+}
+
+.workout-item-column2 {
+  background-color: gray;
+}
