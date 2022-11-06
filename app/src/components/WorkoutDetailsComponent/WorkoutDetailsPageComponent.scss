@@ -1,18 +1,22 @@
 .inputs-first-row {
-    ::ng-deep {
-        .MuiFormControl-root {
-            width: 100%;
-            height: 30px;
-        }
-    }
-    padding: 15px;
+    display: grid;
+    grid-template-columns: 65% 35%;
+    padding: 10px;
+    margin-bottom: 50px;
 }
 
-:host {
-    ::ng-deep {
-        .MuiFormControl-root {
-            width: 100%;
-            height: 30px;
-        }
+.workout-name-input {
+    width: 97%;
+    .MuiTextField-root {
+        width: 100%;
+        height: 30px;
+    }
+}
+
+.workout-weight-input {
+    width: 97%;
+    .MuiTextField-root {
+        width: 100%;
+        height: 30px;
     }
 }

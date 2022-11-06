@@ -154,7 +154,7 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState>  {
                                         </div>
                                     </div>
                                 </div>
-                                <div>
+                                <div className='workout-details-display'>
                                     <WorkoutDetailsPageComponent workout={this.state.activeWorkout}></WorkoutDetailsPageComponent>
                                 </div>
                             </div>
