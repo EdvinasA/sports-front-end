@@ -1,68 +1,17 @@
 import React from 'react';
-import './App.css';
-import { WorkoutDetails } from './models/workout';
-import { getDayOfTheMonth, getDayOfTheWeekForDate, getMonth } from './services/formatter-service';
+import './App.scss';
+import WorkoutListComponent from './components/WorkoutListComponent/WorkoutListComponent';
 
-export interface WorkoutState {
-  workout: WorkoutDetails[];
-  loading: boolean,
-  error: boolean,
-}
-
-class App extends React.Component<{}, WorkoutState>  {
+class App extends React.Component<{}, {}>  {
   constructor(props: any) {
     super(props)
-    this.state = {
-      workout: [],
-      loading: true,
-      error: false,
-    }
-  }
-
-  componentDidMount() {
-    fetch("https://localhost:7173/api/workout/1")
-      .then((response) => response.json())
-      .then((response) =>
-        this.setState({
-          workout: response,
-        })
-      )
-      .catch((error) =>
-        this.setState({
-          loading: false,
-          error: true,
-        })
-      );
-  }
-
-  createWorkout() {
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({date: new Date()})
-  };
-  fetch("https://localhost:7173/api/workout/1/create", requestOptions);
+    this.state = {}
   }
 
   render() {
     return (
       <div className="App">
-        {this.state.workout &&
-          this.state.workout.map((workout: WorkoutDetails) => (
-            <div className="workout-list-wrapper" key={workout.id}>
-              <div className="workout-item">
-                <div className="workout-item-column1">
-                  <div>{getDayOfTheWeekForDate(workout.date)}</div>
-                  <div>{getDayOfTheMonth(workout.date)}</div>
-                  <div>{getMonth(workout.date)}</div>
-                </div>
-                <div className="workout-item-column2">{workout.name}</div>
-              </div>
-            </div>
-          ))}
-          <div>
-            <button onClick={this.createWorkout}>Create workout</button>
-          </div>
+        <WorkoutListComponent></WorkoutListComponent>
       </div>
     );
   }
