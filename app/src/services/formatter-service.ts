@@ -1,6 +1,6 @@
 export const getMonth = (date: string): string => {
     let fixed = new Date(date);
-    return getMonthName(fixed.getMonth()).slice(0, 5) + '.';
+    return getMonthName(fixed.getMonth() + 1).slice(0, 5) + '.';
   }
 
 export const getDayOfTheWeekForDate = (date: string): string => {
