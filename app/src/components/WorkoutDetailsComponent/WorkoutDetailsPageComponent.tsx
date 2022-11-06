@@ -48,31 +48,38 @@ class WorkoutDetailsPage extends React.Component<WorkoutDetailsProps, WorkoutDet
           </div>
           <div>
             <LocalizationProvider dateAdapter={AdapterMoment}>
-              <MobileDatePicker
-                  label="Date mobile"
-                  inputFormat="YYYY-MM-DD"
-                  value={this.getTime(this.state.workout.date || '')}
-                  onChange={() => console.log("hello")}
-                  renderInput={(params) => <TextField {...params} />}
-              />
-              <TimePicker
-                  ampm={false}
-                  value={this.getTime(this.state.workout.startTime || '')}
-                  label='Start Time'
-                  onChange={() => console.log("hello")}
-                  renderInput={(params) => <TextField {...params} />}/>
-              <TimePicker
-                  ampm={false}
-                  value={this.getTime(this.state.workout.endTime || '')}
-                  label='End Time'
-                  onChange={() => console.log("hello")}
-                  renderInput={(params) => <TextField {...params} />}/>
+              <div className='workout-time-pickers'>
+                <div className='workout-picker padding-for-picker'>
+                  <MobileDatePicker
+                      label="Date mobile"
+                      inputFormat="YYYY-MM-DD"
+                      value={this.getTime(this.state.workout.date || '')}
+                      onChange={() => console.log("hello")}
+                      renderInput={(params) => <TextField {...params} />}
+                  />
+                </div>
+                <div className='workout-picker padding-for-picker'>
+                  <TimePicker
+                      ampm={false}
+                      value={this.getTime(this.state.workout.startTime || '')}
+                      label='Start Time'
+                      onChange={() => console.log("hello")}
+                      renderInput={(params) => <TextField {...params} />}/>
+                </div>
+                <div className='workout-picker furthest-padding'>
+                  <TimePicker
+                      ampm={false}
+                      value={this.getTime(this.state.workout.endTime || '')}
+                      label='End Time'
+                      onChange={() => console.log("hello")}
+                      renderInput={(params) => <TextField {...params} />}/>
+                </div>
+              </div>
             </LocalizationProvider>
           </div>
-          <div>
+          <div className='workout-notes'>
             <TextField defaultValue={this.state.workout.notes || ''} label='Notes' variant="outlined"/>
           </div>
-          <div>{this.props.workout.id || 'Default name'}</div>
         </div>
     )
   }
