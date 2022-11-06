@@ -1,6 +1,6 @@
 .workout-list-wrapper {
   width: 100%;
-  max-width: 600px;
+  max-width: 300px;
   padding: 0 1em;
   margin: 0 auto;
 }
@@ -22,8 +22,8 @@
 
 .dialog-workout-header {
   width: 100%;
-  max-width: 900px;
-  padding: 0 1em;
+  max-width: 400px;
+  padding: 0 5px 0 5px;
   margin: 0 auto;
 }
 
@@ -46,5 +46,4 @@
 }
 
 .workout-details-display {
-  padding-right: 25px;
 }
