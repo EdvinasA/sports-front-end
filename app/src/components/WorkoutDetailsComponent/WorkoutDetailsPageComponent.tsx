@@ -55,7 +55,7 @@ class WorkoutDetailsPage extends React.Component<WorkoutDetailsProps, WorkoutDet
               <div className='workout-time-pickers'>
                 <div className='workout-picker padding-for-picker'>
                   <MobileDatePicker
-                      label="Date mobile"
+                      label="Date"
                       inputFormat="YYYY-MM-DD"
                       value={this.getTime(this.state.workout.date || '')}
                       onChange={() => console.log("hello")}
@@ -73,7 +73,7 @@ class WorkoutDetailsPage extends React.Component<WorkoutDetailsProps, WorkoutDet
                 <div className='workout-picker furthest-padding'>
                   <TimePicker
                       ampm={false}
-                      value={this.getTime(this.state.workout.endTime || '')}
+                      value={this.getTime(this.state.workout.startTime || '')}
                       label='End Time'
                       onChange={() => console.log("hello")}
                       renderInput={(params) => <TextField {...params} />}/>
