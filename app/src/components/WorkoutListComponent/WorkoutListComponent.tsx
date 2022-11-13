@@ -1,14 +1,11 @@
 import React from 'react';
 import { WorkoutDetails } from '../../models/workout';
 import { getDayOfTheWeekForDate, getDayOfTheMonth, getMonth } from '../../services/formatter-service';
-import { Dialog, Slide, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import TimerIcon from '@mui/icons-material/Timer';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { TransitionProps } from '@mui/material/transitions';
-import WorkoutDetailsPageComponent from '../WorkoutDetailsComponent/WorkoutDetailsPageComponent';
 import './WorkoutListComponent.scss';
-
 export interface WorkoutState {
     workout: WorkoutDetails[],
     activeWorkout: WorkoutDetails,
@@ -17,15 +14,6 @@ export interface WorkoutState {
     isActiveWorkout: boolean,
     isEditingDisplayed: boolean,
 }
-
-export const Transition = React.forwardRef(function Transition(
-    props: TransitionProps & {
-        children: React.ReactElement;
-    },
-    ref: React.Ref<unknown>,
-) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
 
 class WorkoutListComponent extends React.Component<{}, WorkoutState>  {
     constructor(props: any) {
@@ -118,47 +106,6 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState>  {
                     }
                     {this.state.isActiveWorkout &&
                         <button onClick={() => this.openWorkout()}>Resume workout</button>
-                    }
-                    {this.state.isEditingDisplayed &&
-                        <Dialog
-                            fullScreen
-                            open={this.state.isEditingDisplayed}
-                            onClose={this.openWorkout}
-                            TransitionComponent={Transition}>
-                            <div className='dialog-workout-header'>
-                                <div className='dialog-workout-header-grid'>
-                                    <div className='dialog-workout-back-action'>
-                                        <IconButton
-                                            edge="start"
-                                            color="inherit"
-                                            onClick={() => this.openWorkout()}
-                                            aria-label="close"
-                                        >
-                                            <ArrowBackIcon />
-                                        </IconButton>
-                                    </div>
-                                    <div>
-                                        {getMonth(this.state.activeWorkout.date)}
-                                        5
-                                    </div>
-                                    <div className='dialog-workout-info'>
-                                        <div>
-                                            <IconButton>
-                                                <TimerIcon />
-                                            </IconButton>
-                                        </div>
-                                        <div>
-                                            <IconButton>
-                                                <MoreVertIcon />
-                                            </IconButton>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='workout-details-display'>
-                                    <WorkoutDetailsPageComponent workout={this.state.activeWorkout}></WorkoutDetailsPageComponent>
-                                </div>
-                            </div>
-                        </Dialog>
                     }
                 </div>
             </div>

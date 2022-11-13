@@ -1,6 +1,12 @@
 import React from 'react';
 import './App.scss';
 import WorkoutListComponent from './components/WorkoutListComponent/WorkoutListComponent';
+import WorkoutDetailsPageComponent from "./components/WorkoutDetailsComponent/WorkoutDetailsPageComponent";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 
 class App extends React.Component<{}, {}>  {
   constructor(props: any) {
@@ -10,9 +16,16 @@ class App extends React.Component<{}, {}>  {
 
   render() {
     return (
-      <div className="App">
-        <WorkoutListComponent></WorkoutListComponent>
-      </div>
+      <Router>
+        <Switch>
+          <Route path="/">
+            <WorkoutListComponent />
+          </Route>
+          <Route path="/workout">
+            <WorkoutDetailsPageComponent />
+          </Route>
+        </Switch>
+      </Router>
     );
   }
 }

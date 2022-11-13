@@ -6,9 +6,26 @@ export type WorkoutDetails = {
     startTime: string;
     endTime: string;
     notes: string;
-    exercises: Exercise[]
+    exercises: WorkoutExercise[]
+}
+
+export type WorkoutExercise = {
+    id: number;
+    exercise: Exercise;
+    exerciseSets: ExerciseSet[];
+    rowNumber: number;
 }
 
 export type Exercise = {
+    id: number;
     name: string;
+    rowNumber: number;
+}
+
+export type ExerciseSet = {
+    id: number;
+    weight: number;
+    reps: number;
+    notes: string;
+    exerciseType: string;
 }
