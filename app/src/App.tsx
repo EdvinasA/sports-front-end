@@ -18,11 +18,11 @@ class App extends React.Component<{}, {}>  {
     return (
       <Router>
         <Switch>
-          <Route path="/">
-            <WorkoutListComponent />
-          </Route>
           <Route path="/workout">
             <WorkoutDetailsPageComponent />
+          </Route>
+          <Route path="/">
+            <WorkoutListComponent />
           </Route>
         </Switch>
       </Router>
