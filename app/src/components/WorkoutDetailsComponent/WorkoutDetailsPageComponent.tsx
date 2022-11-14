@@ -178,13 +178,13 @@ function WorkoutDetailsPage() {
                                 <div className='set-number'>{(index + 1)}</div>
                               </div>
                               <div className='workout-weight-input'>
-                                <TextField defaultValue={set.weight || ''} label='Weight' variant="outlined"/>
+                                <TextField value={set.weight} label='Weight' variant="outlined"/>
                               </div>
                               <div className='workout-weight-input'>
-                                <TextField defaultValue={set.reps || ''} label='Reps' variant="outlined"/>
+                                <TextField value={set.reps} label='Reps' variant="outlined"/>
                               </div>
                               <div className='workout-weight-input'>
-                                <TextField defaultValue={set.notes || ''} label='Notes' variant="outlined"/>
+                                <TextField value={set.notes} label='Notes' variant="outlined"/>
                               </div>
                               <div className='set-menu-icon'>
                                     <DrawerComponent></DrawerComponent>
