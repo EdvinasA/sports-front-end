@@ -8,7 +8,7 @@ import ListItemIcon from "@mui/material/ListItemIcon/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText/ListItemText";
 import React from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import {Divider, SwipeableDrawer} from "@mui/material";
+import {Divider, IconButton, SwipeableDrawer} from "@mui/material";
 
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
@@ -37,26 +37,11 @@ export default function DrawerComponent() {
 
   const list = (anchor: Anchor) => (
       <Box
-          sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
-          role="presentation"
           onClick={toggleDrawer(anchor, false)}
           onKeyDown={toggleDrawer(anchor, false)}
       >
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    A
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          {['Delete'].map((text, index) => (
               <ListItem key={text} disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
@@ -72,19 +57,17 @@ export default function DrawerComponent() {
 
   return (
       <div>
-        {(['left', 'right', 'top', 'bottom'] as const).map((anchor) => (
-            <React.Fragment key={anchor}>
-              <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+            <React.Fragment key={'bottom'}>
+              <IconButton onClick={toggleDrawer('bottom', true)}><MoreVertIcon /></IconButton>
               <SwipeableDrawer
-                  anchor={anchor}
-                  open={state[anchor]}
-                  onClose={toggleDrawer(anchor, false)}
-                  onOpen={toggleDrawer(anchor, true)}
+                  anchor={'bottom'}
+                  open={state['bottom']}
+                  onClose={toggleDrawer('bottom', false)}
+                  onOpen={toggleDrawer('bottom', true)}
               >
-                {list(anchor)}
+                {list('bottom')}
               </SwipeableDrawer>
             </React.Fragment>
-        ))}
       </div>
   );
 }

@@ -18,7 +18,7 @@ class App extends React.Component<{}, {}>  {
     return (
       <Router>
         <Switch>
-          <Route path="/workout">
+          <Route path="/workout/:workoutId">
             <WorkoutDetailsPageComponent />
           </Route>
           <Route path="/">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ExerciseSet, WorkoutDetails, WorkoutExercise} from '../../models/workout';
 import {Divider, IconButton, TextField} from '@mui/material';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
@@ -37,14 +37,27 @@ function WorkoutDetailsPage() {
   });
 
   // @ts-ignore
-  let { workoutId }: string = useParams();
+  let { workoutId }: string | unknown = useParams();
+
+  useEffect(() => {
+    if (workout.id === 0) {
+      getWorkout();
+    }
+  });
 
   const getWorkout = () => {
     const requestOptions = {
       method: 'GET',
       headers: {'Content-Type': 'application/json'}
     };
-    fetch(`https://localhost:7173/api/workout/1/${workoutId}`, requestOptions);
+    fetch(`https://localhost:7173/api/workout/1/${workoutId}`, requestOptions)
+    .then((response) => response.json())
+    .then((response) =>
+        setWorkout(response)
+    )
+    .catch((error) =>
+        console.log(error)
+    );
   }
 
   const getTime = (time: string) => {
@@ -77,7 +90,7 @@ function WorkoutDetailsPage() {
   }
 
   return (
-      <div>
+      <div className='workout-details-display'>
         <div className='dialog-workout-header'>
           <div className='dialog-workout-header-grid'>
             <div className='dialog-workout-back-action'>
@@ -174,12 +187,7 @@ function WorkoutDetailsPage() {
                                 <TextField defaultValue={set.notes || ''} label='Notes' variant="outlined"/>
                               </div>
                               <div className='set-menu-icon'>
-                                <IconButton>
-                                  <div className="push">
                                     <DrawerComponent></DrawerComponent>
-                                  </div>
-                                  <MoreVertIcon/>
-                                </IconButton>
                               </div>
                             </div>
                         ))}
