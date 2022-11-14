@@ -1,10 +1,6 @@
 import React from 'react';
 import {WorkoutDetails} from '../../models/workout';
 import {getDayOfTheWeekForDate, getDayOfTheMonth, getMonth} from '../../services/formatter-service';
-import {IconButton} from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import TimerIcon from '@mui/icons-material/Timer';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import './WorkoutListComponent.scss';
 import {Link} from "react-router-dom";
 

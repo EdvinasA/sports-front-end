@@ -17,6 +17,7 @@ import {
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {getMonth} from "../../services/formatter-service";
 import TimerIcon from "@mui/icons-material/Timer";
+import TextFieldComponent from "../../shared/TextFieldComponent/TextFieldComponent";
 
 export interface WorkoutDetailsState {
   workout: WorkoutDetails,
@@ -118,16 +119,16 @@ function WorkoutDetailsPage() {
         </div>
         <div className='inputs-first-row'>
           <div className='workout-name-input'>
-            <TextField defaultValue={workout.name || ''} label='Name' variant="outlined"/>
+            <TextFieldComponent value={workout.name} label={'Name'}/>
           </div>
           <div className='workout-weight-input'>
-            <TextField defaultValue={workout.bodyWeight || ''} label='BW' variant="outlined"/>
+            <TextField value={workout.bodyWeight || ''} label='BW' variant="outlined" InputLabelProps={{ shrink: true }}/>
           </div>
         </div>
         <div>
           <LocalizationProvider dateAdapter={AdapterMoment}>
             <div className='workout-time-pickers'>
-              <div className='workout-picker padding-for-picker'>
+              <div className='workout-picker padding-for-picker date'>
                 <MobileDatePicker
                     label="Date"
                     inputFormat="YYYY-MM-DD"
@@ -156,7 +157,7 @@ function WorkoutDetailsPage() {
           </LocalizationProvider>
         </div>
         <div className='workout-notes'>
-          <TextField defaultValue={workout.notes || ''} label='Notes' variant="outlined"/>
+          <TextFieldComponent value={workout.notes} label={'Notes'}/>
         </div>
         <Divider/>
         <div>
