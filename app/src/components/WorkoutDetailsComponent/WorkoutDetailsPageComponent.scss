@@ -1,3 +1,12 @@
+div {
+  .MuiInputLabel-root {
+    font-size: 14px;
+  }
+  .MuiInputBase-root {
+    font-size: 14px;
+  }
+}
+
 .workout-details-display {
   width: 350px;
   padding: 0 5px;
@@ -36,6 +45,7 @@
 
 .workout-name-input {
   padding-right: 5px;
+
   .MuiTextField-root {
     width: 100%;
   }
@@ -86,6 +96,7 @@
   height: 56px;
   grid-gap: 2px;
   margin-bottom: 10px;
+
   .MuiInputLabel-root {
     font-size: 14px;
   }

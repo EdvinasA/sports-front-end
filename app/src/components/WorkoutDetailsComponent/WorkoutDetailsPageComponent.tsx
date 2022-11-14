@@ -17,7 +17,6 @@ import {
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {getMonth} from "../../services/formatter-service";
 import TimerIcon from "@mui/icons-material/Timer";
-import TextFieldComponent from "../../shared/TextFieldComponent/TextFieldComponent";
 
 export interface WorkoutDetailsState {
   workout: WorkoutDetails,
@@ -79,7 +78,7 @@ function WorkoutDetailsPage() {
         userId: 1
       })
     };
-    fetch("https://localhost:7173/api/exercise-set/1", requestOptions);
+    fetch("https://localhost:7173/api/exercise-set/1", requestOptions).then(r => r);
   }
 
   const handleDeleteSet = (setId: number) => {
@@ -87,7 +86,7 @@ function WorkoutDetailsPage() {
       method: 'DELETE',
       headers: {'Content-Type': 'application/json'}
     };
-    fetch("https://localhost:7173/api/exercise-set/1/setId", requestOptions);
+    fetch("https://localhost:7173/api/exercise-set/1/setId", requestOptions).then(r => r);
   }
 
   return (
@@ -119,7 +118,7 @@ function WorkoutDetailsPage() {
         </div>
         <div className='inputs-first-row'>
           <div className='workout-name-input'>
-            <TextFieldComponent value={workout.name} label={'Name'}/>
+            <TextField value={workout.name} label='Name' variant="outlined" InputLabelProps={{ shrink: true }}/>
           </div>
           <div className='workout-weight-input'>
             <TextField value={workout.bodyWeight || ''} label='BW' variant="outlined" InputLabelProps={{ shrink: true }}/>
@@ -157,7 +156,7 @@ function WorkoutDetailsPage() {
           </LocalizationProvider>
         </div>
         <div className='workout-notes'>
-          <TextFieldComponent value={workout.notes} label={'Notes'}/>
+          <TextField value={workout.notes} label='Notes' variant="outlined" InputLabelProps={{ shrink: true }}/>
         </div>
         <Divider/>
         <div>
