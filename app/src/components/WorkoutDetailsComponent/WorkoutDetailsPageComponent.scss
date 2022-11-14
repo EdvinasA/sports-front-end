@@ -82,11 +82,13 @@
 
 .sets {
   display: grid;
-  font-size: 14px;
   grid-template-columns: 5% 20% 20% 45% 5%;
   height: 56px;
-  padding-right: 3px;
+  grid-gap: 2px;
   margin-bottom: 10px;
+  .MuiInputLabel-root {
+    font-size: 14px;
+  }
 }
 
 .set-number {
