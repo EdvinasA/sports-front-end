@@ -86,7 +86,11 @@ function WorkoutDetailsPage() {
       method: 'DELETE',
       headers: {'Content-Type': 'application/json'}
     };
-    fetch("https://localhost:7173/api/exercise-set/1/setId", requestOptions).then(r => r);
+    fetch(`https://localhost:7173/api/exercise-set/1/${setId}`, requestOptions).then(r => r);
+  }
+
+  const handleEdit = () => {
+
   }
 
   return (

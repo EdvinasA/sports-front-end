@@ -1,14 +1,11 @@
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem/ListItem";
 import ListItemButton from "@mui/material/ListItemButton/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText/ListItemText";
 import React from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import {Divider, IconButton, SwipeableDrawer} from "@mui/material";
+import {IconButton, SwipeableDrawer} from "@mui/material";
 
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
@@ -44,9 +41,6 @@ export default function DrawerComponent() {
           {['Delete'].map((text, index) => (
               <ListItem key={text} disablePadding>
                 <ListItemButton>
-                  <ListItemIcon>
-                    A
-                  </ListItemIcon>
                   <ListItemText primary={text} />
                 </ListItemButton>
               </ListItem>
