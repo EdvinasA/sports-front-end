@@ -19,7 +19,6 @@ export type WorkoutExercise = {
 export type Exercise = {
     id: number;
     name: string;
-    rowNumber: number;
 }
 
 export type ExerciseSet = {
