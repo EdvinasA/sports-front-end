@@ -1,13 +1,13 @@
-const defaultExerciseSetCreate = (exerciseId: number, workoutExerciseId: number) => {
+import {ExerciseSetCreateInput} from "../models/workout";
+
+const defaultExerciseSetCreate = (exerciseId: number, workoutExerciseId: number): ExerciseSetCreateInput => {
   return {
-    id: 0,
     weight: 0,
     reps: 0,
     notes: "",
     exerciseType: "NORMAL",
     exerciseId: exerciseId,
-    workoutExerciseId: workoutExerciseId,
-    userId: 1
+    workoutExerciseId: workoutExerciseId
   }
 };
 

@@ -37,3 +37,8 @@ export type ExerciseSetCreateInput = {
     exerciseId: number;
     workoutExerciseId: number;
 }
+
+export type ExerciseBodyPart = {
+    value: string;
+    displayValue: string;
+}

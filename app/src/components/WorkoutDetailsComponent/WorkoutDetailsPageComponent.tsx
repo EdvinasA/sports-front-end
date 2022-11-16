@@ -1,15 +1,10 @@
 import React, {useEffect} from 'react';
-import {ExerciseSet, WorkoutDetails, WorkoutExercise} from '../../models/workout';
-import {Divider, IconButton, SwipeableDrawer, TextField} from '@mui/material';
+import {ExerciseBodyPart, ExerciseSet, WorkoutDetails, WorkoutExercise} from '../../models/workout';
+import {Divider, IconButton, Slide, SwipeableDrawer, TextField, Dialog, Button} from '@mui/material';
 import './WorkoutDetailsPageComponent.scss';
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {useParams} from "react-router-dom";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {getMonth} from "../../services/formatter-service";
-import TimerIcon from "@mui/icons-material/Timer";
-import HistoryIcon from "@mui/icons-material/History";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import StarIcon from "@mui/icons-material/Star";
+import {Search, Star, BarChart, History, Timer, ArrowBack, MoreVert, AddCircleOutline} from '@mui/icons-material';
 import {LocalizationProvider, MobileDatePicker, TimePicker} from "@mui/x-date-pickers";
 import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
 import produce from "immer";
@@ -17,9 +12,21 @@ import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton/ListItemButton";
 import defaultExerciseSetCreate from "../../shared/DefaultObjects";
+import {TransitionProps} from "@mui/material/transitions";
+import exerciseBodyPartsList from "../../shared/static/ExerciseBodyPartList";
+
+const Transition = React.forwardRef(function Transition(
+    props: TransitionProps & {
+      children: React.ReactElement;
+    },
+    ref: React.Ref<unknown>,
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 function WorkoutDetailsPage() {
   type Anchor = 'top' | 'left' | 'bottom' | 'right';
+  const [openDialog, setOpenDialog] = React.useState(false);
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -36,6 +43,7 @@ function WorkoutDetailsPage() {
     name: "",
     startTime: ""
   });
+  const listOfExerciseBodyParts: ExerciseBodyPart[] = exerciseBodyPartsList();
 
   // @ts-ignore
   let {workoutId}: string | unknown = useParams();
@@ -45,6 +53,14 @@ function WorkoutDetailsPage() {
       getWorkout();
     }
   });
+
+  const handleClickOpen = () => {
+    setOpenDialog(true);
+  };
+
+  const handleClose = () => {
+    setOpenDialog(false);
+  };
 
   const getWorkout = () => {
     const requestOptions = {
@@ -70,15 +86,17 @@ function WorkoutDetailsPage() {
     setWorkout({...workout, [name]: value} as unknown as WorkoutDetails);
   }
 
-  const handleExerciseSetChange = (event: { target: { name?: any, value?: any }; },exercise: WorkoutExercise, set: ExerciseSet) => {
+  const handleExerciseSetChange = (event: { target: { name?: any, value?: any }; }, exercise: WorkoutExercise, set: ExerciseSet) => {
     const {name, value} = event.target;
     setWorkout(produce(workout, workoutDraft => {
       const exercisesIndex: number = workoutDraft.exercises.findIndex(object => object.id === exercise.id);
       const exerciseSetsIndex: number = workoutDraft.exercises[exercisesIndex].exerciseSets.findIndex(object => object.id === set.id);
       const updatedExerciseSet = {...workoutDraft.exercises[exercisesIndex].exerciseSets[exerciseSetsIndex], [name]: value}
       workoutDraft.exercises[exercisesIndex].exerciseSets[exerciseSetsIndex] =
-          { id: set.id, weight: updatedExerciseSet.weight, reps: updatedExerciseSet.reps, exerciseType: updatedExerciseSet.exerciseType,
-            notes: updatedExerciseSet.notes}
+          {
+            id: set.id, weight: updatedExerciseSet.weight, reps: updatedExerciseSet.reps, exerciseType: updatedExerciseSet.exerciseType,
+            notes: updatedExerciseSet.notes
+          }
     }));
   }
 
@@ -144,20 +162,21 @@ function WorkoutDetailsPage() {
               return;
             }
 
-            setState({ ...state, [anchor]: open });
+            setState({...state, [anchor]: open});
           };
 
   const handleAddExercise = () => {
 
-  }
+  };
+
   return (
-      <form>
+      <div>
         <div className='workout-details-display'>
           <div className='dialog-workout-header'>
             <div className='dialog-workout-header-grid'>
               <div className='dialog-workout-back-action'>
                 <IconButton>
-                  <ArrowBackIcon/>
+                  <ArrowBack/>
                 </IconButton>
               </div>
               <div>
@@ -167,12 +186,12 @@ function WorkoutDetailsPage() {
               <div className='dialog-workout-info'>
                 <div>
                   <IconButton>
-                    <TimerIcon/>
+                    <Timer/>
                   </IconButton>
                 </div>
                 <div>
                   <div className='workout-header-menu'>
-                    <MoreVertIcon/>
+                    <MoreVert/>
                   </div>
                 </div>
               </div>
@@ -247,7 +266,7 @@ function WorkoutDetailsPage() {
                         <div className='exercise-title'>{workout.exercise.name || ''}</div>
                         <div className='exercise-menu'>
                           <div className="exercise-menu-options">
-                            <MoreVertIcon/>
+                            <MoreVert/>
                           </div>
                         </div>
                       </div>
@@ -271,7 +290,7 @@ function WorkoutDetailsPage() {
                                 </div>
                                 <div className='set-menu-icon'>
                                   <React.Fragment key={'bottom'}>
-                                    <div className='menu-button' onClick={toggleDrawer('bottom', true)}><MoreVertIcon /></div>
+                                    <div className='menu-button' onClick={toggleDrawer('bottom', true)}><MoreVert/></div>
                                     <SwipeableDrawer
                                         anchor={'bottom'}
                                         open={state['bottom']}
@@ -290,17 +309,17 @@ function WorkoutDetailsPage() {
                         </div>
                         <div>
                           <IconButton>
-                            <HistoryIcon/>
+                            <History/>
                           </IconButton>
                         </div>
                         <div>
                           <IconButton>
-                            <BarChartIcon/>
+                            <BarChart/>
                           </IconButton>
                         </div>
                         <div>
                           <IconButton>
-                            <StarIcon/>
+                            <Star/>
                           </IconButton>
                         </div>
                       </div>
@@ -308,11 +327,42 @@ function WorkoutDetailsPage() {
                     </div>
                 ))}
             <div className='add-exercise-action'>
-              <button>+ ADD EXERCISE</button>
+              <button onClick={handleClickOpen}>+ ADD EXERCISE</button>
             </div>
+            <Dialog
+                fullScreen
+                open={openDialog}
+                onClose={handleClose}
+                TransitionComponent={Transition}
+            >
+              <div className='exercise-add-wrapper'>
+                <div className='exercise-add-header'>
+                  <div className='exercise-back-and-title'>
+                    <div>
+                      <ArrowBack onClick={handleClose}/>
+                    </div>
+                    <div>Select Exercise</div>
+                  </div>
+                  <div className='exercise-search-and-add'>
+                    <div><Search/></div>
+                    <div><AddCircleOutline/></div>
+                  </div>
+                </div>
+                <div>
+                  {listOfExerciseBodyParts &&
+                      listOfExerciseBodyParts.map((bodyPart: ExerciseBodyPart) => (
+                          <div key={bodyPart.value} className='body-part'>
+                            <div>
+                              <Button size="large">{bodyPart.displayValue}</Button>
+                            </div>
+                          </div>
+                      ))}
+                </div>
+              </div>
+            </Dialog>
           </div>
         </div>
-      </form>
+      </div>
   )
 }
 
