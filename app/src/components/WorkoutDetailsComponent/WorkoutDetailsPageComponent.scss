@@ -22,14 +22,14 @@ div {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   text-align: center;
-  margin: 15px;
+  margin: 15px 0;
 }
 
 .dialog-workout-info {
   display: inline-flex;
   text-align: right;
   justify-content: right;
-  padding-right: 10px;
+  margin-left: 2px;
 }
 
 .dialog-workout-back-action {
@@ -133,4 +133,19 @@ div {
 
 .date {
   width: 200px;
+}
+
+.menu-button {
+  padding-top: 8px;
+  cursor: pointer;
+}
+
+.exercise-menu-options {
+  padding: 10px 3px 5px 0;
+  cursor: pointer;
+}
+
+.workout-header-menu {
+  padding: 7px 0 0 0;
+  cursor: pointer;
 }

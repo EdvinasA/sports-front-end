@@ -147,6 +147,9 @@ function WorkoutDetailsPage() {
             setState({ ...state, [anchor]: open });
           };
 
+  const handleAddExercise = () => {
+
+  }
   return (
       <form>
         <div className='workout-details-display'>
@@ -168,9 +171,9 @@ function WorkoutDetailsPage() {
                   </IconButton>
                 </div>
                 <div>
-                  <IconButton>
+                  <div className='workout-header-menu'>
                     <MoreVertIcon/>
-                  </IconButton>
+                  </div>
                 </div>
               </div>
             </div>
@@ -243,9 +246,9 @@ function WorkoutDetailsPage() {
                       <div className='exercise'>
                         <div className='exercise-title'>{workout.exercise.name || ''}</div>
                         <div className='exercise-menu'>
-                          <IconButton>
+                          <div className="exercise-menu-options">
                             <MoreVertIcon/>
-                          </IconButton>
+                          </div>
                         </div>
                       </div>
                       {workout.exerciseSets &&
@@ -268,7 +271,7 @@ function WorkoutDetailsPage() {
                                 </div>
                                 <div className='set-menu-icon'>
                                   <React.Fragment key={'bottom'}>
-                                    <IconButton onClick={toggleDrawer('bottom', true)}><MoreVertIcon /></IconButton>
+                                    <div className='menu-button' onClick={toggleDrawer('bottom', true)}><MoreVertIcon /></div>
                                     <SwipeableDrawer
                                         anchor={'bottom'}
                                         open={state['bottom']}
