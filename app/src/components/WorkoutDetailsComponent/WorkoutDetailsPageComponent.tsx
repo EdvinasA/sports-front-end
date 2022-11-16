@@ -369,7 +369,6 @@ function WorkoutDetailsPage() {
                   </div>
                 </div>
                 <div>
-                  <MobileStepper activeStep={activeStep} backButton={<div></div>} nextButton={<div></div>} steps={3}/>
                   {activeStep === 0 &&
                     <div>
                       {listOfExerciseBodyParts &&
@@ -386,7 +385,10 @@ function WorkoutDetailsPage() {
                       <div>
                         {exercisesOfBody &&
                             exercisesOfBody.map((exercise: Exercise) => (
-                              <div key={exercise.id}>{exercise.name}</div>
+                              <div className='exercise-select-wrapper' key={exercise.id}>
+                                <div><Button size='small'>{exercise.name}</Button></div>
+                                <div><Button size='small'>Edit</Button></div>
+                              </div>
                             ))}
                       </div>
                   }
