@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
-import {ExerciseBodyPart, ExerciseSet, WorkoutDetails, WorkoutExercise} from '../../models/workout';
-import {Divider, IconButton, Slide, SwipeableDrawer, TextField, Dialog, Button} from '@mui/material';
+import {Exercise, ExerciseBodyPart, ExerciseSet, WorkoutDetails, WorkoutExercise} from '../../models/workout';
+import {Divider, IconButton, Slide, SwipeableDrawer, TextField, Dialog, Button, Stepper, Step, MobileStepper} from '@mui/material';
 import './WorkoutDetailsPageComponent.scss';
 import {useParams} from "react-router-dom";
 import {getMonth} from "../../services/formatter-service";
@@ -27,6 +27,8 @@ const Transition = React.forwardRef(function Transition(
 function WorkoutDetailsPage() {
   type Anchor = 'top' | 'left' | 'bottom' | 'right';
   const [openDialog, setOpenDialog] = React.useState(false);
+  const [exercisesOfBody, setExercises] = React.useState([]);
+  const [activeStep, setActiveStep] = React.useState(0);
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -167,6 +169,24 @@ function WorkoutDetailsPage() {
 
   const handleAddExercise = () => {
 
+  };
+
+  const handleGetExercisesByBodyType = (event: any, input: ExerciseBodyPart) => {
+    event.preventDefault();
+    const requestOptions = {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'},
+    };
+    fetch(`https://localhost:7173/api/exercise/1/body-part/${input.value}`, requestOptions)
+    .then(response => response.json())
+    .then((response) => {
+          setExercises(response);
+          setActiveStep(1);
+        }
+    )
+    .catch((error) =>
+        console.log(error)
+    );
   };
 
   return (
@@ -349,14 +369,27 @@ function WorkoutDetailsPage() {
                   </div>
                 </div>
                 <div>
-                  {listOfExerciseBodyParts &&
-                      listOfExerciseBodyParts.map((bodyPart: ExerciseBodyPart) => (
-                          <div key={bodyPart.value} className='body-part'>
-                            <div>
-                              <Button size="large">{bodyPart.displayValue}</Button>
-                            </div>
-                          </div>
-                      ))}
+                  <MobileStepper activeStep={activeStep} backButton={<div></div>} nextButton={<div></div>} steps={3}/>
+                  {activeStep === 0 &&
+                    <div>
+                      {listOfExerciseBodyParts &&
+                          listOfExerciseBodyParts.map((bodyPart: ExerciseBodyPart) => (
+                              <div key={bodyPart.value} className='body-part'>
+                                <div>
+                                  <Button size="large" onClick={(event) => handleGetExercisesByBodyType(event, bodyPart)}>{bodyPart.displayValue}</Button>
+                                </div>
+                              </div>
+                          ))}
+                    </div>
+                  }
+                  {activeStep === 1 &&
+                      <div>
+                        {exercisesOfBody &&
+                            exercisesOfBody.map((exercise: Exercise) => (
+                              <div key={exercise.id}>{exercise.name}</div>
+                            ))}
+                      </div>
+                  }
                 </div>
               </div>
             </Dialog>
