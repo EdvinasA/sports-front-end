@@ -28,3 +28,12 @@ export type ExerciseSet = {
     notes: string;
     exerciseType: string;
 }
+
+export type ExerciseSetCreateInput = {
+    weight: number;
+    reps: number;
+    notes: string;
+    exerciseType: string;
+    exerciseId: number;
+    workoutExerciseId: number;
+}

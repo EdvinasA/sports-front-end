@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {ExerciseSet, WorkoutDetails, WorkoutExercise} from '../../models/workout';
-import {Divider, IconButton, TextField} from '@mui/material';
+import {Divider, IconButton, SwipeableDrawer, TextField} from '@mui/material';
 import './WorkoutDetailsPageComponent.scss';
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {useParams} from "react-router-dom";
@@ -10,38 +10,28 @@ import TimerIcon from "@mui/icons-material/Timer";
 import HistoryIcon from "@mui/icons-material/History";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import StarIcon from "@mui/icons-material/Star";
-import DrawerComponent from '../../shared/DrawerComponent/DrawerComponent';
 import {LocalizationProvider, MobileDatePicker, TimePicker} from "@mui/x-date-pickers";
 import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
 import produce from "immer";
-
-export interface WorkoutDetailsState {
-  workout: WorkoutDetails,
-  loading: boolean,
-  error: boolean,
-}
+import Box from "@mui/material/Box";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton/ListItemButton";
+import defaultExerciseSetCreate from "../../shared/DefaultObjects";
 
 function WorkoutDetailsPage() {
+  type Anchor = 'top' | 'left' | 'bottom' | 'right';
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
   const [workout, setWorkout] = React.useState<WorkoutDetails>({
     notes: "",
     bodyWeight: 0,
     date: "",
     endTime: "",
-    exercises: [{
-      id: 0,
-      exercise: {
-        id: 0,
-        name: "",
-      },
-      exerciseSets: [{
-        id: 0,
-        weight: 0,
-        reps: 0,
-        notes: "",
-        exerciseType: "",
-      }],
-      rowNumber: 0,
-    }],
+    exercises: [],
     id: 0,
     name: "",
     startTime: ""
@@ -92,38 +82,70 @@ function WorkoutDetailsPage() {
     }));
   }
 
-  const handleAddSet = (workoutExerciseId: number, exerciseId: number) => {
+  const handleAddSet = (workoutExerciseId: number, exerciseId: number, event) => {
+    event.preventDefault();
+    const exerciseSetCreate = defaultExerciseSetCreate(exerciseId, workoutExerciseId);
     const requestOptions = {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        weight: 0,
-        reps: 0,
-        notes: "",
-        exerciseType: "NORMAL",
-        exerciseId: exerciseId,
-        workoutExerciseId: workoutExerciseId,
-        userId: 1
-      })
+      body: JSON.stringify(exerciseSetCreate)
     };
-    fetch("https://localhost:7173/api/exercise-set/1", requestOptions).then(r => r);
+    fetch("https://localhost:7173/api/exercise-set/1", requestOptions)
+    .then(response => response.json())
+    .then((response) =>
+        setWorkout(produce(workout, workoutDraft => {
+          const exercisesIndex: number = workoutDraft.exercises.findIndex(object => object.id === exerciseId);
+          workoutDraft.exercises[exercisesIndex].exerciseSets.push(response)
+        }))
+    )
+    .catch((error) =>
+        console.log(error)
+    );
   }
 
-  const handleDeleteSet = (setId: number) => {
+  const handleDeleteSet = (exerciseId: number, setId: number) => {
     const requestOptions = {
       method: 'DELETE',
       headers: {'Content-Type': 'application/json'}
     };
-    fetch(`https://localhost:7173/api/exercise-set/1/${setId}`, requestOptions).then(r => r);
+    fetch(`https://localhost:7173/api/exercise-set/1/${setId}`, requestOptions)
+    .then(() =>
+        setWorkout(produce(workout, workoutDraft => {
+          const exercisesIndex: number = workoutDraft.exercises.findIndex(object => object.id === exerciseId);
+          const exercisesSetIndex: number = workoutDraft.exercises.findIndex(object => object.id === setId);
+          workoutDraft.exercises[exercisesIndex].exerciseSets.splice(exercisesSetIndex, 1)
+        }))
+    )
+    .catch((error) =>
+        console.log(error)
+    );
   }
 
-  const findWorkoutExercisesIndex = (array: WorkoutExercise[], id: number): number => {
-    return array.findIndex(object => object.id = id);
-  }
+  const list = (anchor: Anchor, exerciseId: number, setId: number) => (
+      <Box
+          onClick={toggleDrawer(anchor, false)}
+          onKeyDown={toggleDrawer(anchor, false)}
+      >
+        <List>
+          <ListItemButton onClick={() => handleDeleteSet(exerciseId, setId)}>Delete</ListItemButton>
+        </List>
+      </Box>
+  );
 
-  const findExerciseSetsIndex = (array: ExerciseSet[], id: number): number => {
-    return array.findIndex(object => object.id = id);
-  }
+  const toggleDrawer =
+      (anchor: Anchor, open: boolean) =>
+          (event: React.KeyboardEvent | React.MouseEvent) => {
+            if (
+                event &&
+                event.type === 'keydown' &&
+                ((event as React.KeyboardEvent).key === 'Tab' ||
+                    (event as React.KeyboardEvent).key === 'Shift')
+            ) {
+              return;
+            }
+
+            setState({ ...state, [anchor]: open });
+          };
 
   return (
       <form>
@@ -245,13 +267,23 @@ function WorkoutDetailsPage() {
                                              onChange={(event) => handleExerciseSetChange(event, workout, set)}/>
                                 </div>
                                 <div className='set-menu-icon'>
-                                  <DrawerComponent></DrawerComponent>
+                                  <React.Fragment key={'bottom'}>
+                                    <IconButton onClick={toggleDrawer('bottom', true)}><MoreVertIcon /></IconButton>
+                                    <SwipeableDrawer
+                                        anchor={'bottom'}
+                                        open={state['bottom']}
+                                        onClose={toggleDrawer('bottom', false)}
+                                        onOpen={toggleDrawer('bottom', true)}
+                                    >
+                                      {list('bottom', workout.exercise.id, set.id)}
+                                    </SwipeableDrawer>
+                                  </React.Fragment>
                                 </div>
                               </div>
                           ))}
                       <div className='actions'>
                         <div className='action-add-set'>
-                          <button onClick={() => handleAddSet(workout.id, workout.exercise.id)}>ADD SET</button>
+                          <button onClick={(event) => handleAddSet(workout.id, workout.exercise.id, event)}>ADD SET</button>
                         </div>
                         <div>
                           <IconButton>
