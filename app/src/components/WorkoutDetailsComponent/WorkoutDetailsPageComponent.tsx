@@ -114,7 +114,7 @@ function WorkoutDetailsPage() {
     .then(response => response.json())
     .then((response) =>
         setWorkout(produce(workout, workoutDraft => {
-          const exercisesIndex: number = workoutDraft.exercises.findIndex(object => object.id === exerciseId);
+          const exercisesIndex: number = workoutDraft.exercises.findIndex(object => object.id === workoutExerciseId);
           workoutDraft.exercises[exercisesIndex].exerciseSets.push(response)
         }))
     )
@@ -167,8 +167,25 @@ function WorkoutDetailsPage() {
             setState({...state, [anchor]: open});
           };
 
-  const handleAddExercise = () => {
-
+  const handleAddExercise = (event: any, exerciseToAdd: Exercise) => {
+    event.preventDefault();
+    const requestOptions = {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ exercise: exerciseToAdd, rowNumber: (workout.exercises.length + 1), workoutId: workout.id} ),
+    };
+    fetch(`https://localhost:7173/api/workout/1`, requestOptions)
+    .then(response => response.json())
+    .then((response) => {
+          setWorkout(produce(workout, workoutDraft => {
+            workoutDraft.exercises.push(response)
+          }))
+          setActiveStep(0);
+        }
+    )
+    .catch((error) =>
+        console.log(error)
+    );
   };
 
   const handleGetExercisesByBodyType = (event: any, input: ExerciseBodyPart) => {
@@ -386,7 +403,7 @@ function WorkoutDetailsPage() {
                         {exercisesOfBody &&
                             exercisesOfBody.map((exercise: Exercise) => (
                               <div className='exercise-select-wrapper' key={exercise.id}>
-                                <div><Button size='small'>{exercise.name}</Button></div>
+                                <div><Button size='small' onClick={(event: any) => handleAddExercise(event, exercise)}>{exercise.name}</Button></div>
                                 <div><Button size='small'>Edit</Button></div>
                               </div>
                             ))}
