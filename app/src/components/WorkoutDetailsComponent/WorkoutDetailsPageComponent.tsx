@@ -15,6 +15,7 @@ import defaultExerciseSetCreate from "../../shared/DefaultObjects";
 import {TransitionProps} from "@mui/material/transitions";
 import exerciseBodyPartsList from "../../shared/static/ExerciseBodyPartList";
 import {addExerciseSet, deleteExerciseSet} from "../../services/ExerciseSetService";
+import {addExercise, getExercisesByBodyPart} from "../../services/ExerciseService";
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -153,40 +154,23 @@ function WorkoutDetailsPage() {
 
   const handleAddExercise = (event: any, exerciseToAdd: Exercise) => {
     event.preventDefault();
-    const requestOptions = {
-      method: 'PUT',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ exercise: exerciseToAdd, rowNumber: (workout.exercises.length + 1), workoutId: workout.id} ),
-    };
-    fetch(`https://localhost:7173/api/workout/1`, requestOptions)
-    .then(response => response.json())
+    addExercise(exerciseToAdd, (workout.exercises.length + 1), workout.id)
     .then((response) => {
           setWorkout(produce(workout, workoutDraft => {
             workoutDraft.exercises.push(response)
           }))
           setActiveStep(0);
         }
-    )
-    .catch((error) =>
-        console.log(error)
     );
   };
 
   const handleGetExercisesByBodyType = (event: any, input: ExerciseBodyPart) => {
     event.preventDefault();
-    const requestOptions = {
-      method: 'GET',
-      headers: {'Content-Type': 'application/json'},
-    };
-    fetch(`https://localhost:7173/api/exercise/1/body-part/${input.value}`, requestOptions)
-    .then(response => response.json())
+    getExercisesByBodyPart(input)
     .then((response) => {
           setExercises(response);
           setActiveStep(1);
         }
-    )
-    .catch((error) =>
-        console.log(error)
     );
   };
 
