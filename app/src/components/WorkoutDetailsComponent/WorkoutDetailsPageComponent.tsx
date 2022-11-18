@@ -14,6 +14,7 @@ import ListItemButton from "@mui/material/ListItemButton/ListItemButton";
 import defaultExerciseSetCreate from "../../shared/DefaultObjects";
 import {TransitionProps} from "@mui/material/transitions";
 import exerciseBodyPartsList from "../../shared/static/ExerciseBodyPartList";
+import {addExerciseSet, deleteExerciseSet} from "../../services/ExerciseSetService";
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -105,39 +106,22 @@ function WorkoutDetailsPage() {
   const handleAddSet = (workoutExerciseId: number, exerciseId: number, event) => {
     event.preventDefault();
     const exerciseSetCreate = defaultExerciseSetCreate(exerciseId, workoutExerciseId);
-    const requestOptions = {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(exerciseSetCreate)
-    };
-    fetch("https://localhost:7173/api/exercise-set/1", requestOptions)
-    .then(response => response.json())
-    .then((response) =>
+
+    addExerciseSet(exerciseSetCreate).then((data) =>
         setWorkout(produce(workout, workoutDraft => {
           const exercisesIndex: number = workoutDraft.exercises.findIndex(object => object.id === workoutExerciseId);
-          workoutDraft.exercises[exercisesIndex].exerciseSets.push(response)
-        }))
-    )
-    .catch((error) =>
-        console.log(error)
+          workoutDraft.exercises[exercisesIndex].exerciseSets.push(data)}))
     );
   }
 
   const handleDeleteSet = (exerciseId: number, setId: number) => {
-    const requestOptions = {
-      method: 'DELETE',
-      headers: {'Content-Type': 'application/json'}
-    };
-    fetch(`https://localhost:7173/api/exercise-set/1/${setId}`, requestOptions)
+    deleteExerciseSet(setId)
     .then(() =>
         setWorkout(produce(workout, workoutDraft => {
           const exercisesIndex: number = workoutDraft.exercises.findIndex(object => object.id === exerciseId);
           const exercisesSetIndex: number = workoutDraft.exercises[exercisesIndex].exerciseSets.findIndex(object => object.id === setId);
           workoutDraft.exercises[exercisesIndex].exerciseSets.splice(exercisesSetIndex, 1)
         }))
-    )
-    .catch((error) =>
-        console.log(error)
     );
   }
 
