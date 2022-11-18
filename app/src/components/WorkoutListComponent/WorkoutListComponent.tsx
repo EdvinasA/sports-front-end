@@ -1,6 +1,6 @@
 import React from 'react';
 import {WorkoutDetails} from '../../models/workout';
-import {getDayOfTheWeekForDate, getDayOfTheMonth, getMonth} from '../../services/formatter-service';
+import {getDayOfTheWeekForDate, getDayOfTheMonth, getMonth} from '../../services/FormatterService';
 import './WorkoutListComponent.scss';
 import {Link} from "react-router-dom";
 

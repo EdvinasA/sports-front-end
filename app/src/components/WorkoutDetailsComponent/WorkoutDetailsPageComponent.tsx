@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import {Exercise, ExerciseBodyPart, ExerciseSet, WorkoutDetails, WorkoutExercise} from '../../models/workout';
-import {Divider, IconButton, Slide, SwipeableDrawer, TextField, Dialog, Button, Stepper, Step, MobileStepper} from '@mui/material';
+import {Divider, IconButton, Slide, SwipeableDrawer, TextField, Dialog, Button} from '@mui/material';
 import './WorkoutDetailsPageComponent.scss';
 import {useParams} from "react-router-dom";
-import {getMonth} from "../../services/formatter-service";
+import {getMonth} from "../../services/FormatterService";
 import {Search, Star, BarChart, History, Timer, ArrowBack, MoreVert, AddCircleOutline} from '@mui/icons-material';
 import {LocalizationProvider, MobileDatePicker, TimePicker} from "@mui/x-date-pickers";
 import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
