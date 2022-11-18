@@ -132,7 +132,7 @@ function WorkoutDetailsPage() {
     .then(() =>
         setWorkout(produce(workout, workoutDraft => {
           const exercisesIndex: number = workoutDraft.exercises.findIndex(object => object.id === exerciseId);
-          const exercisesSetIndex: number = workoutDraft.exercises.findIndex(object => object.id === setId);
+          const exercisesSetIndex: number = workoutDraft.exercises[exercisesIndex].exerciseSets.findIndex(object => object.id === setId);
           workoutDraft.exercises[exercisesIndex].exerciseSets.splice(exercisesSetIndex, 1)
         }))
     )
@@ -334,7 +334,7 @@ function WorkoutDetailsPage() {
                                         onClose={toggleDrawer('bottom', false)}
                                         onOpen={toggleDrawer('bottom', true)}
                                     >
-                                      {list('bottom', workout.exercise.id, set.id)}
+                                      {list('bottom', workout.id, set.id)}
                                     </SwipeableDrawer>
                                   </React.Fragment>
                                 </div>
