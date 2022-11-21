@@ -14,7 +14,7 @@ import ListItemButton from "@mui/material/ListItemButton/ListItemButton";
 import defaultExerciseSetCreate from "../../shared/DefaultObjects";
 import {TransitionProps} from "@mui/material/transitions";
 import exerciseBodyPartsList from "../../shared/static/ExerciseBodyPartList";
-import {addExerciseSet, deleteExerciseSet} from "../../services/ExerciseSetService";
+import {addExerciseSet, deleteExerciseSet, updateExerciseSetRequest} from "../../services/ExerciseSetService";
 import {addExercise, getExercisesByBodyPart} from "../../services/ExerciseService";
 
 const Transition = React.forwardRef(function Transition(
@@ -101,7 +101,14 @@ function WorkoutDetailsPage() {
             id: set.id, weight: updatedExerciseSet.weight, reps: updatedExerciseSet.reps, exerciseType: updatedExerciseSet.exerciseType,
             notes: updatedExerciseSet.notes
           }
+
     }));
+  }
+
+  const updateOnBlurExerciseSet = (exercise: WorkoutExercise, set: ExerciseSet) => {
+    const exercisesIndex: number = workout.exercises.findIndex(object => object.id === exercise.id);
+    const exerciseSetsIndex: number = workout.exercises[exercisesIndex].exerciseSets.findIndex(object => object.id === set.id);
+    updateExerciseSetRequest(workout.exercises[exercisesIndex].exerciseSets[exerciseSetsIndex]).then(r => r);
   }
 
   const handleAddSet = (workoutExerciseId: number, exerciseId: number, event) => {
@@ -283,15 +290,18 @@ function WorkoutDetailsPage() {
                                 </div>
                                 <div className='workout-weight-input'>
                                   <TextField value={set.weight} name="weight" label="Weight" variant="outlined"
-                                             onChange={(event) => handleExerciseSetChange(event, workout, set)}/>
+                                             onChange={(event) => handleExerciseSetChange(event, workout, set)}
+                                             onBlur={() => updateOnBlurExerciseSet(workout, set)}/>
                                 </div>
                                 <div className='workout-weight-input'>
                                   <TextField value={set.reps} name="reps" label="Reps" variant="outlined"
-                                             onChange={(event) => handleExerciseSetChange(event, workout, set)}/>
+                                             onChange={(event) => handleExerciseSetChange(event, workout, set)}
+                                             onBlur={() => updateOnBlurExerciseSet(workout, set)}/>
                                 </div>
                                 <div className='workout-weight-input'>
                                   <TextField value={set.notes} name="notes" label="Notes" variant="outlined"
-                                             onChange={(event) => handleExerciseSetChange(event, workout, set)}/>
+                                             onChange={(event) => handleExerciseSetChange(event, workout, set)}
+                                             onBlur={() => updateOnBlurExerciseSet(workout, set)}/>
                                 </div>
                                 <div className='set-menu-icon'>
                                   <React.Fragment key={'bottom'}>

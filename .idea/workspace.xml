@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c54cbabc-0400-4668-a1fa-d06219e16be6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/services/ExerciseService.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutDetailsComponent/WorkoutDetailsPageComponent.scss" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutDetailsComponent/WorkoutDetailsPageComponent.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutDetailsComponent/WorkoutDetailsPageComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutDetailsComponent/WorkoutDetailsPageComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/services/workout-service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/services/WorkoutService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/services/ExerciseSetService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/services/ExerciseSetService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +56,7 @@
       <option name="presentableId" value="Default" />
       <updated>1667758313743</updated>
       <workItem from="1667758317651" duration="117967000" />
-      <workItem from="1668748219760" duration="3853000" />
+      <workItem from="1668748219760" duration="9075000" />
     </task>
     <servers />
   </component>

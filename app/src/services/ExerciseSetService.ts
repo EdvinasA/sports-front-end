@@ -1,4 +1,4 @@
-import {ExerciseSetCreateInput} from "../models/workout";
+import {ExerciseSet, ExerciseSetCreateInput} from "../models/workout";
 
 async function addExerciseSet(exerciseSetCreate: ExerciseSetCreateInput) {
   const requestOptions = {
@@ -25,4 +25,14 @@ async function deleteExerciseSet(exerciseSetId: number) {
   return await fetch(`https://localhost:7173/api/exercise-set/1/${exerciseSetId}`, requestOptions);
 }
 
-export { addExerciseSet, deleteExerciseSet }
+async function updateExerciseSetRequest(exerciseSet: ExerciseSet) {
+  const requestOptions = {
+    method: 'PUT',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(exerciseSet)
+  };
+
+  return await fetch("https://localhost:7173/api/exercise-set/1", requestOptions);
+}
+
+export { addExerciseSet, deleteExerciseSet, updateExerciseSetRequest }
