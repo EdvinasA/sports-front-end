@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Exercise, ExerciseBodyPart, ExerciseSet, WorkoutDetails, WorkoutExercise} from '../../models/workout';
-import {Divider, IconButton, Slide, SwipeableDrawer, TextField, Dialog, Button} from '@mui/material';
+import {Divider, IconButton, Slide, TextField, Dialog, Button} from '@mui/material';
 import './WorkoutDetailsPageComponent.scss';
 import {useParams} from "react-router-dom";
 import {getMonth} from "../../services/FormatterService";
@@ -8,14 +8,13 @@ import {Search, Star, BarChart, History, Timer, ArrowBack, MoreVert, AddCircleOu
 import {LocalizationProvider, MobileDatePicker, TimePicker} from "@mui/x-date-pickers";
 import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
 import produce from "immer";
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import ListItemButton from "@mui/material/ListItemButton/ListItemButton";
 import defaultExerciseSetCreate from "../../shared/DefaultObjects";
 import {TransitionProps} from "@mui/material/transitions";
 import exerciseBodyPartsList from "../../shared/static/ExerciseBodyPartList";
 import {addExerciseSet, deleteExerciseSet, updateExerciseSetRequest} from "../../services/ExerciseSetService";
 import {addExercise, getExercisesByBodyPart} from "../../services/ExerciseService";
+import { ExerciseSetsDrawerComponent } from '../ExerciseSetsDrawerComponent/ExerciseSetsDrawerComponent';
+import {ExerciseDrawerComponent} from "../ExerciseDrawerComponent/ExerciseDrawerComponent";
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -27,16 +26,9 @@ const Transition = React.forwardRef(function Transition(
 });
 
 function WorkoutDetailsPage() {
-  type Anchor = 'top' | 'left' | 'bottom' | 'right';
   const [openDialog, setOpenDialog] = React.useState(false);
   const [exercisesOfBody, setExercises] = React.useState([]);
   const [activeStep, setActiveStep] = React.useState(0);
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
-  });
   const [workout, setWorkout] = React.useState<WorkoutDetails>({
     notes: "",
     bodyWeight: 0,
@@ -133,32 +125,6 @@ function WorkoutDetailsPage() {
     );
   }
 
-  const list = (anchor: Anchor, exerciseId: number, setId: number) => (
-      <Box
-          onClick={toggleDrawer(anchor, false)}
-          onKeyDown={toggleDrawer(anchor, false)}
-      >
-        <List>
-          <ListItemButton onClick={() => handleDeleteSet(exerciseId, setId)}>Delete</ListItemButton>
-        </List>
-      </Box>
-  );
-
-  const toggleDrawer =
-      (anchor: Anchor, open: boolean) =>
-          (event: React.KeyboardEvent | React.MouseEvent) => {
-            if (
-                event &&
-                event.type === 'keydown' &&
-                ((event as React.KeyboardEvent).key === 'Tab' ||
-                    (event as React.KeyboardEvent).key === 'Shift')
-            ) {
-              return;
-            }
-
-            setState({...state, [anchor]: open});
-          };
-
   const handleAddExercise = (event: any, exerciseToAdd: Exercise) => {
     event.preventDefault();
     addExercise(exerciseToAdd, (workout.exercises.length + 1), workout.id)
@@ -181,6 +147,7 @@ function WorkoutDetailsPage() {
     );
   };
 
+  // @ts-ignore
   return (
       <div>
         <div className='workout-details-display'>
@@ -278,7 +245,8 @@ function WorkoutDetailsPage() {
                         <div className='exercise-title'>{workout.exercise.name || ''}</div>
                         <div className='exercise-menu'>
                           <div className="exercise-menu-options">
-                            <MoreVert/>
+                            <ExerciseDrawerComponent>
+                            </ExerciseDrawerComponent>
                           </div>
                         </div>
                       </div>
@@ -304,17 +272,11 @@ function WorkoutDetailsPage() {
                                              onBlur={() => updateOnBlurExerciseSet(workout, set)}/>
                                 </div>
                                 <div className='set-menu-icon'>
-                                  <React.Fragment key={'bottom'}>
-                                    <div className='menu-button' onClick={toggleDrawer('bottom', true)}><MoreVert/></div>
-                                    <SwipeableDrawer
-                                        anchor={'bottom'}
-                                        open={state['bottom']}
-                                        onClose={toggleDrawer('bottom', false)}
-                                        onOpen={toggleDrawer('bottom', true)}
-                                    >
-                                      {list('bottom', workout.id, set.id)}
-                                    </SwipeableDrawer>
-                                  </React.Fragment>
+                                  <ExerciseSetsDrawerComponent
+                                      exerciseId={workout.id}
+                                      setId={set.id}
+                                      deleteSet={() => handleDeleteSet(workout.id, set.id)}>
+                                  </ExerciseSetsDrawerComponent>
                                 </div>
                               </div>
                           ))}
