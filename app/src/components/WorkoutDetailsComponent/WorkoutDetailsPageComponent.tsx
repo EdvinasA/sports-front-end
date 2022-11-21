@@ -15,6 +15,7 @@ import {addExerciseSet, deleteExerciseSet, updateExerciseSetRequest} from "../..
 import {addExercise, getExercisesByBodyPart} from "../../services/ExerciseService";
 import { ExerciseSetsDrawerComponent } from '../ExerciseSetsDrawerComponent/ExerciseSetsDrawerComponent';
 import {ExerciseDrawerComponent} from "../ExerciseDrawerComponent/ExerciseDrawerComponent";
+import {WorkoutDrawerComponent} from "../WorkoutDrawerComponent/WorkoutDrawerComponent";
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -170,7 +171,8 @@ function WorkoutDetailsPage() {
                 </div>
                 <div>
                   <div className='workout-header-menu'>
-                    <MoreVert/>
+                    <WorkoutDrawerComponent>
+                    </WorkoutDrawerComponent>
                   </div>
                 </div>
               </div>

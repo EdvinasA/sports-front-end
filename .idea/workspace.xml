@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c54cbabc-0400-4668-a1fa-d06219e16be6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/components/ExerciseDrawerComponent/ExerciseDrawerComponent.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/components/ExerciseDrawerComponent/ExerciseDrawerComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/components/ExerciseSetsDrawerComponent/ExerciseSetsDrawerComponent.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/components/ExerciseSetsDrawerComponent/ExerciseSetsDrawerComponent.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/components/WorkoutDrawerComponent/WorkoutDrawerComponent.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/components/WorkoutDrawerComponent/WorkoutDrawerComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutDetailsComponent/WorkoutDetailsPageComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutDetailsComponent/WorkoutDetailsPageComponent.tsx" afterDir="false" />
     </list>
@@ -60,7 +57,7 @@
       <option name="presentableId" value="Default" />
       <updated>1667758313743</updated>
       <workItem from="1667758317651" duration="117967000" />
-      <workItem from="1668748219760" duration="18536000" />
+      <workItem from="1668748219760" duration="19180000" />
     </task>
     <servers />
   </component>
