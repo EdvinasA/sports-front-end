@@ -85,7 +85,7 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState> {
 
   render() {
     return (
-        <div>
+        <div className='application-wrapper'>
           {this.state.workout &&
               this.state.workout.map((workout: WorkoutDetails) => (
                   <div className="workout-list-wrapper" key={workout.id}>

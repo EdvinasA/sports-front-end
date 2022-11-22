@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {Exercise, ExerciseBodyPart, ExerciseSet, WorkoutDetails, WorkoutDetailsUpdateInput, WorkoutExercise} from '../../models/workout';
 import {Divider, IconButton, Slide, TextField, Dialog, Button} from '@mui/material';
 import './WorkoutDetailsPageComponent.scss';
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {getMonth} from "../../services/FormatterService";
 import {Search, Star, BarChart, History, Timer, ArrowBack, AddCircleOutline} from '@mui/icons-material';
 import {LocalizationProvider, MobileDatePicker, TimePicker} from "@mui/x-date-pickers";
@@ -13,7 +13,7 @@ import {TransitionProps} from "@mui/material/transitions";
 import exerciseBodyPartsList from "../../shared/static/ExerciseBodyPartList";
 import {addExerciseSet, deleteExerciseSet, updateExerciseSetRequest} from "../../services/ExerciseSetService";
 import {addExercise, getExercisesByBodyPart} from "../../services/ExerciseService";
-import { ExerciseSetsDrawerComponent } from '../ExerciseSetsDrawerComponent/ExerciseSetsDrawerComponent';
+import {ExerciseSetsDrawerComponent} from '../ExerciseSetsDrawerComponent/ExerciseSetsDrawerComponent';
 import {ExerciseDrawerComponent} from "../ExerciseDrawerComponent/ExerciseDrawerComponent";
 import {WorkoutDrawerComponent} from "../WorkoutDrawerComponent/WorkoutDrawerComponent";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
@@ -121,7 +121,8 @@ function WorkoutDetailsPage() {
     addExerciseSet(exerciseSetCreate).then((data) =>
         setWorkout(produce(workout, workoutDraft => {
           const exercisesIndex: number = workoutDraft.exercises.findIndex(object => object.id === workoutExerciseId);
-          workoutDraft.exercises[exercisesIndex].exerciseSets.push(data)}))
+          workoutDraft.exercises[exercisesIndex].exerciseSets.push(data)
+        }))
     );
   }
 
@@ -160,20 +161,20 @@ function WorkoutDetailsPage() {
 
   const handleDatesChange = (result: Date | null) => {
     if (result !== null) {
-      setWorkout( {...workout, date: result} );
+      setWorkout({...workout, date: result});
     }
   }
 
   const handleStartTimeChange = (result: Date | null) => {
     if (result !== null) {
-      setWorkout( {...workout, startTime: result} );
+      setWorkout({...workout, startTime: result});
       updateWorkout(convertToWorkoutDetails(workout)).then(r => r);
     }
   }
 
   const handleEndTimeChange = (result: Date | null) => {
     if (result !== null) {
-      setWorkout( {...workout, endTime: result} );
+      setWorkout({...workout, endTime: result});
       updateWorkout(convertToWorkoutDetails(workout)).then(r => r);
     }
   }
@@ -188,9 +189,11 @@ function WorkoutDetailsPage() {
           <div className='dialog-workout-header'>
             <div className='dialog-workout-header-grid'>
               <div className='dialog-workout-back-action'>
-                <IconButton>
-                  <ArrowBack/>
-                </IconButton>
+                <Link to='/'>
+                  <IconButton>
+                    <ArrowBack/>
+                  </IconButton>
+                </Link>
               </div>
               <div>
                 {getMonth(workout.date)}
@@ -366,25 +369,25 @@ function WorkoutDetailsPage() {
                 </div>
                 <div>
                   {activeStep === 0 &&
-                    <div>
-                      {listOfExerciseBodyParts &&
-                          listOfExerciseBodyParts.map((bodyPart: ExerciseBodyPart) => (
-                              <div key={bodyPart.value} className='body-part'>
-                                <div>
-                                  <Button size="large" onClick={(event) => handleGetExercisesByBodyType(event, bodyPart)}>{bodyPart.displayValue}</Button>
+                      <div>
+                        {listOfExerciseBodyParts &&
+                            listOfExerciseBodyParts.map((bodyPart: ExerciseBodyPart) => (
+                                <div key={bodyPart.value} className='body-part'>
+                                  <div>
+                                    <Button size="large" onClick={(event) => handleGetExercisesByBodyType(event, bodyPart)}>{bodyPart.displayValue}</Button>
+                                  </div>
                                 </div>
-                              </div>
-                          ))}
-                    </div>
+                            ))}
+                      </div>
                   }
                   {activeStep === 1 &&
                       <div>
                         {exercisesOfBody &&
                             exercisesOfBody.map((exercise: Exercise) => (
-                              <div className='exercise-select-wrapper' key={exercise.id}>
-                                <div><Button size='small' onClick={(event: any) => handleAddExercise(event, exercise)}>{exercise.name}</Button></div>
-                                <div><Button size='small'>Edit</Button></div>
-                              </div>
+                                <div className='exercise-select-wrapper' key={exercise.id}>
+                                  <div><Button size='small' onClick={(event: any) => handleAddExercise(event, exercise)}>{exercise.name}</Button></div>
+                                  <div><Button size='small'>Edit</Button></div>
+                                </div>
                             ))}
                       </div>
                   }
