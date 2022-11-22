@@ -1,4 +1,4 @@
-import {WorkoutDetails, WorkoutDetailsUpdateInput} from "../models/workout";
+import {ExerciseBodyPart, WorkoutDetails, WorkoutDetailsUpdateInput} from "../models/workout";
 
 async function getWorkouts() {
   const response = await fetch("https://localhost:7173/api/workout/1");
@@ -21,4 +21,12 @@ async function updateWorkout(workoutDetails: WorkoutDetailsUpdateInput) {
   return await fetch("https://localhost:7173/api/workout/1/update", requestOptions);
 }
 
-export {getWorkouts, updateWorkout};
+async function deleteWorkoutExercise(workoutExerciseId: number) {
+  const requestOptions = {
+    method: 'DELETE',
+    headers: {'Content-Type': 'application/json'}
+  };
+  return await fetch(`https://localhost:7173/api/workout/1/${workoutExerciseId}`, requestOptions);
+}
+
+export {getWorkouts, updateWorkout, deleteWorkoutExercise};

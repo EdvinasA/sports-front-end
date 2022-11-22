@@ -3,6 +3,7 @@ import {WorkoutDetails} from '../../models/workout';
 import {getDayOfTheWeekForDate, getDayOfTheMonth, getMonth} from '../../services/FormatterService';
 import './WorkoutListComponent.scss';
 import {Link} from "react-router-dom";
+import {Menu} from "@mui/icons-material";
 
 export interface WorkoutState {
   workout: WorkoutDetails[],
@@ -80,34 +81,41 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState> {
     this.setState({
       isEditingDisplayed: !this.state.isEditingDisplayed
     });
-
   }
 
   render() {
     return (
-        <div className='application-wrapper'>
-          {this.state.workout &&
-              this.state.workout.map((workout: WorkoutDetails) => (
-                  <div className="workout-list-wrapper" key={workout.id}>
-                    <div className="workout-item">
-                      <div className="workout-item-column1">
-                        <div>{getDayOfTheWeekForDate(workout.date)}</div>
-                        <div>{getDayOfTheMonth(workout.date)}</div>
-                        <div>{getMonth(workout.date)}</div>
+        <div>
+          <div className='workout-list-header'>
+            <div className='workout-list-header-wrapper'>
+              <div className='workout-list-header-menu'><Menu/></div>
+              <div className='workout-list-header-month'>November</div>
+            </div>
+          </div>
+          <div className='application-wrapper'>
+            {this.state.workout &&
+                this.state.workout.map((workout: WorkoutDetails) => (
+                    <div className="workout-list-wrapper" key={workout.id}>
+                      <div className="workout-item">
+                        <div className="workout-item-column1">
+                          <div>{getDayOfTheWeekForDate(workout.date)}</div>
+                          <div>{getDayOfTheMonth(workout.date)}</div>
+                          <div>{getMonth(workout.date)}</div>
+                        </div>
+                        <div className="workout-item-column2">{workout.name || 'Workout'}</div>
                       </div>
-                      <div className="workout-item-column2">{workout.name || 'Workout'}</div>
                     </div>
-                  </div>
-              ))}
-          <div>
-            {!this.state.isActiveWorkout &&
-                <button onClick={this.createWorkout}>Create workout</button>
-            }
-            {this.state.isActiveWorkout &&
-                <Link to={`/workout/${this.state.activeWorkout.id}`}>
-                  <button onClick={() => this.openWorkout()}>Resume workout</button>
-                </Link>
-            }
+                ))}
+            <div>
+              {!this.state.isActiveWorkout &&
+                  <button onClick={this.createWorkout}>Create workout</button>
+              }
+              {this.state.isActiveWorkout &&
+                  <Link to={`/workout/${this.state.activeWorkout.id}`}>
+                    <button onClick={() => this.openWorkout()}>Resume workout</button>
+                  </Link>
+              }
+            </div>
           </div>
         </div>
     )

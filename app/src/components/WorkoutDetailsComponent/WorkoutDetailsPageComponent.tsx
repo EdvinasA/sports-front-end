@@ -1,12 +1,11 @@
 import React, {useEffect} from 'react';
-import {Exercise, ExerciseBodyPart, ExerciseSet, WorkoutDetails, WorkoutDetailsUpdateInput, WorkoutExercise} from '../../models/workout';
+import {Exercise, ExerciseBodyPart, ExerciseSet, WorkoutDetails, WorkoutExercise} from '../../models/workout';
 import {Divider, IconButton, Slide, TextField, Dialog, Button} from '@mui/material';
 import './WorkoutDetailsPageComponent.scss';
 import {Link, useParams} from "react-router-dom";
 import {getMonth} from "../../services/FormatterService";
 import {Search, Star, BarChart, History, Timer, ArrowBack, AddCircleOutline} from '@mui/icons-material';
 import {LocalizationProvider, MobileDatePicker, TimePicker} from "@mui/x-date-pickers";
-import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
 import produce from "immer";
 import defaultExerciseSetCreate from "../../shared/DefaultObjects";
 import {TransitionProps} from "@mui/material/transitions";
@@ -18,7 +17,7 @@ import {ExerciseDrawerComponent} from "../ExerciseDrawerComponent/ExerciseDrawer
 import {WorkoutDrawerComponent} from "../WorkoutDrawerComponent/WorkoutDrawerComponent";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {convertToWorkoutDetails} from "../../services/ConverterService";
-import {updateWorkout} from "../../services/WorkoutService";
+import {deleteWorkoutExercise, updateWorkout} from "../../services/WorkoutService";
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -183,6 +182,16 @@ function WorkoutDetailsPage() {
     updateWorkout(convertToWorkoutDetails(workout)).then(r => r);
   }
 
+  const handleDeleteWorkoutExercise = (workoutExerciseId: number) => {
+    deleteWorkoutExercise(workoutExerciseId)
+    .then(() =>
+        setWorkout(produce(workout, workoutDraft => {
+          const exercisesIndex: number = workoutDraft.exercises.findIndex(object => object.id === workoutExerciseId);
+          workoutDraft.exercises.splice(exercisesIndex, 1)
+        }))
+    );
+  }
+
   return (
       <div>
         <div className='workout-details-display'>
@@ -287,7 +296,10 @@ function WorkoutDetailsPage() {
                         <div className='exercise-title'>{workout.exercise.name || ''}</div>
                         <div className='exercise-menu'>
                           <div className="exercise-menu-options">
-                            <ExerciseDrawerComponent>
+                            <ExerciseDrawerComponent
+                                workoutExercise={workout}
+                                deleteExercise={handleDeleteWorkoutExercise}
+                            >
                             </ExerciseDrawerComponent>
                           </div>
                         </div>

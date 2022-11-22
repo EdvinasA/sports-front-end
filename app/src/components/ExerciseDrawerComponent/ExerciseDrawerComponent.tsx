@@ -5,8 +5,11 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton/ListItemButton";
 import {Edit, Delete, MoreVert, MoveUp, ChangeCircle, History, BarChart, Star, Settings} from "@mui/icons-material";
 import {SwipeableDrawer} from "@mui/material";
+import {WorkoutExercise} from "../../models/workout";
 
 type ExerciseDrawerProps = {
+  workoutExercise: WorkoutExercise;
+  deleteExercise: (workoutExerciseId: number) => void;
   children: React.ReactNode;
 }
 
@@ -15,6 +18,10 @@ const ExerciseDrawerComponent = (props: ExerciseDrawerProps) => {
   const [state, setState] = React.useState({
     bottom: false,
   });
+
+  const handleDeleteExercise = () => {
+    props.deleteExercise(props.workoutExercise.id);
+  }
 
   const list = (anchor: Anchor) => (
       <Box
@@ -25,7 +32,7 @@ const ExerciseDrawerComponent = (props: ExerciseDrawerProps) => {
           <ListItemButton><Edit/> Edit Note</ListItemButton>
           <ListItemButton><MoveUp/> Reorder</ListItemButton>
           <ListItemButton><ChangeCircle/> Replace</ListItemButton>
-          <ListItemButton><Delete/> Delete</ListItemButton>
+          <ListItemButton onClick={handleDeleteExercise}><Delete/> Delete</ListItemButton>
           <ListItemButton><History/> History</ListItemButton>
           <ListItemButton><BarChart/> Charts</ListItemButton>
           <ListItemButton><Star/> Personal Records</ListItemButton>
