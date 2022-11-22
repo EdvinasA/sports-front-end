@@ -2,9 +2,9 @@ export type WorkoutDetails = {
     id: number;
     name: string;
     bodyWeight: number;
-    date: string;
-    startTime: string;
-    endTime: string;
+    date: Date;
+    startTime: Date;
+    endTime: Date;
     notes: string;
     exercises: WorkoutExercise[]
 }
@@ -41,4 +41,14 @@ export type ExerciseSetCreateInput = {
 export type ExerciseBodyPart = {
     value: string;
     displayValue: string;
+}
+
+export type WorkoutDetailsUpdateInput = {
+    id: number;
+    name: string;
+    bodyWeight: number;
+    date: Date;
+    startTime: Date;
+    endTime: Date;
+    notes: string;
 }

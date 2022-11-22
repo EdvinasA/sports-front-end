@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
-import {Exercise, ExerciseBodyPart, ExerciseSet, WorkoutDetails, WorkoutExercise} from '../../models/workout';
+import {Exercise, ExerciseBodyPart, ExerciseSet, WorkoutDetails, WorkoutDetailsUpdateInput, WorkoutExercise} from '../../models/workout';
 import {Divider, IconButton, Slide, TextField, Dialog, Button} from '@mui/material';
 import './WorkoutDetailsPageComponent.scss';
 import {useParams} from "react-router-dom";
 import {getMonth} from "../../services/FormatterService";
-import {Search, Star, BarChart, History, Timer, ArrowBack, MoreVert, AddCircleOutline} from '@mui/icons-material';
+import {Search, Star, BarChart, History, Timer, ArrowBack, AddCircleOutline} from '@mui/icons-material';
 import {LocalizationProvider, MobileDatePicker, TimePicker} from "@mui/x-date-pickers";
 import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
 import produce from "immer";
@@ -16,6 +16,9 @@ import {addExercise, getExercisesByBodyPart} from "../../services/ExerciseServic
 import { ExerciseSetsDrawerComponent } from '../ExerciseSetsDrawerComponent/ExerciseSetsDrawerComponent';
 import {ExerciseDrawerComponent} from "../ExerciseDrawerComponent/ExerciseDrawerComponent";
 import {WorkoutDrawerComponent} from "../WorkoutDrawerComponent/WorkoutDrawerComponent";
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import {convertToWorkoutDetails} from "../../services/ConverterService";
+import {updateWorkout} from "../../services/WorkoutService";
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -33,12 +36,12 @@ function WorkoutDetailsPage() {
   const [workout, setWorkout] = React.useState<WorkoutDetails>({
     notes: "",
     bodyWeight: 0,
-    date: "",
-    endTime: "",
+    date: new Date(),
+    endTime: new Date(),
     exercises: [],
     id: 0,
     name: "",
-    startTime: ""
+    startTime: new Date()
   });
   const listOfExerciseBodyParts: ExerciseBodyPart[] = exerciseBodyPartsList();
 
@@ -74,7 +77,10 @@ function WorkoutDetailsPage() {
     );
   }
 
-  const getTime = (time: string) => {
+  const getTime = (time: Date | string) => {
+    if (time === null) {
+      return null;
+    }
     return new Date(time);
   }
 
@@ -148,7 +154,28 @@ function WorkoutDetailsPage() {
     );
   };
 
-  // @ts-ignore
+  const handleDatesChange = (result: Date | null) => {
+    if (result !== null) {
+      setWorkout( {...workout, date: result} );
+    }
+  }
+
+  const handleStartTimeChange = (result: Date | null) => {
+    if (result !== null) {
+      setWorkout( {...workout, startTime: result} );
+    }
+  }
+
+  const handleEndTimeChange = (result: Date | null) => {
+    if (result !== null) {
+      setWorkout( {...workout, endTime: result} );
+    }
+  }
+
+  const handleWhenChangeAccepted = () => {
+    updateWorkout(convertToWorkoutDetails(workout)).then(r => r);
+  }
+
   return (
       <div>
         <div className='workout-details-display'>
@@ -199,14 +226,15 @@ function WorkoutDetailsPage() {
             </div>
           </div>
           <div>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
               <div className='workout-time-pickers'>
                 <div className='workout-picker padding-for-picker date'>
                   <MobileDatePicker
                       label="Date"
                       inputFormat="YYYY-MM-DD"
                       value={getTime(workout.date || '')}
-                      onChange={() => console.log("hello")}
+                      onChange={(result) => handleDatesChange(result)}
+                      onAccept={() => handleWhenChangeAccepted()}
                       renderInput={(params) => <TextField {...params} />}
                   />
                 </div>
@@ -215,7 +243,8 @@ function WorkoutDetailsPage() {
                       ampm={false}
                       value={getTime(workout.startTime || '')}
                       label='Start Time'
-                      onChange={() => console.log("hello")}
+                      onChange={(result) => handleStartTimeChange(result)}
+                      onAccept={() => handleWhenChangeAccepted()}
                       renderInput={(params) => <TextField {...params} />}/>
                 </div>
                 <div className='workout-picker furthest-padding'>
@@ -223,7 +252,8 @@ function WorkoutDetailsPage() {
                       ampm={false}
                       value={getTime(workout.endTime || '')}
                       label='End Time'
-                      onChange={() => console.log("hello")}
+                      onChange={(result) => handleEndTimeChange(result)}
+                      onAccept={() => handleWhenChangeAccepted()}
                       renderInput={(params) => <TextField {...params} />}/>
                 </div>
               </div>

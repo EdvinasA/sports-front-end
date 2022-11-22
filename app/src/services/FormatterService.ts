@@ -1,14 +1,14 @@
-export const getMonth = (date: string): string => {
+export const getMonth = (date: Date): string => {
     let fixed = new Date(date);
     return getMonthName(fixed.getMonth() + 1).slice(0, 5) + '.';
   }
 
-export const getDayOfTheWeekForDate = (date: string): string => {
+export const getDayOfTheWeekForDate = (date: Date): string => {
     let fixed = new Date(date);
     return getDayOfTheWeek(fixed.getDay()).slice(0, 3) + '.';
   }
 
-export const getDayOfTheMonth = (date: string) => {
+export const getDayOfTheMonth = (date: Date) => {
     let fixed = new Date(date);
     return fixed.getDate() < 10 ? `0${fixed.getDate().toString()}` : fixed.getDate().toString();
   }
