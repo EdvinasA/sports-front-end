@@ -89,6 +89,10 @@ function WorkoutDetailsPage() {
     setWorkout({...workout, [name]: value} as unknown as WorkoutDetails);
   }
 
+  const onBlurPutRequestWorkout = () => {
+    updateWorkout(convertToWorkoutDetails(workout)).then(r => r);
+  }
+
   const handleExerciseSetChange = (event: { target: { name?: any, value?: any }; }, exercise: WorkoutExercise, set: ExerciseSet) => {
     const {name, value} = event.target;
     setWorkout(produce(workout, workoutDraft => {
@@ -163,12 +167,14 @@ function WorkoutDetailsPage() {
   const handleStartTimeChange = (result: Date | null) => {
     if (result !== null) {
       setWorkout( {...workout, startTime: result} );
+      updateWorkout(convertToWorkoutDetails(workout)).then(r => r);
     }
   }
 
   const handleEndTimeChange = (result: Date | null) => {
     if (result !== null) {
       setWorkout( {...workout, endTime: result} );
+      updateWorkout(convertToWorkoutDetails(workout)).then(r => r);
     }
   }
 
@@ -213,7 +219,8 @@ function WorkoutDetailsPage() {
                   label='Name'
                   variant="outlined"
                   InputLabelProps={{shrink: true}}
-                  onChange={handleWorkoutChange}/>
+                  onChange={handleWorkoutChange}
+                  onBlur={onBlurPutRequestWorkout}/>
             </div>
             <div className='workout-weight-input'>
               <TextField
@@ -222,7 +229,8 @@ function WorkoutDetailsPage() {
                   label='BW'
                   variant="outlined"
                   InputLabelProps={{shrink: true}}
-                  onChange={handleWorkoutChange}/>
+                  onChange={handleWorkoutChange}
+                  onBlur={onBlurPutRequestWorkout}/>
             </div>
           </div>
           <div>
@@ -244,7 +252,6 @@ function WorkoutDetailsPage() {
                       value={getTime(workout.startTime || '')}
                       label='Start Time'
                       onChange={(result) => handleStartTimeChange(result)}
-                      onAccept={() => handleWhenChangeAccepted()}
                       renderInput={(params) => <TextField {...params} />}/>
                 </div>
                 <div className='workout-picker furthest-padding'>
@@ -253,7 +260,6 @@ function WorkoutDetailsPage() {
                       value={getTime(workout.endTime || '')}
                       label='End Time'
                       onChange={(result) => handleEndTimeChange(result)}
-                      onAccept={() => handleWhenChangeAccepted()}
                       renderInput={(params) => <TextField {...params} />}/>
                 </div>
               </div>
@@ -266,7 +272,8 @@ function WorkoutDetailsPage() {
                 label='Notes'
                 variant="outlined"
                 InputLabelProps={{shrink: true}}
-                onChange={handleWorkoutChange}/>
+                onChange={handleWorkoutChange}
+                onBlur={onBlurPutRequestWorkout}/>
           </div>
           <Divider/>
           <div>
