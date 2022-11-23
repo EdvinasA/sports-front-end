@@ -1,1 +1,13 @@
-.ExerciseListComponent {}
+.exercise-edit-list-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.exercise-edit-list-column1 {
+  display: flex;
+}
+
+.exercise-edit-list-display {
+  display: flex;
+  justify-content: space-between;
+}
