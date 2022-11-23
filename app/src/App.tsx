@@ -7,6 +7,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import {ExerciseListComponent} from "./components/ExerciseListComponent/ExerciseListComponent";
 
 class App extends React.Component<{}, {}>  {
   constructor(props: any) {
@@ -20,6 +21,9 @@ class App extends React.Component<{}, {}>  {
         <Switch>
           <Route path="/workout/:workoutId">
             <WorkoutDetailsPageComponent />
+          </Route>
+          <Route path="/exercises">
+            <ExerciseListComponent />
           </Route>
           <Route path="/">
             <WorkoutListComponent />

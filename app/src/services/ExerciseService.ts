@@ -33,4 +33,20 @@ async function getExercisesByBodyPart(input: ExerciseBodyPart) {
   return data;
 }
 
-export { addExercise, getExercisesByBodyPart }
+async function getAllExercises() {
+  const requestOptions = {
+    method: 'GET',
+    headers: {'Content-Type': 'application/json'},
+  };
+  const response = await fetch(`https://localhost:7173/api/exercise/1`, requestOptions);
+
+  const data = await response.json();
+
+  if (data.error) {
+    throw new Error(data.error);
+  }
+
+  return data;
+}
+
+export { addExercise, getExercisesByBodyPart, getAllExercises }

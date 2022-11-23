@@ -4,6 +4,7 @@ import {getDayOfTheWeekForDate, getDayOfTheMonth, getMonth} from '../../services
 import './WorkoutListComponent.scss';
 import {Link} from "react-router-dom";
 import {Menu} from "@mui/icons-material";
+import {WorkoutListDrawerComponent} from "../WorkoutListDrawerComponent/WorkoutListDrawerComponent";
 
 export interface WorkoutState {
   workout: WorkoutDetails[],
@@ -88,7 +89,7 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState> {
         <div>
           <div className='workout-list-header'>
             <div className='workout-list-header-wrapper'>
-              <div className='workout-list-header-menu'><Menu/></div>
+              <div className='workout-list-header-menu'><WorkoutListDrawerComponent children={undefined}></WorkoutListDrawerComponent></div>
               <div className='workout-list-header-month'>November</div>
             </div>
           </div>
