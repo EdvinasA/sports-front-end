@@ -1,5 +1,6 @@
 .exercise-edit-list-header {
   display: flex;
+  padding: 10px;
   justify-content: space-between;
 }
 
@@ -7,7 +8,29 @@
   display: flex;
 }
 
+.exercise-edit-list-column1-field1 {
+  cursor: pointer;
+}
+
+.exercise-edit-list-column1-field2 {
+  padding: 0 0 0 10px;
+}
+
+.exercise-edit-list-column2 {
+  cursor: pointer;
+}
+
 .exercise-edit-list-display {
   display: flex;
+  padding: 10px;
   justify-content: space-between;
+}
+
+.exercise-edit-list-display-title {
+  cursor: pointer;
+  width: 100%;
+}
+
+.exercise-edit-list-display-title1 {
+  cursor: pointer;
 }

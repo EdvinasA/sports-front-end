@@ -5,6 +5,7 @@ import ListItemButton from "@mui/material/ListItemButton/ListItemButton";
 import {Menu} from "@mui/icons-material";
 import {SwipeableDrawer} from "@mui/material";
 import "../WorkoutListDrawerComponent/WorkoutListDrawerComponent.scss"
+import {Link} from "react-router-dom";
 
 type WorkoutListDrawerProps = {
   children: React.ReactNode;
@@ -22,7 +23,7 @@ const WorkoutListDrawerComponent = (props: WorkoutListDrawerProps) => {
           onKeyDown={toggleDrawer(anchor, false)}
       >
         <List>
-          <ListItemButton>Edit Exercises</ListItemButton>
+          <ListItemButton><Link to='/exercises'>Edit Exercises</Link></ListItemButton>
           <ListItemButton>Edit Categories</ListItemButton>
           <ListItemButton>Upgrade</ListItemButton>
           <ListItemButton>Account</ListItemButton>
