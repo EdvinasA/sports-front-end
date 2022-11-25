@@ -20,6 +20,7 @@ export type Exercise = {
     id: number;
     name: string;
     note: string;
+    exerciseCategoryId: number;
     exerciseType: string;
     isSingleBodyPartExercise: boolean;
 }
@@ -30,7 +31,7 @@ export type ExerciseCreateInput = {
     note: string;
     exerciseCategoryId: number;
     exerciseType: string;
-    IsSingleBodyPartExercise: boolean;
+    isSingleBodyPartExercise: boolean;
 }
 
 export type ExerciseSet = {
@@ -68,4 +69,10 @@ export type WorkoutDetailsUpdateInput = {
 export type UpdateObject = {
     name: any;
     value: any;
+}
+
+export type ExerciseCategory = {
+    id: number;
+    name: string;
+    exercise: Exercise[];
 }

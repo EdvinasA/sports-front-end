@@ -1,12 +1,13 @@
 import {Exercise, ExerciseBodyPart, ExerciseCreateInput} from "../models/workout";
 
-async function createExercise(exerciseToCreate: ExerciseCreateInput): Promise<Exercise> {
+async function createExercise(exercise: ExerciseCreateInput): Promise<Exercise> {
+  console.log(exercise);
   const requestOptions = {
-    method: 'PUT',
+    method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({ exerciseToCreate } ),
+    body: JSON.stringify(exercise),
   };
-  const response = await fetch(`https://localhost:7173/api/workout/1`, requestOptions);
+  const response = await fetch(`https://localhost:7173/api/exercise/1`, requestOptions);
 
   const data = await response.json();
 
@@ -66,4 +67,4 @@ async function getAllExercises() {
   return data;
 }
 
-export { addExercise, getExercisesByBodyPart, getAllExercises }
+export { addExercise, getExercisesByBodyPart, getAllExercises, createExercise }

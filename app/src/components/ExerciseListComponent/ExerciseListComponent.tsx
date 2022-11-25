@@ -1,13 +1,15 @@
 import './ExerciseListComponent.scss';
 import React, {useEffect} from "react";
 import {getAllExercises} from "../../services/ExerciseService";
-import {Exercise} from "../../models/workout";
+import {Exercise, ExerciseCategory} from "../../models/workout";
 import {ArrowBack, Add, MoreVert} from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import {Dialog, IconButton, Slide} from "@mui/material";
 import {TransitionProps} from "@mui/material/transitions";
 import ExerciseEditComponent from "../ExerciseEditComponent/ExerciseEditComponent";
 import ExerciseCreateComponent from "../ExerciseCreateComponent/ExerciseCreateComponent";
+import {getExerciseCategories} from "../../services/ExerciseCategoryService";
+import produce from "immer";
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -19,13 +21,15 @@ const Transition = React.forwardRef(function Transition(
 });
 
 const ExerciseListComponent = () => {
-  const [exercises, setExercises] = React.useState([]);
+  const [exercises, setExercises] = React.useState<Exercise[]>([]);
+  const [categories, setCategories] = React.useState<ExerciseCategory[]>([]);
   const [defaultExercise] = React.useState(
       {
         id: 0,
         name: "",
         note: "",
-        exerciseType: "Strength: Weight, Reps",
+        exerciseCategoryId: 1,
+        exerciseType: "STRENGTH_WEIGHT_REPS",
         isSingleBodyPartExercise: false,
       }
   );
@@ -40,9 +44,19 @@ const ExerciseListComponent = () => {
     setCreateDialog(!createDialog);
   };
 
+  const handleUpdateExerciseList = (exercise: Exercise) => {
+    setExercises(produce(exercises, exercisesDraft => {
+      handleCreateDialog();
+      exercisesDraft.push(exercise);
+    }))
+  }
+
   useEffect(() => {
     getAllExercises().then(result => {
       setExercises(result);
+    })
+    getExerciseCategories().then(result => {
+      setCategories(result);
     })
   }, []);
 
@@ -67,7 +81,7 @@ const ExerciseListComponent = () => {
           {exercises &&
               exercises.map((exercise: Exercise) => (
                   <div className='exercise-edit-list-display' key={exercise.id}>
-                    <div className='exercise-edit-list-display-title'>
+                    <div className='exercise-edit-list-display-title' onClick={handleEditDialog}>
                       {exercise.name}
                     </div>
                     <div className='exercise-edit-list-display-title1'>
@@ -80,6 +94,7 @@ const ExerciseListComponent = () => {
                         TransitionComponent={Transition}
                     >
                       <ExerciseEditComponent
+                          categories={categories}
                           exercise={exercise}
                           closeDialog={handleEditDialog}></ExerciseEditComponent>
                     </Dialog>
@@ -93,8 +108,10 @@ const ExerciseListComponent = () => {
             TransitionComponent={Transition}
         >
           <ExerciseCreateComponent
+              categories={categories}
               exercise={defaultExercise}
-              closeDialog={handleCreateDialog}></ExerciseCreateComponent>
+              closeDialog={handleCreateDialog}
+              updateListOfExercises={handleUpdateExerciseList} />
         </Dialog>
       </div>
   )

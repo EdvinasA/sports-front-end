@@ -1,12 +1,13 @@
 import React from 'react';
 import './ExerciseEditComponent.scss';
-import {Exercise, UpdateObject} from "../../models/workout";
+import {Exercise, ExerciseCategory, UpdateObject} from "../../models/workout";
 import ExerciseFormComponent from "../shared/ExerciseFormComponent/ExerciseFormComponent";
 import ExerciseFormHeaderComponent from "../shared/ExerciseFormHeaderComponent/ExerciseFormHeaderComponent";
 
 interface ExerciseEditComponentProps {
   exercise: Exercise;
   closeDialog: () => void;
+  categories: ExerciseCategory[];
 }
 
 const ExerciseEditComponent = (props: ExerciseEditComponentProps) => {
@@ -23,7 +24,7 @@ const ExerciseEditComponent = (props: ExerciseEditComponentProps) => {
   return (
       <div className="exercise-edit-fields">
         <ExerciseFormHeaderComponent closeDialog={props.closeDialog} saveExercise={handleSaveExercise}/>
-        <ExerciseFormComponent exerciseUpdate={handleExerciseChange} exercise={exercise} />
+        <ExerciseFormComponent categories={props.categories} exerciseUpdate={handleExerciseChange} exercise={exercise} />
       </div>
   )
 };

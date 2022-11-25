@@ -1,4 +1,4 @@
-import {WorkoutDetails, WorkoutDetailsUpdateInput} from "../models/workout";
+import {Exercise, ExerciseCreateInput, WorkoutDetails, WorkoutDetailsUpdateInput} from "../models/workout";
 
 export const convertToWorkoutDetails = (workout: WorkoutDetails) => {
   const convertedValue: WorkoutDetailsUpdateInput =
@@ -13,4 +13,18 @@ export const convertToWorkoutDetails = (workout: WorkoutDetails) => {
       }
 
       return convertedValue;
+}
+
+export const convertToExerciseCreateInput = (exercise: Exercise) => {
+  const convertedValue: ExerciseCreateInput =
+      {
+        id: exercise.id,
+        name: exercise.name,
+        note: exercise.note,
+        exerciseCategoryId: exercise.exerciseCategoryId,
+        exerciseType: exercise.exerciseType,
+        isSingleBodyPartExercise: exercise.isSingleBodyPartExercise
+      }
+
+  return convertedValue;
 }
