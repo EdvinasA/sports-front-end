@@ -5,6 +5,7 @@ import {ArrowBack} from "@mui/icons-material";
 
 interface ExerciseFormHeaderComponentProps {
   closeDialog: () => void;
+  saveExercise: () => void;
 }
 
 const ExerciseFormHeaderComponent = (props: ExerciseFormHeaderComponentProps) => {
@@ -22,7 +23,7 @@ const ExerciseFormHeaderComponent = (props: ExerciseFormHeaderComponentProps) =>
           </div>
         </div>
         <div className='exercise-edit-column1-field3'>
-          <IconButton onClick={props.closeDialog}>SAVE</IconButton>
+          <IconButton onClick={props.saveExercise}>SAVE</IconButton>
         </div>
       </div>
   )

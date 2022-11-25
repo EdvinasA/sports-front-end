@@ -16,9 +16,13 @@ const ExerciseCreateComponent = (props: ExerciseCreateComponentProps) => {
     setExercise({...exercise, [object.name]: object.value})
   }
 
+  const handleSaveExercise = () => {
+
+  }
+
   return (
       <div className="exercise-edit-fields">
-        <ExerciseFormHeaderComponent closeDialog={props.closeDialog} />
+        <ExerciseFormHeaderComponent closeDialog={props.closeDialog} saveExercise={handleSaveExercise}/>
         <ExerciseFormComponent exerciseUpdate={handleExerciseChange} exercise={props.exercise} />
       </div>
   )

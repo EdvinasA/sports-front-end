@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import {Dialog, IconButton, Slide} from "@mui/material";
 import {TransitionProps} from "@mui/material/transitions";
 import ExerciseEditComponent from "../ExerciseEditComponent/ExerciseEditComponent";
+import ExerciseCreateComponent from "../ExerciseCreateComponent/ExerciseCreateComponent";
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -19,10 +20,26 @@ const Transition = React.forwardRef(function Transition(
 
 const ExerciseListComponent = () => {
   const [exercises, setExercises] = React.useState([]);
-  const [dialog, setDialog] = React.useState(false);
+  const [defaultExercise] = React.useState(
+      {
+        id: 0,
+        name: "",
+        note: "",
+        exerciseCategory: 1,
+        exerciseType: "Strength: Weight, Reps",
+        isSingleBodyPartExercise: false,
 
-  const handleDialog = () => {
-    setDialog(!dialog);
+      }
+  );
+  const [editDialog, setEditDialog] = React.useState(false);
+  const [createDialog, setCreateDialog] = React.useState(false);
+
+  const handleEditDialog = () => {
+    setEditDialog(!editDialog);
+  };
+
+  const handleCreateDialog = () => {
+    setCreateDialog(!createDialog);
   };
 
   useEffect(() => {
@@ -44,7 +61,7 @@ const ExerciseListComponent = () => {
               Edit Exercises
             </div>
           </div>
-          <IconButton className='exercise-edit-list-column2' onClick={handleDialog}>
+          <IconButton className='exercise-edit-list-column2' onClick={handleCreateDialog}>
             <Add/>
           </IconButton>
         </div>
@@ -60,17 +77,27 @@ const ExerciseListComponent = () => {
                     </div>
                     <Dialog
                         fullScreen
-                        open={dialog}
-                        onClose={handleDialog}
+                        open={editDialog}
+                        onClose={handleEditDialog}
                         TransitionComponent={Transition}
                     >
                       <ExerciseEditComponent
                           exercise={exercise}
-                          closeDialog={handleDialog}></ExerciseEditComponent>
+                          closeDialog={handleEditDialog}></ExerciseEditComponent>
                     </Dialog>
                   </div>
               ))}
         </div>
+        <Dialog
+            fullScreen
+            open={createDialog}
+            onClose={handleCreateDialog}
+            TransitionComponent={Transition}
+        >
+          <ExerciseCreateComponent
+              exercise={defaultExercise}
+              closeDialog={handleCreateDialog}></ExerciseCreateComponent>
+        </Dialog>
       </div>
   )
 };
