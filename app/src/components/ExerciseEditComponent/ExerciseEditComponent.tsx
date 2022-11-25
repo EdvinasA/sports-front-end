@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import './ExerciseEditComponent.scss';
 import {Exercise, UpdateObject} from "../../models/workout";
 import ExerciseFormComponent from "../shared/ExerciseFormComponent/ExerciseFormComponent";

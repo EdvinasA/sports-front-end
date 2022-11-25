@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import './ExerciseFormHeaderComponent.scss';
 import {IconButton} from "@mui/material";
 import {ArrowBack} from "@mui/icons-material";

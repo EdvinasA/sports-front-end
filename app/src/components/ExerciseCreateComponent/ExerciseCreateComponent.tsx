@@ -1,8 +1,6 @@
 import React from 'react';
 import './ExerciseCreateComponent.scss';
 import {Exercise, UpdateObject} from "../../models/workout";
-import {IconButton} from "@mui/material";
-import {ArrowBack} from "@mui/icons-material";
 import ExerciseFormComponent from "../shared/ExerciseFormComponent/ExerciseFormComponent";
 import ExerciseFormHeaderComponent from "../shared/ExerciseFormHeaderComponent/ExerciseFormHeaderComponent";
 
