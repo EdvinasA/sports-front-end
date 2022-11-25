@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import './ExerciseListDrawerComponent.scss';
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
@@ -10,6 +10,8 @@ import {Exercise} from "../../models/workout";
 interface ExerciseListDrawerComponentProps {
   exercise: Exercise;
   children: React.ReactNode;
+  openEditDialog: () => void;
+  deleteExercise: (exerciseId: number) => void;
 }
 
 const ExerciseListDrawerComponent = (props: ExerciseListDrawerComponentProps) => {
@@ -25,8 +27,8 @@ const ExerciseListDrawerComponent = (props: ExerciseListDrawerComponentProps) =>
           onKeyDown={toggleDrawer(anchor, false)}
       >
         <List>
-          <ListItemButton><Edit/> Edit</ListItemButton>
-          <ListItemButton><Delete/> Delete</ListItemButton>
+          <ListItemButton onClick={props.openEditDialog}><Edit/> Edit</ListItemButton>
+          <ListItemButton onClick={() => props.deleteExercise(props.exercise.id)}><Delete/> Delete</ListItemButton>
         </List>
       </Box>
   );

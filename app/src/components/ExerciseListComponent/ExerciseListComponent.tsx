@@ -1,6 +1,6 @@
 import './ExerciseListComponent.scss';
 import React, {useEffect} from "react";
-import {getAllExercises} from "../../services/ExerciseService";
+import {deleteExercise, getAllExercises} from "../../services/ExerciseService";
 import {Exercise, ExerciseCategory} from "../../models/workout";
 import {ArrowBack, Add} from "@mui/icons-material";
 import {Link} from "react-router-dom";
@@ -52,6 +52,14 @@ const ExerciseListComponent = () => {
     }))
   }
 
+  const handleDeleteExercise = (exerciseId: number) => {
+    deleteExercise(exerciseId).then(() => {
+      setExercises(produce(exercises, exercisesDraft => {
+        exercisesDraft.splice(exercisesDraft.findIndex(exercise => exercise.id === exerciseId), 1)
+      }))
+    })
+  }
+
   useEffect(() => {
     getAllExercises().then(result => {
       setExercises(result);
@@ -89,6 +97,8 @@ const ExerciseListComponent = () => {
                       <ExerciseListDrawerComponent
                           children={undefined}
                           exercise={exercise}
+                          openEditDialog={handleEditDialog}
+                          deleteExercise={handleDeleteExercise}
                       />
                     </div>
                     <Dialog

@@ -1,7 +1,6 @@
 import {Exercise, ExerciseBodyPart, ExerciseCreateInput} from "../models/workout";
 
 async function createExercise(exercise: ExerciseCreateInput): Promise<Exercise> {
-  console.log(exercise);
   const requestOptions = {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -16,6 +15,14 @@ async function createExercise(exercise: ExerciseCreateInput): Promise<Exercise> 
   }
 
   return data;
+}
+
+async function deleteExercise(exerciseId: number): Promise<Response> {
+  const requestOptions = {
+    method: 'DELETE',
+    headers: {'Content-Type': 'application/json'},
+  };
+  return await fetch(`https://localhost:7173/api/exercise/1/${exerciseId}`, requestOptions);
 }
 
 async function addExercise(exerciseToAdd: Exercise, rowNumber: number, workoutId: number) {
@@ -67,4 +74,4 @@ async function getAllExercises() {
   return data;
 }
 
-export { addExercise, getExercisesByBodyPart, getAllExercises, createExercise }
+export { addExercise, getExercisesByBodyPart, getAllExercises, createExercise, deleteExercise }
