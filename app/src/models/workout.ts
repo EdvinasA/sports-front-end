@@ -19,6 +19,7 @@ export type WorkoutExercise = {
 export type Exercise = {
     id: number;
     name: string;
+    note: string;
 }
 
 export type ExerciseSet = {
@@ -51,4 +52,9 @@ export type WorkoutDetailsUpdateInput = {
     startTime: Date;
     endTime: Date;
     notes: string;
+}
+
+export type UpdateObject = {
+    name: any;
+    value: any;
 }

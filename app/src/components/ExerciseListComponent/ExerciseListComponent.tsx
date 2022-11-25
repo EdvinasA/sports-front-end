@@ -22,8 +22,7 @@ const ExerciseListComponent = () => {
   const [dialog, setDialog] = React.useState(false);
 
   const handleDialog = () => {
-    console.log("OPEN");
-    setDialog(true);
+    setDialog(!dialog);
   };
 
   useEffect(() => {
@@ -65,7 +64,9 @@ const ExerciseListComponent = () => {
                         onClose={handleDialog}
                         TransitionComponent={Transition}
                     >
-                      <ExerciseEditComponent exercise={exercise}></ExerciseEditComponent>
+                      <ExerciseEditComponent
+                          exercise={exercise}
+                          closeDialog={handleDialog}></ExerciseEditComponent>
                     </Dialog>
                   </div>
               ))}
