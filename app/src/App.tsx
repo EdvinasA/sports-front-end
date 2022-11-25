@@ -8,6 +8,7 @@ import {
   Route
 } from "react-router-dom";
 import {ExerciseListComponent} from "./components/ExerciseListComponent/ExerciseListComponent";
+import ExerciseCategoryListComponent from "./components/ExerciseCategoryListComponent/ExerciseCategoryListComponent";
 
 class App extends React.Component<{}, {}>  {
   constructor(props: any) {
@@ -21,6 +22,9 @@ class App extends React.Component<{}, {}>  {
         <Switch>
           <Route path="/workout/:workoutId">
             <WorkoutDetailsPageComponent />
+          </Route>
+          <Route path="/categories">
+            <ExerciseCategoryListComponent />
           </Route>
           <Route path="/exercises">
             <ExerciseListComponent />
