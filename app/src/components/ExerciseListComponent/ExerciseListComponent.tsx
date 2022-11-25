@@ -2,7 +2,7 @@ import './ExerciseListComponent.scss';
 import React, {useEffect} from "react";
 import {getAllExercises} from "../../services/ExerciseService";
 import {Exercise, ExerciseCategory} from "../../models/workout";
-import {ArrowBack, Add, MoreVert} from "@mui/icons-material";
+import {ArrowBack, Add} from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import {Dialog, IconButton, Slide} from "@mui/material";
 import {TransitionProps} from "@mui/material/transitions";
@@ -10,6 +10,7 @@ import ExerciseEditComponent from "../ExerciseEditComponent/ExerciseEditComponen
 import ExerciseCreateComponent from "../ExerciseCreateComponent/ExerciseCreateComponent";
 import {getExerciseCategories} from "../../services/ExerciseCategoryService";
 import produce from "immer";
+import ExerciseListDrawerComponent from "../ExerciseListDrawerComponent/ExerciseListDrawerComponent";
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -85,7 +86,10 @@ const ExerciseListComponent = () => {
                       {exercise.name}
                     </div>
                     <div className='exercise-edit-list-display-title1'>
-                      <MoreVert/>
+                      <ExerciseListDrawerComponent
+                          children={undefined}
+                          exercise={exercise}
+                      />
                     </div>
                     <Dialog
                         fullScreen
@@ -111,7 +115,7 @@ const ExerciseListComponent = () => {
               categories={categories}
               exercise={defaultExercise}
               closeDialog={handleCreateDialog}
-              updateListOfExercises={handleUpdateExerciseList} />
+              updateListOfExercises={handleUpdateExerciseList}/>
         </Dialog>
       </div>
   )
