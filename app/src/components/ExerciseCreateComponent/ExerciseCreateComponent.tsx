@@ -13,6 +13,7 @@ const ExerciseCreateComponent = (props: ExerciseCreateComponentProps) => {
   const [exercise, setExercise] = React.useState(props.exercise);
 
   const handleExerciseChange = (object: UpdateObject) => {
+    console.log(object);
     setExercise({...exercise, [object.name]: object.value})
   }
 

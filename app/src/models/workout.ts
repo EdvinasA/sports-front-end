@@ -20,6 +20,17 @@ export type Exercise = {
     id: number;
     name: string;
     note: string;
+    exerciseType: string;
+    isSingleBodyPartExercise: boolean;
+}
+
+export type ExerciseCreateInput = {
+    id: number;
+    name: string;
+    note: string;
+    exerciseCategoryId: number;
+    exerciseType: string;
+    IsSingleBodyPartExercise: boolean;
 }
 
 export type ExerciseSet = {

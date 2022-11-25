@@ -25,10 +25,8 @@ const ExerciseListComponent = () => {
         id: 0,
         name: "",
         note: "",
-        exerciseCategory: 1,
         exerciseType: "Strength: Weight, Reps",
         isSingleBodyPartExercise: false,
-
       }
   );
   const [editDialog, setEditDialog] = React.useState(false);

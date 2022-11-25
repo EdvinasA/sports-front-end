@@ -1,4 +1,21 @@
-import {Exercise, ExerciseBodyPart} from "../models/workout";
+import {Exercise, ExerciseBodyPart, ExerciseCreateInput} from "../models/workout";
+
+async function createExercise(exerciseToCreate: ExerciseCreateInput): Promise<Exercise> {
+  const requestOptions = {
+    method: 'PUT',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ exerciseToCreate } ),
+  };
+  const response = await fetch(`https://localhost:7173/api/workout/1`, requestOptions);
+
+  const data = await response.json();
+
+  if (data.error) {
+    throw new Error(data.error);
+  }
+
+  return data;
+}
 
 async function addExercise(exerciseToAdd: Exercise, rowNumber: number, workoutId: number) {
   const requestOptions = {

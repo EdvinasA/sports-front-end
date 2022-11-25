@@ -9,9 +9,11 @@ interface ExerciseFormComponentProps {
 }
 
 const ExerciseFormComponent = (props: ExerciseFormComponentProps) => {
+  const [exercise, setExercise] = React.useState(props.exercise);
 
   const handleExerciseChange = (event) => {
     let object: UpdateObject = {name: event.target.name, value: event.target.value}
+    setExercise({ ...exercise, [object.name]: object.value })
     props.exerciseUpdate(object);
   }
 
@@ -19,7 +21,7 @@ const ExerciseFormComponent = (props: ExerciseFormComponentProps) => {
       <div>
         <div className='exercise-edit-select-field'>
           <TextField
-              value={props.exercise.name || ''}
+              value={exercise.name || ''}
               name='name'
               label='Name'
               variant="outlined"
@@ -34,7 +36,7 @@ const ExerciseFormComponent = (props: ExerciseFormComponentProps) => {
                 labelId="exercise-category"
                 value={'Chest'}
                 name="exerciseCategory"
-                label="Category"
+                label="Categor"
                 variant="outlined"
             >
               <MenuItem value={'Chest'}>Chest</MenuItem>
@@ -48,7 +50,7 @@ const ExerciseFormComponent = (props: ExerciseFormComponentProps) => {
                 labelId='exerciseType'
                 value={'Strength: Weight, Reps'}
                 name='exerciseType'
-                label='Exercise Type'
+                label='Exercise Typ'
                 variant='outlined'
             >
               <MenuItem value={'Strength: Weight, Reps'}>Strength: Weight, Reps</MenuItem>
@@ -62,6 +64,7 @@ const ExerciseFormComponent = (props: ExerciseFormComponentProps) => {
                 labelId='isSinglePartExercise'
                 value={'No'}
                 name='isSinglePartExercise'
+                label='Single Leg/Single A'
                 variant='outlined'
             >
               <MenuItem value={'No'}>No</MenuItem>
