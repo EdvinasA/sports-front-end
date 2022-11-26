@@ -20,11 +20,11 @@ class App extends React.Component<{}, {}>  {
     return (
       <Router>
         <Switch>
-          <Route path="/workout/:workoutId">
-            <WorkoutDetailsPageComponent />
-          </Route>
           <Route path="/categories">
             <ExerciseCategoryListComponent />
+          </Route>
+          <Route path="/workout/:workoutId">
+            <WorkoutDetailsPageComponent />
           </Route>
           <Route path="/exercises">
             <ExerciseListComponent />
