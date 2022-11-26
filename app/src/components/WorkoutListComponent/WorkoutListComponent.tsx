@@ -3,7 +3,6 @@ import {WorkoutDetails} from '../../models/workout';
 import {getDayOfTheWeekForDate, getDayOfTheMonth, getMonth} from '../../services/FormatterService';
 import './WorkoutListComponent.scss';
 import {Link} from "react-router-dom";
-import {Menu} from "@mui/icons-material";
 import {WorkoutListDrawerComponent} from "../WorkoutListDrawerComponent/WorkoutListDrawerComponent";
 
 export interface WorkoutState {
@@ -113,7 +112,9 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState> {
               }
               {this.state.isActiveWorkout &&
                   <Link to={`/workout/${this.state.activeWorkout.id}`}>
-                    <button onClick={() => this.openWorkout()}>Resume workout</button>
+                    <button
+                        onClick={() => this.openWorkout()}
+                    >Resume workout</button>
                   </Link>
               }
             </div>

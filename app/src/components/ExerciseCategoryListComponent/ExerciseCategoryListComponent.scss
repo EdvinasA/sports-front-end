@@ -1,1 +1,18 @@
-.ExerciseCategoryListComponent {}
+.exercise-categories-list-display {
+  padding: 10px;
+}
+
+.exercise-category-display {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px 10px 0;
+}
+
+.exercise-category-display-name {
+  width: 100%;
+  cursor: pointer;
+}
+
+.exercise-category-display-menu {
+  cursor: pointer;
+}
