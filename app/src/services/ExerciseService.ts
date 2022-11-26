@@ -17,6 +17,15 @@ async function createExercise(exercise: ExerciseCreateInput): Promise<Exercise> 
   return data;
 }
 
+async function updateExercise(exercise: Exercise): Promise<Response> {
+  const requestOptions = {
+    method: 'PUT',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(exercise),
+  };
+  return await fetch(`https://localhost:7173/api/exercise/1`, requestOptions);
+}
+
 async function deleteExercise(exerciseId: number): Promise<Response> {
   const requestOptions = {
     method: 'DELETE',
@@ -74,4 +83,4 @@ async function getAllExercises() {
   return data;
 }
 
-export { addExercise, getExercisesByBodyPart, getAllExercises, createExercise, deleteExercise }
+export { addExercise, getExercisesByBodyPart, getAllExercises, createExercise, deleteExercise, updateExercise }

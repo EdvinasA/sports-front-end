@@ -10,7 +10,7 @@ import {Exercise} from "../../models/workout";
 interface ExerciseListDrawerComponentProps {
   exercise: Exercise;
   children: React.ReactNode;
-  openEditDialog: () => void;
+  openEditDialog: (exercise) => void;
   deleteExercise: (exerciseId: number) => void;
 }
 

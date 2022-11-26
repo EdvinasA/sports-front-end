@@ -23,6 +23,15 @@ const Transition = React.forwardRef(function Transition(
 
 const ExerciseListComponent = () => {
   const [exercises, setExercises] = React.useState<Exercise[]>([]);
+  const [selectedExercise, setSelectedExercise] = React.useState<Exercise>(
+      {
+        id: 0,
+        name: "",
+        note: "",
+        exerciseCategoryId: 1,
+        exerciseType: "STRENGTH_WEIGHT_REPS",
+        isSingleBodyPartExercise: false,
+      });
   const [categories, setCategories] = React.useState<ExerciseCategory[]>([]);
   const [defaultExercise] = React.useState(
       {
@@ -37,7 +46,8 @@ const ExerciseListComponent = () => {
   const [editDialog, setEditDialog] = React.useState(false);
   const [createDialog, setCreateDialog] = React.useState(false);
 
-  const handleEditDialogOpen = () => {
+  const handleEditDialogOpen = (exercise: Exercise) => {
+    setSelectedExercise(exercise);
     setEditDialog(true);
   };
 
@@ -66,6 +76,13 @@ const ExerciseListComponent = () => {
         exercisesDraft.splice(exercisesDraft.findIndex(exercise => exercise.id === exerciseId), 1)
       }))
     })
+  }
+
+  const handleUpdateEditedExercise = (exercise: Exercise) => {
+    setExercises(produce(exercises, draft => {
+      handleEditDialogClose();
+      draft[draft.findIndex(o => o.id === exercise.id)] = exercise;
+    }))
   }
 
   useEffect(() => {
@@ -98,31 +115,33 @@ const ExerciseListComponent = () => {
           {exercises &&
               exercises.map((exercise: Exercise) => (
                   <div className='exercise-edit-list-display' key={exercise.id}>
-                    <div className='exercise-edit-list-display-title' onClick={handleEditDialogOpen}>
+                    <div className='exercise-edit-list-display-title' onClick={() => handleEditDialogOpen(exercise)}>
                       {exercise.name}
                     </div>
                     <div className='exercise-edit-list-display-title1'>
                       <ExerciseListDrawerComponent
                           children={undefined}
                           exercise={exercise}
-                          openEditDialog={handleEditDialogOpen}
+                          openEditDialog={() => handleEditDialogOpen(exercise)}
                           deleteExercise={handleDeleteExercise}
                       />
                     </div>
-                    <Dialog
-                        fullScreen
-                        open={editDialog}
-                        onClose={handleEditDialogClose}
-                        TransitionComponent={Transition}
-                    >
-                      <ExerciseEditComponent
-                          categories={categories}
-                          exercise={exercise}
-                          closeDialog={handleEditDialogClose}></ExerciseEditComponent>
-                    </Dialog>
                   </div>
               ))}
         </div>
+        <Dialog
+            fullScreen
+            open={editDialog}
+            onClose={handleEditDialogClose}
+            TransitionComponent={Transition}
+        >
+          <ExerciseEditComponent
+              categories={categories}
+              exercise={selectedExercise}
+              closeDialog={handleEditDialogClose}
+              handleUpdateSentExercise={handleUpdateEditedExercise}
+          ></ExerciseEditComponent>
+        </Dialog>
         <Dialog
             fullScreen
             open={createDialog}
