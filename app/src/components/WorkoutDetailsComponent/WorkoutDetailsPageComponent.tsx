@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
-import {Exercise, ExerciseBodyPart, ExerciseSet, WorkoutDetails, WorkoutExercise} from '../../models/workout';
+import dayjs from 'dayjs';
+import {Exercise, ExerciseCategory, ExerciseSet, WorkoutDetails, WorkoutExercise} from '../../models/workout';
 import {Divider, IconButton, Slide, TextField, Dialog, Button} from '@mui/material';
 import './WorkoutDetailsPageComponent.scss';
 import {Link, useParams} from "react-router-dom";
@@ -9,15 +10,15 @@ import {LocalizationProvider, MobileDatePicker, TimePicker} from "@mui/x-date-pi
 import produce from "immer";
 import defaultExerciseSetCreate from "../../shared/DefaultObjects";
 import {TransitionProps} from "@mui/material/transitions";
-import exerciseBodyPartsList from "../../shared/static/ExerciseBodyPartList";
 import {addExerciseSet, deleteExerciseSet, updateExerciseSetRequest} from "../../services/ExerciseSetService";
-import {addExercise, getExercisesByBodyPart} from "../../services/ExerciseService";
+import {addExercise, getExercisesByCategory} from "../../services/ExerciseService";
 import {ExerciseSetsDrawerComponent} from '../ExerciseSetsDrawerComponent/ExerciseSetsDrawerComponent';
 import {ExerciseDrawerComponent} from "../ExerciseDrawerComponent/ExerciseDrawerComponent";
 import {WorkoutDrawerComponent} from "../WorkoutDrawerComponent/WorkoutDrawerComponent";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {convertToWorkoutDetails} from "../../services/ConverterService";
 import {deleteWorkoutExercise, updateWorkout} from "../../services/WorkoutService";
+import {getExerciseCategories} from "../../services/ExerciseCategoryService";
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -29,9 +30,10 @@ const Transition = React.forwardRef(function Transition(
 });
 
 function WorkoutDetailsPage() {
-  const [openDialog, setOpenDialog] = React.useState(false);
-  const [exercisesOfBody, setExercises] = React.useState([]);
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [openDialog, setOpenDialog] = React.useState<boolean>(false);
+  const [exerciseCategories, setExerciseCategories] = React.useState<ExerciseCategory[]>([]);
+  const [exercises, setExercises] = React.useState<Exercise[]>([]);
+  const [activeStep, setActiveStep] = React.useState<number>(0);
   const [workout, setWorkout] = React.useState<WorkoutDetails>({
     notes: "",
     bodyWeight: 0,
@@ -42,7 +44,6 @@ function WorkoutDetailsPage() {
     name: "",
     startTime: new Date()
   });
-  const listOfExerciseBodyParts: ExerciseBodyPart[] = exerciseBodyPartsList();
 
   // @ts-ignore
   let {workoutId}: string | unknown = useParams();
@@ -54,7 +55,11 @@ function WorkoutDetailsPage() {
   });
 
   const handleClickOpen = () => {
-    setOpenDialog(true);
+    getExerciseCategories()
+      .then((response) => {
+        setExerciseCategories(response);
+        setOpenDialog(true);
+      });
   };
 
   const handleClose = () => {
@@ -144,13 +149,14 @@ function WorkoutDetailsPage() {
             workoutDraft.exercises.push(response)
           }))
           setActiveStep(0);
+          setOpenDialog(false);
         }
     );
   };
 
-  const handleGetExercisesByBodyType = (event: any, input: ExerciseBodyPart) => {
+  const handleGetExercisesByBodyType = (event: any, input: number) => {
     event.preventDefault();
-    getExercisesByBodyPart(input)
+    getExercisesByCategory(input)
     .then((response) => {
           setExercises(response);
           setActiveStep(1);
@@ -160,20 +166,20 @@ function WorkoutDetailsPage() {
 
   const handleDatesChange = (result: Date | null) => {
     if (result !== null) {
-      setWorkout({...workout, date: result});
+      setWorkout({...workout, date: dayjs(result).toDate()});
     }
   }
 
   const handleStartTimeChange = (result: Date | null) => {
     if (result !== null) {
-      setWorkout({...workout, startTime: result});
+      setWorkout({...workout, startTime: dayjs(result).toDate()});
       updateWorkout(convertToWorkoutDetails(workout)).then(r => r);
     }
   }
 
   const handleEndTimeChange = (result: Date | null) => {
     if (result !== null) {
-      setWorkout({...workout, endTime: result});
+      setWorkout({...workout, endTime: dayjs(result).toDate()});
       updateWorkout(convertToWorkoutDetails(workout)).then(r => r);
     }
   }
@@ -382,11 +388,11 @@ function WorkoutDetailsPage() {
                 <div>
                   {activeStep === 0 &&
                       <div>
-                        {listOfExerciseBodyParts &&
-                            listOfExerciseBodyParts.map((bodyPart: ExerciseBodyPart) => (
-                                <div key={bodyPart.value} className='body-part'>
+                        {exerciseCategories &&
+                            exerciseCategories.map((category: ExerciseCategory) => (
+                                <div key={category.id} className='body-part'>
                                   <div>
-                                    <Button size="large" onClick={(event) => handleGetExercisesByBodyType(event, bodyPart)}>{bodyPart.displayValue}</Button>
+                                    <Button size="large" onClick={(event) => handleGetExercisesByBodyType(event, category.id)}>{category.name}</Button>
                                   </div>
                                 </div>
                             ))}
@@ -394,8 +400,8 @@ function WorkoutDetailsPage() {
                   }
                   {activeStep === 1 &&
                       <div>
-                        {exercisesOfBody &&
-                            exercisesOfBody.map((exercise: Exercise) => (
+                        {exercises &&
+                            exercises.map((exercise: Exercise) => (
                                 <div className='exercise-select-wrapper' key={exercise.id}>
                                   <div><Button size='small' onClick={(event: any) => handleAddExercise(event, exercise)}>{exercise.name}</Button></div>
                                   <div><Button size='small'>Edit</Button></div>

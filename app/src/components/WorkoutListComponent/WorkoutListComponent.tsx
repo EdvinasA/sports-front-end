@@ -96,25 +96,28 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState> {
             {this.state.workout &&
                 this.state.workout.map((workout: WorkoutDetails) => (
                     <div className="workout-list-wrapper" key={workout.id}>
-                      <div className="workout-item">
-                        <div className="workout-item-column1">
-                          <div>{getDayOfTheWeekForDate(workout.date)}</div>
-                          <div>{getDayOfTheMonth(workout.date)}</div>
-                          <div>{getMonth(workout.date)}</div>
+                      <Link to={`/workout/${workout.id}`}>
+                        <div className="workout-item">
+                          <div className="workout-item-column1">
+                            <div>{getDayOfTheWeekForDate(workout.date)}</div>
+                            <div>{getDayOfTheMonth(workout.date)}</div>
+                            <div>{getMonth(workout.date)}</div>
+                          </div>
+                          <div className="workout-item-column2">{workout.name || 'Workout'}</div>
                         </div>
-                        <div className="workout-item-column2">{workout.name || 'Workout'}</div>
-                      </div>
+                      </Link>
                     </div>
                 ))}
             <div>
-              {!this.state.isActiveWorkout &&
+              {this.state.activeWorkout.id === 0 &&
                   <button onClick={this.createWorkout}>Create workout</button>
               }
-              {this.state.isActiveWorkout &&
+              {this.state.activeWorkout.id !== 0 &&
                   <Link to={`/workout/${this.state.activeWorkout.id}`}>
                     <button
                         onClick={() => this.openWorkout()}
-                    >Resume workout</button>
+                    >Resume workout
+                    </button>
                   </Link>
               }
             </div>

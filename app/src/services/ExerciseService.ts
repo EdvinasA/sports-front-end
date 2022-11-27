@@ -51,12 +51,12 @@ async function addExercise(exerciseToAdd: Exercise, rowNumber: number, workoutId
   return data;
 }
 
-async function getExercisesByBodyPart(input: ExerciseBodyPart) {
+async function getExercisesByCategory(input: number) {
   const requestOptions = {
     method: 'GET',
     headers: {'Content-Type': 'application/json'},
   };
-  const response = await fetch(`https://localhost:7173/api/exercise/1/body-part/${input.value}`, requestOptions);
+  const response = await fetch(`https://localhost:7173/api/exercise/1/category/${input}`, requestOptions);
 
   const data = await response.json();
 
@@ -83,4 +83,4 @@ async function getAllExercises() {
   return data;
 }
 
-export { addExercise, getExercisesByBodyPart, getAllExercises, createExercise, deleteExercise, updateExercise }
+export { addExercise, getExercisesByCategory, getAllExercises, createExercise, deleteExercise, updateExercise }
