@@ -1,5 +1,5 @@
 import React from 'react';
-import {WorkoutDetails} from '../../models/workout';
+import {WorkoutDetails, WorkoutExercise} from '../../models/workout';
 import {getDayOfTheWeekForDate, getDayOfTheMonth, getMonth} from '../../services/FormatterService';
 import './WorkoutListComponent.scss';
 import {Link} from "react-router-dom";
@@ -103,7 +103,17 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState> {
                             <div>{getDayOfTheMonth(workout.date)}</div>
                             <div>{getMonth(workout.date)}</div>
                           </div>
-                          <div className="workout-item-column2">{workout.name || 'Workout'}</div>
+                          <div className="workout-item-column2">
+                            <div>
+                              {workout.name || 'Workout'}
+                            </div>
+                            <div>
+                              {workout.exercises &&
+                                workout.exercises.map((exercise: WorkoutExercise) => (
+                                    <div>{exercise.exerciseSets.length}x {exercise.exercise.name}</div>
+                                ))}
+                            </div>
+                          </div>
                         </div>
                       </Link>
                     </div>
