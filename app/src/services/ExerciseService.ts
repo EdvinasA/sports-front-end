@@ -1,4 +1,4 @@
-import {Exercise, ExerciseBodyPart, ExerciseCreateInput} from "../models/workout";
+import {Exercise, ExerciseCreateInput} from "../models/workout";
 
 async function createExercise(exercise: ExerciseCreateInput): Promise<Exercise> {
   const requestOptions = {

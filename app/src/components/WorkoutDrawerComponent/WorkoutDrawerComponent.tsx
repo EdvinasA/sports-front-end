@@ -5,16 +5,28 @@ import ListItemButton from "@mui/material/ListItemButton/ListItemButton";
 import {Repeat, Delete, FitnessCenter, MoreVert, MoveUp, Adjust, Share} from "@mui/icons-material";
 import {SwipeableDrawer} from "@mui/material";
 import "../WorkoutDrawerComponent/WorkoutDrawerComponent.scss";
+import {WorkoutDetails} from "../../models/workout";
+import {deleteWorkoutExercise} from "../../services/WorkoutService";
+import { useHistory } from "react-router-dom";
 
 type WorkoutDrawerProps = {
+  workout: WorkoutDetails;
   children: React.ReactNode;
 }
 
 const WorkoutDrawerComponent = (props: WorkoutDrawerProps) => {
+  let history = useHistory();
   type Anchor = 'bottom';
   const [state, setState] = React.useState({
     bottom: false,
   });
+
+  const handleDeleteWorkout = () => {
+    deleteWorkoutExercise(props.workout.id)
+      .then(() => {
+        history.push("/")
+      })
+  }
 
   const list = (anchor: Anchor) => (
       <Box
@@ -27,7 +39,7 @@ const WorkoutDrawerComponent = (props: WorkoutDrawerProps) => {
           <ListItemButton><Share/> Share</ListItemButton>
           <ListItemButton><Repeat/> Repeat Workout</ListItemButton>
           <ListItemButton><FitnessCenter/> Save as Routine</ListItemButton>
-          <ListItemButton><Delete/> Delete</ListItemButton>
+          <ListItemButton onClick={handleDeleteWorkout}> <Delete/> Delete</ListItemButton>
         </List>
       </Box>
   );

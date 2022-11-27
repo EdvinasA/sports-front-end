@@ -4,6 +4,7 @@ import {getDayOfTheWeekForDate, getDayOfTheMonth, getMonth} from '../../services
 import './WorkoutListComponent.scss';
 import {Link} from "react-router-dom";
 import {WorkoutListDrawerComponent} from "../WorkoutListDrawerComponent/WorkoutListDrawerComponent";
+import WorkoutCreateComponent from "../WorkoutCreateComponent/WorkoutCreateComponent";
 
 export interface WorkoutState {
   workout: WorkoutDetails[],
@@ -68,15 +69,6 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState> {
     return true;
   }
 
-  createWorkout() {
-    const requestOptions = {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({date: new Date()})
-    };
-    fetch("https://localhost:7173/api/workout/1", requestOptions);
-  }
-
   openWorkout() {
     this.setState({
       isEditingDisplayed: !this.state.isEditingDisplayed
@@ -104,13 +96,13 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState> {
                             <div>{getMonth(workout.date)}</div>
                           </div>
                           <div className="workout-item-column2">
-                            <div>
+                            <div className='workout-title'>
                               {workout.name || 'Workout'}
                             </div>
                             <div>
                               {workout.exercises &&
                                 workout.exercises.map((exercise: WorkoutExercise) => (
-                                    <div>{exercise.exerciseSets.length}x {exercise.exercise.name}</div>
+                                    <div key={exercise.id}>{exercise.exerciseSets.length}x {exercise.exercise.name}</div>
                                 ))}
                             </div>
                           </div>
@@ -120,7 +112,7 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState> {
                 ))}
             <div>
               {this.state.activeWorkout.id === 0 &&
-                  <button onClick={this.createWorkout}>Create workout</button>
+                  <WorkoutCreateComponent></WorkoutCreateComponent>
               }
               {this.state.activeWorkout.id !== 0 &&
                   <Link to={`/workout/${this.state.activeWorkout.id}`}>

@@ -222,7 +222,8 @@ function WorkoutDetailsPage() {
                 </div>
                 <div>
                   <div className='workout-header-menu'>
-                    <WorkoutDrawerComponent>
+                    <WorkoutDrawerComponent
+                      workout={workout}>
                     </WorkoutDrawerComponent>
                   </div>
                 </div>
@@ -236,7 +237,6 @@ function WorkoutDetailsPage() {
                   name='name'
                   label='Name'
                   variant="outlined"
-                  InputLabelProps={{shrink: true}}
                   onChange={handleWorkoutChange}
                   onBlur={onBlurPutRequestWorkout}/>
             </div>
@@ -246,7 +246,6 @@ function WorkoutDetailsPage() {
                   name='bodyWeight'
                   label='BW'
                   variant="outlined"
-                  InputLabelProps={{shrink: true}}
                   onChange={handleWorkoutChange}
                   onBlur={onBlurPutRequestWorkout}/>
             </div>
@@ -289,7 +288,6 @@ function WorkoutDetailsPage() {
                 name='notes'
                 label='Notes'
                 variant="outlined"
-                InputLabelProps={{shrink: true}}
                 onChange={handleWorkoutChange}
                 onBlur={onBlurPutRequestWorkout}/>
           </div>
@@ -317,17 +315,26 @@ function WorkoutDetailsPage() {
                                   <div className='set-number'>{(index + 1)}</div>
                                 </div>
                                 <div className='workout-weight-input'>
-                                  <TextField value={set.weight} name="weight" label="Weight" variant="outlined"
+                                  <TextField value={set.weight}
+                                             name="weight"
+                                             label="Weight"
+                                             variant="outlined"
                                              onChange={(event) => handleExerciseSetChange(event, workout, set)}
                                              onBlur={() => updateOnBlurExerciseSet(workout, set)}/>
                                 </div>
                                 <div className='workout-weight-input'>
-                                  <TextField value={set.reps} name="reps" label="Reps" variant="outlined"
+                                  <TextField value={set.reps}
+                                             name="reps"
+                                             label="Reps"
+                                             variant="outlined"
                                              onChange={(event) => handleExerciseSetChange(event, workout, set)}
                                              onBlur={() => updateOnBlurExerciseSet(workout, set)}/>
                                 </div>
                                 <div className='workout-weight-input'>
-                                  <TextField value={set.notes} name="notes" label="Notes" variant="outlined"
+                                  <TextField value={set.notes}
+                                             name="notes"
+                                             label="Notes"
+                                             variant="outlined"
                                              onChange={(event) => handleExerciseSetChange(event, workout, set)}
                                              onBlur={() => updateOnBlurExerciseSet(workout, set)}/>
                                 </div>
