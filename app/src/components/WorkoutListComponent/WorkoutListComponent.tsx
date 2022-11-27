@@ -75,13 +75,21 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState> {
     });
   }
 
+  getWorkoutLength(workout: WorkoutDetails) {
+    if (workout.startTime !== null && workout.endTime !== null) {
+      var difference = Math.abs(new Date(workout.startTime).getTime() - new Date(workout.endTime).getTime());
+      return `${Math.floor((difference / 1000) / 60)} min`;
+    }
+    return '';
+  }
+
   render() {
     return (
         <div>
           <div className='workout-list-header'>
             <div className='workout-list-header-wrapper'>
               <div className='workout-list-header-menu'><WorkoutListDrawerComponent children={undefined}></WorkoutListDrawerComponent></div>
-              <div className='workout-list-header-month'>November</div>
+              <div className='workout-list-header-month'>{getMonth(new Date())}</div>
             </div>
           </div>
           <div className='application-wrapper'>
@@ -96,14 +104,21 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState> {
                             <div>{getMonth(workout.date)}</div>
                           </div>
                           <div className="workout-item-column2">
-                            <div className='workout-title'>
-                              {workout.name || 'Workout'}
-                            </div>
                             <div>
-                              {workout.exercises &&
-                                workout.exercises.map((exercise: WorkoutExercise) => (
-                                    <div key={exercise.id}>{exercise.exerciseSets.length}x {exercise.exercise.name}</div>
-                                ))}
+                              <div className='workout-title'>
+                                {workout.name || 'Workout'}
+                              </div>
+                              <div>
+                                {workout.exercises &&
+                                    workout.exercises.map((exercise: WorkoutExercise) => (
+                                        <div key={exercise.id}>{exercise.exerciseSets.length}x {exercise.exercise.name}</div>
+                                    ))}
+                              </div>
+                            </div>
+                            <div  className='workout-duration'>
+                              <div>
+                                {this.getWorkoutLength(workout)}
+                              </div>
                             </div>
                           </div>
                         </div>

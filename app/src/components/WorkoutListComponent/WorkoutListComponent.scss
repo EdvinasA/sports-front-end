@@ -43,10 +43,21 @@
 }
 
 .workout-item-column2 {
-  font-size: 12px;
   background-color: gray;
+  display: grid;
+  grid-template-columns: 80% 20%;
+  font-size: 12px;
   text-align: left;
   padding: 5px;
+  position: relative;
+}
+
+.workout-duration {
+  height: 15px;
+  position: absolute;
+  right: 10px;
+  bottom: 9px;
+  width: 48px;
 }
 
 .workout-title {
