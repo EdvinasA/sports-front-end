@@ -1,11 +1,13 @@
 import {ExerciseCategory} from "../models/workout";
 
+const ROOT_URL = process.env.REACT_APP_API_URL;
+
 async function getExerciseCategories() {
   const requestOptions = {
     method: 'GET',
     headers: {'Content-Type': 'application/json'},
   };
-  const response = await fetch(`https://localhost:7173/api/exercise-category/1`, requestOptions);
+  const response = await fetch(`${ROOT_URL}/api/exercise-category/1`, requestOptions);
 
   const data = await response.json();
 
@@ -22,7 +24,7 @@ async function createExerciseCategories(category: ExerciseCategory) {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(category),
   };
-  const response = await fetch(`https://localhost:7173/api/exercise-category/1`, requestOptions);
+  const response = await fetch(`${ROOT_URL}/api/exercise-category/1`, requestOptions);
 
   const data = await response.json();
 
@@ -39,7 +41,7 @@ async function updateExerciseCategories(category: ExerciseCategory) {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(category),
   };
-  return await fetch(`https://localhost:7173/api/exercise-category/1`, requestOptions);
+  return await fetch(`${ROOT_URL}/api/exercise-category/1`, requestOptions);
 }
 
 export { getExerciseCategories, createExerciseCategories, updateExerciseCategories }

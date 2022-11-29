@@ -5,6 +5,7 @@ import './WorkoutListComponent.scss';
 import {Link} from "react-router-dom";
 import {WorkoutListDrawerComponent} from "../WorkoutListDrawerComponent/WorkoutListDrawerComponent";
 import WorkoutCreateComponent from "../WorkoutCreateComponent/WorkoutCreateComponent";
+import {getWorkouts} from "../../services/WorkoutService";
 
 export interface WorkoutState {
   workout: WorkoutDetails[];
@@ -40,8 +41,7 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState> {
   }
 
   componentDidMount() {
-    fetch("https://localhost:7173/api/workout/1")
-    .then((response) => response.json())
+    getWorkouts()
     .then((response) =>
         this.setState({
           workout: response,
@@ -117,7 +117,7 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState> {
                                     ))}
                               </div>
                             </div>
-                            <div  className='workout-duration'>
+                            <div className='workout-duration'>
                               <div>
                                 {this.getWorkoutLength(workout)}
                               </div>

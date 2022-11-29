@@ -1,7 +1,25 @@
-import {WorkoutDetailsUpdateInput} from "../models/workout";
+import {WorkoutDetails, WorkoutDetailsUpdateInput} from "../models/workout";
+
+const ROOT_URL = process.env.REACT_APP_API_URL;
 
 async function getWorkouts() {
-  const response = await fetch("https://localhost:7173/api/workout/1");
+  const response = await fetch(`${ROOT_URL}/api/workout/1`);
+
+  const data = await response.json();
+
+  if (data.error) {
+    throw new Error(data.error);
+  }
+
+  return data;
+}
+
+async function getWorkoutById(id: number): Promise<WorkoutDetails> {
+  const requestOptions = {
+    method: 'GET',
+    headers: {'Content-Type': 'application/json'}
+  };
+  const response = await fetch(`${ROOT_URL}/api/workout/1/${id}`, requestOptions);
 
   const data = await response.json();
 
@@ -18,7 +36,7 @@ async function createWorkout(): Promise<number> {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({date: new Date()})
   };
-  const response = await fetch("https://localhost:7173/api/workout/1", requestOptions);
+  const response = await fetch(`${ROOT_URL}/api/workout/1`, requestOptions);
 
   const data = await response.json();
 
@@ -35,7 +53,7 @@ async function updateWorkout(workoutDetails: WorkoutDetailsUpdateInput) {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(workoutDetails)
   };
-  return await fetch("https://localhost:7173/api/workout/1/update", requestOptions);
+  return await fetch(`${ROOT_URL}/api/workout/1/update`, requestOptions);
 }
 
 async function deleteWorkoutExercise(workoutExerciseId: number) {
@@ -43,7 +61,7 @@ async function deleteWorkoutExercise(workoutExerciseId: number) {
     method: 'DELETE',
     headers: {'Content-Type': 'application/json'}
   };
-  return await fetch(`https://localhost:7173/api/workout/1/workout/${workoutExerciseId}`, requestOptions);
+  return await fetch(`${ROOT_URL}/api/workout/1/workout/${workoutExerciseId}`, requestOptions);
 }
 
-export {getWorkouts, updateWorkout, deleteWorkoutExercise, createWorkout};
+export {getWorkouts, updateWorkout, deleteWorkoutExercise, createWorkout, getWorkoutById};

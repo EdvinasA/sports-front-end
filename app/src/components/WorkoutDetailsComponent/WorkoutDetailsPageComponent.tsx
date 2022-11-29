@@ -17,7 +17,7 @@ import {ExerciseDrawerComponent} from "../ExerciseDrawerComponent/ExerciseDrawer
 import {WorkoutDrawerComponent} from "../WorkoutDrawerComponent/WorkoutDrawerComponent";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {convertToWorkoutDetails} from "../../services/ConverterService";
-import {deleteWorkoutExercise, updateWorkout} from "../../services/WorkoutService";
+import {deleteWorkoutExercise, getWorkoutById, updateWorkout} from "../../services/WorkoutService";
 import {getExerciseCategories} from "../../services/ExerciseCategoryService";
 import WorkoutExerciseReorder from "../WorkoutExerciseReorder/WorkoutExerciseReorder";
 
@@ -70,12 +70,7 @@ function WorkoutDetailsPage() {
   };
 
   const getWorkout = () => {
-    const requestOptions = {
-      method: 'GET',
-      headers: {'Content-Type': 'application/json'}
-    };
-    fetch(`https://localhost:7173/api/workout/1/${workoutId}`, requestOptions)
-    .then((response) => response.json())
+    getWorkoutById(workoutId)
     .then((response) => {
       setWorkout(response);
       setWorkoutExercises(response.exercises);
