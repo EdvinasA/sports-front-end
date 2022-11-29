@@ -11,6 +11,7 @@ import { useHistory } from "react-router-dom";
 
 type WorkoutDrawerProps = {
   workout: WorkoutDetails;
+  reorderOpen: () => void;
   children: React.ReactNode;
 }
 
@@ -34,7 +35,7 @@ const WorkoutDrawerComponent = (props: WorkoutDrawerProps) => {
           onKeyDown={toggleDrawer(anchor, false)}
       >
         <List>
-          <ListItemButton><MoveUp/> Reorder</ListItemButton>
+          <ListItemButton onClick={props.reorderOpen}><MoveUp/> Reorder</ListItemButton>
           <ListItemButton><Adjust/> Targets</ListItemButton>
           <ListItemButton><Share/> Share</ListItemButton>
           <ListItemButton><Repeat/> Repeat Workout</ListItemButton>

@@ -19,6 +19,7 @@ import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {convertToWorkoutDetails} from "../../services/ConverterService";
 import {deleteWorkoutExercise, updateWorkout} from "../../services/WorkoutService";
 import {getExerciseCategories} from "../../services/ExerciseCategoryService";
+import WorkoutExerciseReorder from "../WorkoutExerciseReorder/WorkoutExerciseReorder";
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -31,6 +32,7 @@ const Transition = React.forwardRef(function Transition(
 
 function WorkoutDetailsPage() {
   const [openDialog, setOpenDialog] = React.useState<boolean>(false);
+  const [reorderOpenDialog, setReorderOpenDialog] = React.useState<boolean>(false);
   const [exerciseCategories, setExerciseCategories] = React.useState<ExerciseCategory[]>([]);
   const [exercises, setExercises] = React.useState<Exercise[]>([]);
   const [activeStep, setActiveStep] = React.useState<number>(0);
@@ -44,6 +46,7 @@ function WorkoutDetailsPage() {
     name: "",
     startTime: new Date()
   });
+  const [workoutExercises, setWorkoutExercises] = React.useState<WorkoutExercise[]>([]);
 
   // @ts-ignore
   let {workoutId}: string | unknown = useParams();
@@ -56,10 +59,10 @@ function WorkoutDetailsPage() {
 
   const handleClickOpen = () => {
     getExerciseCategories()
-      .then((response) => {
-        setExerciseCategories(response);
-        setOpenDialog(true);
-      });
+    .then((response) => {
+      setExerciseCategories(response);
+      setOpenDialog(true);
+    });
   };
 
   const handleClose = () => {
@@ -73,9 +76,10 @@ function WorkoutDetailsPage() {
     };
     fetch(`https://localhost:7173/api/workout/1/${workoutId}`, requestOptions)
     .then((response) => response.json())
-    .then((response) =>
-        setWorkout(response)
-    )
+    .then((response) => {
+      setWorkout(response);
+      setWorkoutExercises(response.exercises);
+    })
     .catch((error) =>
         console.log(error)
     );
@@ -198,6 +202,14 @@ function WorkoutDetailsPage() {
     );
   }
 
+  const openReorderDialog = () => {
+    setReorderOpenDialog(true);
+  }
+
+  const closeReorderDialog = () => {
+    setReorderOpenDialog(false);
+  }
+
   return (
       <div>
         <div className='workout-details-display'>
@@ -223,7 +235,8 @@ function WorkoutDetailsPage() {
                 <div>
                   <div className='workout-header-menu'>
                     <WorkoutDrawerComponent
-                      workout={workout}>
+                        workout={workout}
+                        reorderOpen={openReorderDialog}>
                     </WorkoutDrawerComponent>
                   </div>
                 </div>
@@ -420,6 +433,13 @@ function WorkoutDetailsPage() {
               </div>
             </Dialog>
           </div>
+          <Dialog
+              fullScreen
+              open={reorderOpenDialog}
+              onClose={() => setReorderOpenDialog(false)}
+              TransitionComponent={Transition}>
+            <WorkoutExerciseReorder workoutExercises={workoutExercises} updateWorkoutExercise={setWorkoutExercises} close={closeReorderDialog}/>
+          </Dialog>
         </div>
       </div>
   )

@@ -7,18 +7,20 @@ import {WorkoutListDrawerComponent} from "../WorkoutListDrawerComponent/WorkoutL
 import WorkoutCreateComponent from "../WorkoutCreateComponent/WorkoutCreateComponent";
 
 export interface WorkoutState {
-  workout: WorkoutDetails[],
-  activeWorkout: WorkoutDetails,
-  loading: boolean,
-  error: boolean,
-  isActiveWorkout: boolean,
-  isEditingDisplayed: boolean,
+  workout: WorkoutDetails[];
+  activeWorkout: WorkoutDetails;
+  loading: boolean;
+  error: boolean;
+  isActiveWorkout: boolean;
+  isEditingDisplayed: boolean;
+  useContainer: boolean;
 }
 
 class WorkoutListComponent extends React.Component<{}, WorkoutState> {
   constructor(props: any) {
     super(props)
     this.state = {
+      useContainer: false,
       workout: [],
       activeWorkout: {
         id: 0,
@@ -54,7 +56,7 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState> {
     );
   }
 
-  checkIfThereIsActiveWorkout(response: WorkoutDetails[]) {
+  private checkIfThereIsActiveWorkout(response: WorkoutDetails[]) {
     response.forEach((workout) => {
       if (workout.endTime === null) {
         if (workout.id !== 0) {
@@ -69,13 +71,13 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState> {
     return true;
   }
 
-  openWorkout() {
+  private openWorkout() {
     this.setState({
       isEditingDisplayed: !this.state.isEditingDisplayed
     });
   }
 
-  getWorkoutLength(workout: WorkoutDetails) {
+  private getWorkoutLength(workout: WorkoutDetails) {
     if (workout.startTime !== null && workout.endTime !== null) {
       var difference = Math.abs(new Date(workout.startTime).getTime() - new Date(workout.endTime).getTime());
       return `${Math.floor((difference / 1000) / 60)} min`;
