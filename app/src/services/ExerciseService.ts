@@ -6,7 +6,7 @@ async function createExercise(exercise: ExerciseCreateInput): Promise<Exercise> 
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(exercise),
   };
-  const response = await fetch(`https://localhost:7173/api/exercise/1`, requestOptions);
+  const response = await fetch(`https://icemt63mgy.eu-west-1.awsapprunner.com/api/exercise/1`, requestOptions);
 
   const data = await response.json();
 
@@ -23,7 +23,7 @@ async function updateExercise(exercise: Exercise): Promise<Response> {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(exercise),
   };
-  return await fetch(`https://localhost:7173/api/exercise/1`, requestOptions);
+  return await fetch(`https://icemt63mgy.eu-west-1.awsapprunner.com/api/exercise/1`, requestOptions);
 }
 
 async function deleteExercise(exerciseId: number): Promise<Response> {
@@ -31,7 +31,7 @@ async function deleteExercise(exerciseId: number): Promise<Response> {
     method: 'DELETE',
     headers: {'Content-Type': 'application/json'},
   };
-  return await fetch(`https://localhost:7173/api/exercise/1/${exerciseId}`, requestOptions);
+  return await fetch(`https://icemt63mgy.eu-west-1.awsapprunner.com/api/exercise/1/${exerciseId}`, requestOptions);
 }
 
 async function addExercise(exerciseToAdd: Exercise, rowNumber: number, workoutId: number) {
@@ -40,7 +40,7 @@ async function addExercise(exerciseToAdd: Exercise, rowNumber: number, workoutId
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({ exercise: exerciseToAdd, rowNumber: rowNumber, workoutId: workoutId } ),
   };
-  const response = await fetch(`https://localhost:7173/api/workout/1`, requestOptions);
+  const response = await fetch(`https://icemt63mgy.eu-west-1.awsapprunner.com/api/workout/1`, requestOptions);
 
   const data = await response.json();
 
@@ -56,7 +56,7 @@ async function getExercisesByCategory(input: number) {
     method: 'GET',
     headers: {'Content-Type': 'application/json'},
   };
-  const response = await fetch(`https://localhost:7173/api/exercise/1/category/${input}`, requestOptions);
+  const response = await fetch(`https://icemt63mgy.eu-west-1.awsapprunner.com/api/exercise/1/category/${input}`, requestOptions);
 
   const data = await response.json();
 
@@ -72,7 +72,7 @@ async function getAllExercises() {
     method: 'GET',
     headers: {'Content-Type': 'application/json'},
   };
-  const response = await fetch(`https://localhost:7173/api/exercise/1`, requestOptions);
+  const response = await fetch(`https://icemt63mgy.eu-west-1.awsapprunner.com/api/exercise/1`, requestOptions);
 
   const data = await response.json();
 

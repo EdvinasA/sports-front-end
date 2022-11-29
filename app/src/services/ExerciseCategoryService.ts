@@ -5,7 +5,7 @@ async function getExerciseCategories() {
     method: 'GET',
     headers: {'Content-Type': 'application/json'},
   };
-  const response = await fetch(`https://localhost:7173/api/exercise-category/1`, requestOptions);
+  const response = await fetch(`https://icemt63mgy.eu-west-1.awsapprunner.com/api/exercise-category/1`, requestOptions);
 
   const data = await response.json();
 
@@ -22,7 +22,7 @@ async function createExerciseCategories(category: ExerciseCategory) {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(category),
   };
-  const response = await fetch(`https://localhost:7173/api/exercise-category/1`, requestOptions);
+  const response = await fetch(`https://icemt63mgy.eu-west-1.awsapprunner.com/api/exercise-category/1`, requestOptions);
 
   const data = await response.json();
 
@@ -39,7 +39,7 @@ async function updateExerciseCategories(category: ExerciseCategory) {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(category),
   };
-  return await fetch(`https://localhost:7173/api/exercise-category/1`, requestOptions);
+  return await fetch(`https://icemt63mgy.eu-west-1.awsapprunner.com/api/exercise-category/1`, requestOptions);
 }
 
 export { getExerciseCategories, createExerciseCategories, updateExerciseCategories }

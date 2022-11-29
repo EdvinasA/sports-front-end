@@ -40,7 +40,7 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState> {
   }
 
   componentDidMount() {
-    fetch("https://localhost:7173/api/workout/1")
+    fetch("https://icemt63mgy.eu-west-1.awsapprunner.com/api/workout/1")
     .then((response) => response.json())
     .then((response) =>
         this.setState({

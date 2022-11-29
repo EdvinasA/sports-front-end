@@ -1,7 +1,7 @@
 import {WorkoutDetailsUpdateInput} from "../models/workout";
 
 async function getWorkouts() {
-  const response = await fetch("https://localhost:7173/api/workout/1");
+  const response = await fetch("https://icemt63mgy.eu-west-1.awsapprunner.com/api/workout/1");
 
   const data = await response.json();
 
@@ -18,7 +18,7 @@ async function createWorkout(): Promise<number> {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({date: new Date()})
   };
-  const response = await fetch("https://localhost:7173/api/workout/1", requestOptions);
+  const response = await fetch("https://icemt63mgy.eu-west-1.awsapprunner.com/api/workout/1", requestOptions);
 
   const data = await response.json();
 
@@ -35,7 +35,7 @@ async function updateWorkout(workoutDetails: WorkoutDetailsUpdateInput) {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(workoutDetails)
   };
-  return await fetch("https://localhost:7173/api/workout/1/update", requestOptions);
+  return await fetch("https://icemt63mgy.eu-west-1.awsapprunner.com/api/workout/1/update", requestOptions);
 }
 
 async function deleteWorkoutExercise(workoutExerciseId: number) {
@@ -43,7 +43,7 @@ async function deleteWorkoutExercise(workoutExerciseId: number) {
     method: 'DELETE',
     headers: {'Content-Type': 'application/json'}
   };
-  return await fetch(`https://localhost:7173/api/workout/1/workout/${workoutExerciseId}`, requestOptions);
+  return await fetch(`https://icemt63mgy.eu-west-1.awsapprunner.com/api/workout/1/workout/${workoutExerciseId}`, requestOptions);
 }
 
 export {getWorkouts, updateWorkout, deleteWorkoutExercise, createWorkout};

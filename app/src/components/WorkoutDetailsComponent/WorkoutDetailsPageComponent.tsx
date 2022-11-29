@@ -74,7 +74,7 @@ function WorkoutDetailsPage() {
       method: 'GET',
       headers: {'Content-Type': 'application/json'}
     };
-    fetch(`https://localhost:7173/api/workout/1/${workoutId}`, requestOptions)
+    fetch(`https://icemt63mgy.eu-west-1.awsapprunner.com/api/workout/1/${workoutId}`, requestOptions)
     .then((response) => response.json())
     .then((response) => {
       setWorkout(response);

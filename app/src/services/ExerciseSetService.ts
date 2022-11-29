@@ -6,7 +6,7 @@ async function addExerciseSet(exerciseSetCreate: ExerciseSetCreateInput) {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(exerciseSetCreate)
   };
-  const response = await fetch("https://localhost:7173/api/exercise-set/1", requestOptions);
+  const response = await fetch("https://icemt63mgy.eu-west-1.awsapprunner.com/api/exercise-set/1", requestOptions);
 
   const data = await response.json();
 
@@ -22,7 +22,7 @@ async function deleteExerciseSet(exerciseSetId: number) {
     method: 'DELETE',
     headers: {'Content-Type': 'application/json'}
   };
-  return await fetch(`https://localhost:7173/api/exercise-set/1/${exerciseSetId}`, requestOptions);
+  return await fetch(`https://icemt63mgy.eu-west-1.awsapprunner.com/api/exercise-set/1/${exerciseSetId}`, requestOptions);
 }
 
 async function updateExerciseSetRequest(exerciseSet: ExerciseSet) {
@@ -32,7 +32,7 @@ async function updateExerciseSetRequest(exerciseSet: ExerciseSet) {
     body: JSON.stringify(exerciseSet)
   };
 
-  return await fetch("https://localhost:7173/api/exercise-set/1", requestOptions);
+  return await fetch("https://icemt63mgy.eu-west-1.awsapprunner.com/api/exercise-set/1", requestOptions);
 }
 
 export { addExerciseSet, deleteExerciseSet, updateExerciseSetRequest }
