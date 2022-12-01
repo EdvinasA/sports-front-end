@@ -1,6 +1,9 @@
 .workout-list-header {
   width: 100%;
   display: flex;
+  font-family: Roboto;
+  background-color: #C97800;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 .workout-list-header-wrapper {
@@ -14,6 +17,7 @@
 }
 
 .workout-list-wrapper {
+  color: #000000;
   a {
     text-decoration: none;
     color: black;
@@ -29,6 +33,7 @@
   padding: 0 5px;
   margin: 0 auto;
   text-align: center;
+  color: white;
 }
 
 .workout-item {
@@ -36,23 +41,29 @@
   grid-template-columns: 20% 80%;
   text-align: center;
   margin: 10px;
+  color: #000000;
 }
 
 .workout-item-column1 {
-
+  font-weight: 600;
+  font-family: Roboto;
 }
 
 .workout-item-column2 {
   background-color: gray;
   display: grid;
+  font-family: Roboto;
   grid-template-columns: 80% 20%;
   font-size: 12px;
   text-align: left;
   padding: 5px;
   position: relative;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 .workout-duration {
+  font-family: Roboto;
   height: 15px;
   position: absolute;
   right: 10px;
@@ -61,8 +72,20 @@
 }
 
 .workout-title {
-  font-weight: 500;
+  font-weight: 700;
+  font-family: Roboto;
 }
 
 .workout-details-display {
+}
+
+.open-workout-button {
+  position: absolute;
+  bottom: 80px;
+  right: 20px;
+  .MuiButtonBase-root {
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    background-color: #ff4141;
+    color: white;
+  }
 }

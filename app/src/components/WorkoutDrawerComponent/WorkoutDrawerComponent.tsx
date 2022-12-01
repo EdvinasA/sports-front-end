@@ -7,7 +7,7 @@ import {SwipeableDrawer} from "@mui/material";
 import "../WorkoutDrawerComponent/WorkoutDrawerComponent.scss";
 import {WorkoutDetails} from "../../models/workout";
 import {deleteWorkoutExercise} from "../../services/WorkoutService";
-import { useHistory } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 type WorkoutDrawerProps = {
   workout: WorkoutDetails;
@@ -16,7 +16,7 @@ type WorkoutDrawerProps = {
 }
 
 const WorkoutDrawerComponent = (props: WorkoutDrawerProps) => {
-  let history = useHistory();
+  let history = useNavigate();
   type Anchor = 'bottom';
   const [state, setState] = React.useState({
     bottom: false,
@@ -25,7 +25,7 @@ const WorkoutDrawerComponent = (props: WorkoutDrawerProps) => {
   const handleDeleteWorkout = () => {
     deleteWorkoutExercise(props.workout.id)
       .then(() => {
-        history.push("/")
+        history.bind("/");
       })
   }
 

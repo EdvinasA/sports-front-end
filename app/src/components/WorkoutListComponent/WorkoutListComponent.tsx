@@ -6,6 +6,9 @@ import {Link} from "react-router-dom";
 import {WorkoutListDrawerComponent} from "../WorkoutListDrawerComponent/WorkoutListDrawerComponent";
 import WorkoutCreateComponent from "../WorkoutCreateComponent/WorkoutCreateComponent";
 import {getWorkouts} from "../../services/WorkoutService";
+import {PlayArrow} from "@mui/icons-material"
+import {IconButton} from "@mui/material";
+import "typeface-roboto";
 
 export interface WorkoutState {
   workout: WorkoutDetails[];
@@ -127,16 +130,16 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState> {
                       </Link>
                     </div>
                 ))}
-            <div>
+            <div className='open-workout-button'>
               {this.state.activeWorkout.id === 0 &&
                   <WorkoutCreateComponent></WorkoutCreateComponent>
               }
               {this.state.activeWorkout.id !== 0 &&
                   <Link to={`/workout/${this.state.activeWorkout.id}`}>
-                    <button
+                    <IconButton
                         onClick={() => this.openWorkout()}
-                    >Resume workout
-                    </button>
+                    ><PlayArrow/>
+                    </IconButton>
                   </Link>
               }
             </div>

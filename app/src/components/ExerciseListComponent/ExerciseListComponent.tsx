@@ -158,4 +158,4 @@ const ExerciseListComponent = () => {
   )
 };
 
-export {ExerciseListComponent};
+export default ExerciseListComponent;
