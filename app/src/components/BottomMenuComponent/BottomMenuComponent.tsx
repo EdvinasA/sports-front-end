@@ -49,30 +49,36 @@ const BottomMenuComponent = (props: BottomMenuComponentProps) => {
       <div>
         <Outlet/>
         <div className='bottom-menu'>
-          <NavLink to='/'>
-            <div className={mainPage ? `bottom-menu-button ${active}` : 'bottom-menu-button'} onClick={handleActiveMainPageChange}>
-              <IconButton>
-                <History/>
-              </IconButton>
-              <div>Log</div>
-            </div>
-          </NavLink>
-          <Link to='/routines'>
-            <div className={routinesPage ? `bottom-menu-button ${active}` : 'bottom-menu-button'} onClick={handleActiveRoutinesPageChange}>
-              <IconButton>
-                <Book/>
-              </IconButton>
-              <div>Routines</div>
-            </div>
-          </Link>
-          <Link to='/statistics'>
-            <div className={statisticsPage ? `bottom-menu-button ${active}` : 'bottom-menu-button'} onClick={handleActiveStatisticsPageChange}>
-              <IconButton>
-                <BarChart/>
-              </IconButton>
-              <div>Statistics</div>
-            </div>
-          </Link>
+          <div className='bottom-button-wrapper'>
+            <Link to='/'>
+              <div className={mainPage ? `bottom-menu-button ${active}` : 'bottom-menu-button'} onClick={handleActiveMainPageChange}>
+                <IconButton onClick={handleActiveMainPageChange}>
+                  <History/>
+                </IconButton>
+                <div>Log</div>
+              </div>
+            </Link>
+          </div>
+          <div className='bottom-button-wrapper'>
+            <Link to='/routines'>
+              <div className={routinesPage ? `bottom-menu-button ${active}` : 'bottom-menu-button'} onClick={handleActiveRoutinesPageChange}>
+                <IconButton onClick={handleActiveMainPageChange}>
+                  <Book/>
+                </IconButton>
+                <div>Routines</div>
+              </div>
+            </Link>
+          </div>
+          <div className='bottom-button-wrapper'>
+            <Link to='/statistics'>
+              <div className={statisticsPage ? `bottom-menu-button ${active}` : 'bottom-menu-button'} onClick={handleActiveStatisticsPageChange}>
+                <IconButton onClick={handleActiveMainPageChange}>
+                  <BarChart/>
+                </IconButton>
+                <div>Statistics</div>
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
   )
