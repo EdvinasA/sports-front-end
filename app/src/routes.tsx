@@ -7,6 +7,7 @@ import {
   createBrowserRouter,
 } from "react-router-dom";
 import BottomMenuComponent from "./components/BottomMenuComponent/BottomMenuComponent";
+import StatisticsComponent from "./components/StatisticsComponent/StatisticsComponent";
 
 export type Route = {
   route: string;
@@ -39,6 +40,10 @@ export const routes = createBrowserRouter(
           {
             path: "/routines",
             element: <WorkoutRoutineListComponent/>,
+          },
+          {
+            path: "/statistics",
+            element: <StatisticsComponent/>,
           },
         ]
       }
