@@ -20,6 +20,7 @@
     "@types/react-dom": "^18.0.8",
     "antd": "5.0.1",
     "dayjs": "^1.11.6",
+    "dotenv-cli": "^6.0.0",
     "immer": "^9.0.16",
     "moment": "^2.29.4",
     "react": "^18.2.0",
@@ -34,8 +35,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "set 'REACT_APP_API_URL=https://icemt63mgy.eu-west-1.awsapprunner.com' && react-scripts start",
-    "build": "set 'REACT_APP_API_URL=https://icemt63mgy.eu-west-1.awsapprunner.com' && react-scripts build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
