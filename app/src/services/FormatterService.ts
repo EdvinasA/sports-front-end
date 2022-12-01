@@ -1,3 +1,4 @@
+import {useLocation} from "react-router";
 
 
 export const getMonth = (date: Date): string => {
@@ -66,3 +67,9 @@ function getMonthName(monthNumber: number) {
         return "";
     }
   }
+
+export function useCurrentPath(): string {
+  const location = useLocation();
+
+  return location.pathname;
+}

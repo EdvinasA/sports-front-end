@@ -19,3 +19,9 @@
     color: black;
   }
 }
+
+.active-selection {
+  .MuiButtonBase-root {
+    background-color: gainsboro;
+  }
+}
