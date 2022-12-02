@@ -1,7 +1,7 @@
 @import "src/mixin";
 
 .exercise-categories-list-display {
-  padding: 0 0 10px 0;
+  padding: 40px 0 60px 0;
 }
 
 .exercise-category-display-wrapper {
@@ -26,7 +26,7 @@
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   text-align: center;
   padding-top: 10px;
-  margin-top: 50px;
+  background: white;
   .MuiButtonBase-root {
     width: 95%;
   }

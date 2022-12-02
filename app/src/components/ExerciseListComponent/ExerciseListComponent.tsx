@@ -4,7 +4,7 @@ import {deleteExercise, getAllExercises} from "../../services/ExerciseService";
 import {Exercise, ExerciseCategory} from "../../models/workout";
 import {ArrowBack, Add} from "@mui/icons-material";
 import {Link} from "react-router-dom";
-import {Dialog, Divider, IconButton, Slide} from "@mui/material";
+import {Button, Dialog, Divider, IconButton, Slide} from "@mui/material";
 import {TransitionProps} from "@mui/material/transitions";
 import ExerciseEditComponent from "../ExerciseEditComponent/ExerciseEditComponent";
 import ExerciseCreateComponent from "../ExerciseCreateComponent/ExerciseCreateComponent";
@@ -155,10 +155,10 @@ const ExerciseListComponent = () => {
               updateListOfExercises={handleUpdateExerciseList}/>
         </Dialog>
         <div className='add-exercise-button'>
-          <IconButton
-              onClick={handleCreateDialogOpen}
-          ><Add/>
-          </IconButton>
+          <Button variant='outlined'
+                  onClick={handleCreateDialogOpen}
+          ><Add/> Add Exercise
+          </Button>
         </div>
       </div>
   )

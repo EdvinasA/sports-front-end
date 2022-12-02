@@ -1,9 +1,14 @@
 @import "src/mixin";
 
 .exercise-edit-list-header {
+  background-color: white;
   display: flex;
   padding: 10px;
   justify-content: space-between;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
 }
 
 .exercise-edit-list-column1 {
@@ -38,5 +43,15 @@
 }
 
 .add-exercise-button {
-  @include add-button;
+  height: 50px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  text-align: center;
+  padding-top: 10px;
+  background: white;
+  .MuiButtonBase-root {
+    width: 95%;
+  }
 }
