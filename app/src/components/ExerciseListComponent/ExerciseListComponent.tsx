@@ -4,7 +4,7 @@ import {deleteExercise, getAllExercises} from "../../services/ExerciseService";
 import {Exercise, ExerciseCategory} from "../../models/workout";
 import {ArrowBack, Add} from "@mui/icons-material";
 import {Link} from "react-router-dom";
-import {Dialog, IconButton, Slide} from "@mui/material";
+import {Dialog, Divider, IconButton, Slide} from "@mui/material";
 import {TransitionProps} from "@mui/material/transitions";
 import ExerciseEditComponent from "../ExerciseEditComponent/ExerciseEditComponent";
 import ExerciseCreateComponent from "../ExerciseCreateComponent/ExerciseCreateComponent";
@@ -107,25 +107,25 @@ const ExerciseListComponent = () => {
               Edit Exercises
             </div>
           </div>
-          <IconButton className='exercise-edit-list-column2' onClick={handleCreateDialogOpen}>
-            <Add/>
-          </IconButton>
         </div>
         <div>
           {exercises &&
               exercises.map((exercise: Exercise) => (
-                  <div className='exercise-edit-list-display' key={exercise.id}>
-                    <div className='exercise-edit-list-display-title' onClick={() => handleEditDialogOpen(exercise)}>
-                      {exercise.name}
+                  <div key={exercise.id}>
+                    <div className='exercise-edit-list-wrapper'>
+                      <div className='exercise-edit-list-display-title' onClick={() => handleEditDialogOpen(exercise)}>
+                        {exercise.name}
+                      </div>
+                      <div className='exercise-edit-list-display-title1'>
+                        <ExerciseListDrawerComponent
+                            children={undefined}
+                            exercise={exercise}
+                            openEditDialog={() => handleEditDialogOpen(exercise)}
+                            deleteExercise={handleDeleteExercise}
+                        />
+                      </div>
                     </div>
-                    <div className='exercise-edit-list-display-title1'>
-                      <ExerciseListDrawerComponent
-                          children={undefined}
-                          exercise={exercise}
-                          openEditDialog={() => handleEditDialogOpen(exercise)}
-                          deleteExercise={handleDeleteExercise}
-                      />
-                    </div>
+                    <Divider></Divider>
                   </div>
               ))}
         </div>
@@ -154,6 +154,12 @@ const ExerciseListComponent = () => {
               closeDialog={handleCreateDialogClose}
               updateListOfExercises={handleUpdateExerciseList}/>
         </Dialog>
+        <div className='add-exercise-button'>
+          <IconButton
+              onClick={handleCreateDialogOpen}
+          ><Add/>
+          </IconButton>
+        </div>
       </div>
   )
 };

@@ -1,3 +1,5 @@
+@import "src/mixin";
+
 .exercise-edit-list-header {
   display: flex;
   padding: 10px;
@@ -20,9 +22,9 @@
   cursor: pointer;
 }
 
-.exercise-edit-list-display {
+.exercise-edit-list-wrapper {
   display: flex;
-  padding: 10px;
+  padding: 10px 10px 0 10px;
   justify-content: space-between;
 }
 
@@ -33,4 +35,8 @@
 
 .exercise-edit-list-display-title1 {
   cursor: pointer;
+}
+
+.add-exercise-button {
+  @include add-button;
 }

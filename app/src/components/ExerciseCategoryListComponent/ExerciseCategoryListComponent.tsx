@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import './ExerciseCategoryListComponent.scss';
 import {Link} from "react-router-dom";
 import {Add, ArrowBack, MoreVert} from "@mui/icons-material";
-import {IconButton} from "@mui/material";
+import {Divider, IconButton} from "@mui/material";
 import {ExerciseCategory} from "../../models/workout";
 import {createExerciseCategories, getExerciseCategories, updateExerciseCategories} from "../../services/ExerciseCategoryService";
 import ExerciseCategoryDialogComponent from "../shared/ExerciseCategoryDialogComponent/ExerciseCategoryDialogComponent";
@@ -35,23 +35,23 @@ const ExerciseCategoryListComponent = (props: ExerciseCategoryListComponentProps
     setCreateOpen(false);
   };
 
-  const handleUpdateSelectedExerciseCategory = (event: { target: { name: any, value: any } } ) => {
-    setSelectedCategory({ ...selectedCategory, [event.target.name]: event.target.value } );
+  const handleUpdateSelectedExerciseCategory = (event: { target: { name: any, value: any } }) => {
+    setSelectedCategory({...selectedCategory, [event.target.name]: event.target.value});
   }
 
-  const handleUpdateNewExerciseCategory = (event: { target: { name: any, value: any } } ) => {
-    setDefaultCategory({ ...selectedCategory, [event.target.name]: event.target.value } );
+  const handleUpdateNewExerciseCategory = (event: { target: { name: any, value: any } }) => {
+    setDefaultCategory({...selectedCategory, [event.target.name]: event.target.value});
   }
 
   const handleCreateExerciseCategory = () => {
     handleCreateDialogClose();
     createExerciseCategories(defaultCategory)
-      .then((response: ExerciseCategory) => {
-        setCategories(produce(categories, draft => {
-          draft.push(response);
-        }));
-        setDefaultCategory({name: '', id: 0, exercise: []})
-      });
+    .then((response: ExerciseCategory) => {
+      setCategories(produce(categories, draft => {
+        draft.push(response);
+      }));
+      setDefaultCategory({name: '', id: 0, exercise: []})
+    });
   }
 
   const handleUpdateExerciseCategory = () => {
@@ -84,16 +84,17 @@ const ExerciseCategoryListComponent = (props: ExerciseCategoryListComponentProps
               Edit Categories
             </div>
           </div>
-          <IconButton className='exercise-edit-list-column2' onClick={handleCreateDialogOpen}>
-            <Add/>
-          </IconButton>
         </div>
         <div className='exercise-categories-list-display'>
           {categories &&
               categories.map((category) => (
-                  <div className='exercise-category-display' key={category.id}>
-                    <div className='exercise-category-display-name' onClick={() => handleEditDialogOpen(category)}>{category.name}</div>
-                    <div className='exercise-category-display-menu'><MoreVert /></div>
+                  <div key={category.id}>
+                    <div className='exercise-category-display-wrapper'>
+                      <div className='exercise-category-display-name'
+                           onClick={() => handleEditDialogOpen(category)}>{category.name}</div>
+                      <div className='exercise-category-display-menu'><MoreVert/></div>
+                    </div>
+                    <Divider></Divider>
                   </div>
               ))}
         </div>
@@ -111,6 +112,12 @@ const ExerciseCategoryListComponent = (props: ExerciseCategoryListComponentProps
             isAdd={true}
             handleUpdateCategoryName={handleUpdateNewExerciseCategory}
             handleApiCall={handleCreateExerciseCategory}/>
+        <div className='add-category-button'>
+          <IconButton
+              onClick={handleCreateDialogOpen}
+          ><Add/>
+          </IconButton>
+        </div>
       </div>
   )
 };
