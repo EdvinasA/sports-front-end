@@ -1,13 +1,27 @@
-.exercise-edit-column1-field2 {
+.form-header {
+  background-color: white;
+  display: flex;
+  padding: 15px 0 0 0;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.form-header-column1 {
+  display: flex;
+  padding-left: 16px;
+}
+
+.form-header-column1-field1 {
+
+}
+
+.form-header-column1-field2 {
   padding-top: 8px;
 }
 
-.exercise-edit-column1-field3 {
+.form-header-column1-field3 {
+  padding-right: 16px;
   .MuiIconButton-root {
     font-size: 16px;
   }
-}
-
-.exercise-edit-select-field {
-  padding: 10px;
 }

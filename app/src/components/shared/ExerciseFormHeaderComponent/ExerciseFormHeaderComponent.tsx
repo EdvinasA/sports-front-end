@@ -11,20 +11,20 @@ interface ExerciseFormHeaderComponentProps {
 const ExerciseFormHeaderComponent = (props: ExerciseFormHeaderComponentProps) => {
 
   return (
-      <div className='exercise-edit-list-header'>
-        <div className='exercise-edit-list-column1'>
-          <div className='exercise-edit-list-column1-field1'>
+      <div className='form-header'>
+        <div className='form-header-column1'>
+          <div className='form-header-column1-field1'>
             <IconButton
                 onClick={props.closeDialog}
                 onTouchEnd={props.closeDialog}>
               <ArrowBack/>
             </IconButton>
           </div>
-          <div className='exercise-edit-column1-field2'>
+          <div className='form-header-column1-field2'>
             Edit Exercises
           </div>
         </div>
-        <div className='exercise-edit-column1-field3'>
+        <div className='form-header-column1-field3'>
           <IconButton
               onClick={props.saveExercise}
               onTouchEnd={props.closeDialog}>

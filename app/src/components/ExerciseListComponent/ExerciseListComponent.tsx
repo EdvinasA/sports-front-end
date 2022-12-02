@@ -108,7 +108,7 @@ const ExerciseListComponent = () => {
             </div>
           </div>
         </div>
-        <div>
+        <div className='exercise-list-wrapper'>
           {exercises &&
               exercises.map((exercise: Exercise) => (
                   <div key={exercise.id}>

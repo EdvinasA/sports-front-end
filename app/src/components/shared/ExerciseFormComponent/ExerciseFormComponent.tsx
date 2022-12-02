@@ -25,7 +25,7 @@ const ExerciseFormComponent = (props: ExerciseFormComponentProps) => {
   }
 
   return (
-      <div>
+      <div className='exercise-edit-wrapper'>
         <div className='exercise-edit-select-field'>
           <TextField
               value={exercise.name || ''}
