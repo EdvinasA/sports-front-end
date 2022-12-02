@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import './ExerciseCategoryListComponent.scss';
 import {Link} from "react-router-dom";
 import {Add, ArrowBack, MoreVert} from "@mui/icons-material";
-import {Divider, IconButton} from "@mui/material";
+import {Button, Divider, IconButton} from "@mui/material";
 import {ExerciseCategory} from "../../models/workout";
 import {createExerciseCategories, getExerciseCategories, updateExerciseCategories} from "../../services/ExerciseCategoryService";
 import ExerciseCategoryDialogComponent from "../shared/ExerciseCategoryDialogComponent/ExerciseCategoryDialogComponent";
@@ -113,10 +113,10 @@ const ExerciseCategoryListComponent = (props: ExerciseCategoryListComponentProps
             handleUpdateCategoryName={handleUpdateNewExerciseCategory}
             handleApiCall={handleCreateExerciseCategory}/>
         <div className='add-category-button'>
-          <IconButton
+          <Button variant='outlined'
               onClick={handleCreateDialogOpen}
-          ><Add/>
-          </IconButton>
+          ><Add/> Add category
+          </Button>
         </div>
       </div>
   )
