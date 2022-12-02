@@ -1,32 +1,31 @@
-import React from "react";
+import React, { FC } from 'react';
+import './ExerciseCategoryListDrawerComponent.scss';
+import {ExerciseCategory, WorkoutExercise} from "../../models/workout";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton/ListItemButton";
-import {Repeat, Delete, FitnessCenter, MoreVert, MoveUp, Adjust, Share} from "@mui/icons-material";
-import {SwipeableDrawer} from "@mui/material";
-import "../WorkoutDrawerComponent/WorkoutDrawerComponent.scss";
-import {WorkoutDetails} from "../../models/workout";
-import {deleteWorkoutExercise} from "../../services/WorkoutService";
-import {useNavigate} from "react-router-dom";
+import {BarChart, ChangeCircle, Delete, Edit, History, MoreVert, MoveUp, Settings, Star} from "@mui/icons-material";
+import {Divider, SwipeableDrawer} from "@mui/material";
 
-type WorkoutDrawerProps = {
-  workout: WorkoutDetails;
-  reorderOpen: () => void;
+interface ExerciseCategoryListDrawerComponentProps {
+  exerciseCategory: ExerciseCategory;
+  deleteExerciseCategory: (exerciseCategoryId: number) => void;
+  updateExerciseCategory: (exerciseCategory: ExerciseCategory) => void;
   children: React.ReactNode;
 }
 
-const WorkoutDrawerComponent = (props: WorkoutDrawerProps) => {
-  let navigate = useNavigate();
+const ExerciseCategoryListDrawerComponent= (props: ExerciseCategoryListDrawerComponentProps) => {
   type Anchor = 'bottom';
   const [state, setState] = React.useState({
     bottom: false,
   });
 
-  const handleDeleteWorkout = () => {
-    deleteWorkoutExercise(props.workout.id)
-      .then(() => {
-        navigate("/");
-      })
+  const handleDeleteExerciseCategory = () => {
+    props.deleteExerciseCategory(props.exerciseCategory.id);
+  }
+
+  const handleUpdateExerciseCategory = () => {
+    props.updateExerciseCategory(props.exerciseCategory);
   }
 
   const list = (anchor: Anchor) => (
@@ -34,13 +33,11 @@ const WorkoutDrawerComponent = (props: WorkoutDrawerProps) => {
           onClick={toggleDrawer(anchor, false)}
           onKeyDown={toggleDrawer(anchor, false)}
       >
+        <div>{props.exerciseCategory.name}</div>
+        <Divider></Divider>
         <List>
-          <ListItemButton onClick={props.reorderOpen}><MoveUp/> Reorder</ListItemButton>
-          <ListItemButton><Adjust/> Targets</ListItemButton>
-          <ListItemButton><Share/> Share</ListItemButton>
-          <ListItemButton><Repeat/> Repeat Workout</ListItemButton>
-          <ListItemButton><FitnessCenter/> Save as Routine</ListItemButton>
-          <ListItemButton onClick={handleDeleteWorkout}> <Delete/> Delete</ListItemButton>
+          <ListItemButton onClick={handleUpdateExerciseCategory}><Edit/> Edit</ListItemButton>
+          <ListItemButton onClick={handleDeleteExerciseCategory}><Delete/> Delete</ListItemButton>
         </List>
       </Box>
   );
@@ -75,4 +72,4 @@ const WorkoutDrawerComponent = (props: WorkoutDrawerProps) => {
   )
 }
 
-export { WorkoutDrawerComponent };
+export default ExerciseCategoryListDrawerComponent;

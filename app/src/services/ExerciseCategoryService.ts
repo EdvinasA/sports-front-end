@@ -44,4 +44,12 @@ async function updateExerciseCategories(category: ExerciseCategory) {
   return await fetch(`${ROOT_URL}/api/exercise-category/1`, requestOptions);
 }
 
-export { getExerciseCategories, createExerciseCategories, updateExerciseCategories }
+async function deleteExerciseCategory(exerciseCategoryId: number) {
+  const requestOptions = {
+    method: 'DELETE',
+    headers: {'Content-Type': 'application/json'}
+  };
+  return await fetch(`${ROOT_URL}/api/exercise-category/1/${exerciseCategoryId}`, requestOptions);
+}
+
+export { getExerciseCategories, createExerciseCategories, updateExerciseCategories, deleteExerciseCategory }

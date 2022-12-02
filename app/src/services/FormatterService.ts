@@ -3,7 +3,7 @@ import {useLocation} from "react-router";
 
 export const getMonth = (date: Date): string => {
     let fixed = new Date(date);
-    return getMonthName(fixed.getMonth() + 1).slice(0, 5) + '.';
+    return getMonthName(fixed.getMonth() + 1);
   }
 
 export const getDayOfTheWeekForDate = (date: Date): string => {

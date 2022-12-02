@@ -13,7 +13,7 @@ const WorkoutCreateComponent = (props: WorkoutCreateComponentProps) => {
 
   const createNewWorkout = () => {
     createWorkout().then((response) => {
-      navigation.bind(`/workout/${response}`);
+      navigation(`/workout/${response}`);
     });
   }
 

@@ -4,7 +4,7 @@ import {Exercise, ExerciseCategory, ExerciseSet, WorkoutDetails, WorkoutExercise
 import {Divider, IconButton, Slide, TextField, Dialog, Button} from '@mui/material';
 import './WorkoutDetailsPageComponent.scss';
 import {Link, useParams} from "react-router-dom";
-import {getMonth} from "../../services/FormatterService";
+import {getDayOfTheMonth, getMonth} from "../../services/FormatterService";
 import {Search, Star, BarChart, History, Timer, ArrowBack, AddCircleOutline} from '@mui/icons-material';
 import {LocalizationProvider, MobileDatePicker, TimePicker} from "@mui/x-date-pickers";
 import produce from "immer";
@@ -218,8 +218,7 @@ function WorkoutDetailsPage() {
                 </Link>
               </div>
               <div>
-                {getMonth(workout.date)}
-                5
+                {getMonth(workout.date)} {getDayOfTheMonth(workout.date)}
               </div>
               <div className='dialog-workout-info'>
                 <div>

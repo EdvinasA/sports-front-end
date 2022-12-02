@@ -4,9 +4,10 @@ import {Link} from "react-router-dom";
 import {Add, ArrowBack, MoreVert} from "@mui/icons-material";
 import {Button, Divider, IconButton} from "@mui/material";
 import {ExerciseCategory} from "../../models/workout";
-import {createExerciseCategories, getExerciseCategories, updateExerciseCategories} from "../../services/ExerciseCategoryService";
+import {createExerciseCategories, deleteExerciseCategory, getExerciseCategories, updateExerciseCategories} from "../../services/ExerciseCategoryService";
 import ExerciseCategoryDialogComponent from "../shared/ExerciseCategoryDialogComponent/ExerciseCategoryDialogComponent";
 import produce from "immer";
+import ExerciseCategoryListDrawerComponent from "../ExerciseCategoryListDrawerComponent/ExerciseCategoryListDrawerComponent";
 
 interface ExerciseCategoryListComponentProps {
 }
@@ -64,6 +65,15 @@ const ExerciseCategoryListComponent = (props: ExerciseCategoryListComponentProps
     });
   }
 
+  const handleDeleteExerciseCategory = (exerciseCategoryId: number) => {
+    deleteExerciseCategory(exerciseCategoryId)
+      .then(() => {
+        setCategories(produce(categories, draft => {
+          draft.splice(draft.findIndex(o => o.id === exerciseCategoryId), 1);
+        }))
+      })
+  }
+
   useEffect(() => {
     getExerciseCategories()
     .then((response) => {
@@ -92,7 +102,12 @@ const ExerciseCategoryListComponent = (props: ExerciseCategoryListComponentProps
                     <div className='exercise-category-display-wrapper'>
                       <div className='exercise-category-display-name'
                            onClick={() => handleEditDialogOpen(category)}>{category.name}</div>
-                      <div className='exercise-category-display-menu'><MoreVert/></div>
+                      <div className='exercise-category-display-menu'>
+                        <ExerciseCategoryListDrawerComponent
+                          exerciseCategory={category}
+                          updateExerciseCategory={handleEditDialogOpen}
+                          deleteExerciseCategory={handleDeleteExerciseCategory}>
+                      </ExerciseCategoryListDrawerComponent></div>
                     </div>
                     <Divider></Divider>
                   </div>
