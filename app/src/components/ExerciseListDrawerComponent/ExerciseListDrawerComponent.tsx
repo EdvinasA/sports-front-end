@@ -26,6 +26,8 @@ const ExerciseListDrawerComponent = (props: ExerciseListDrawerComponentProps) =>
           onClick={toggleDrawer(anchor, false)}
           onKeyDown={toggleDrawer(anchor, false)}
       >
+        <div className='exercise-drawer-title'>{props.exercise.name}</div>
+        <Divider/>
         <List>
           <ListItemButton onClick={props.openEditDialog}><Edit/> Edit</ListItemButton>
           <ListItemButton onClick={() => props.deleteExercise(props.exercise.id)}><Delete/> Delete</ListItemButton>
@@ -57,8 +59,6 @@ const ExerciseListDrawerComponent = (props: ExerciseListDrawerComponentProps) =>
             onClose={toggleDrawer('bottom', false)}
             onOpen={toggleDrawer('bottom', true)}
         >
-          <div>{props.exercise.name}</div>
-          <Divider/>
           {list('bottom')}
         </SwipeableDrawer>
       </React.Fragment>

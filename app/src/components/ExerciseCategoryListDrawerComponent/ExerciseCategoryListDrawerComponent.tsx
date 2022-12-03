@@ -33,7 +33,7 @@ const ExerciseCategoryListDrawerComponent= (props: ExerciseCategoryListDrawerCom
           onClick={toggleDrawer(anchor, false)}
           onKeyDown={toggleDrawer(anchor, false)}
       >
-        <div>{props.exerciseCategory.name}</div>
+        <div className='category-drawer-title'>{props.exerciseCategory.name}</div>
         <Divider></Divider>
         <List>
           <ListItemButton onClick={handleUpdateExerciseCategory}><Edit/> Edit</ListItemButton>

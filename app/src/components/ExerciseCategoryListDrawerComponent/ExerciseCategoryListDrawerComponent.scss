@@ -1,1 +1,5 @@
-.ExerciseCategoryListDrawerComponent {}
+@import "src/mixin.scss";
+
+.category-drawer-title {
+  @include drawer-title;
+}
