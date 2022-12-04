@@ -119,11 +119,12 @@ function WorkoutDetailsPage() {
 
   const handleAddSet = (workoutExerciseId: number, exerciseId: number, event) => {
     event.preventDefault();
-    const exerciseSetCreate = defaultExerciseSetCreate(exerciseId, workoutExerciseId);
+    const exercisesIndex: number = workout.exercises.findIndex(object => object.id === workoutExerciseId);
+    const lastSetIndex: number = workout.exercises[exercisesIndex].exerciseSets.length;
+    const exerciseSetCreate = defaultExerciseSetCreate(exerciseId, workoutExerciseId, lastSetIndex);
 
     addExerciseSet(exerciseSetCreate).then((data) =>
         setWorkout(produce(workout, workoutDraft => {
-          const exercisesIndex: number = workoutDraft.exercises.findIndex(object => object.id === workoutExerciseId);
           workoutDraft.exercises[exercisesIndex].exerciseSets.push(data)
         }))
     );

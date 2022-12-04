@@ -49,6 +49,7 @@ export type ExerciseSetCreateInput = {
     exerciseType: string;
     exerciseId: number;
     workoutExerciseId: number;
+    indexOfSet: number;
 }
 
 export type ExerciseBodyPart = {

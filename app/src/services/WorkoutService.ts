@@ -56,12 +56,20 @@ async function updateWorkout(workoutDetails: WorkoutDetailsUpdateInput) {
   return await fetch(`${ROOT_URL}/api/workout/1/update`, requestOptions);
 }
 
+async function deleteWorkout(workoutId: number) {
+  const requestOptions = {
+    method: 'DELETE',
+    headers: {'Content-Type': 'application/json'}
+  };
+  return await fetch(`${ROOT_URL}/api/workout/1/workout/${workoutId}`, requestOptions);
+}
+
 async function deleteWorkoutExercise(workoutExerciseId: number) {
   const requestOptions = {
     method: 'DELETE',
     headers: {'Content-Type': 'application/json'}
   };
-  return await fetch(`${ROOT_URL}/api/workout/1/workout/${workoutExerciseId}`, requestOptions);
+  return await fetch(`${ROOT_URL}/api/workout/1/${workoutExerciseId}`, requestOptions);
 }
 
-export {getWorkouts, updateWorkout, deleteWorkoutExercise, createWorkout, getWorkoutById};
+export {getWorkouts, updateWorkout, deleteWorkoutExercise, createWorkout, getWorkoutById, deleteWorkout};

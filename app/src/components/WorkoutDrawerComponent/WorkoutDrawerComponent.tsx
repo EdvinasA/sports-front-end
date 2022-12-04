@@ -6,7 +6,7 @@ import {Repeat, Delete, FitnessCenter, MoreVert, MoveUp, Adjust, Share} from "@m
 import {SwipeableDrawer} from "@mui/material";
 import "../WorkoutDrawerComponent/WorkoutDrawerComponent.scss";
 import {WorkoutDetails} from "../../models/workout";
-import {deleteWorkoutExercise} from "../../services/WorkoutService";
+import {deleteWorkout} from "../../services/WorkoutService";
 import {useNavigate} from "react-router-dom";
 
 type WorkoutDrawerProps = {
@@ -23,7 +23,7 @@ const WorkoutDrawerComponent = (props: WorkoutDrawerProps) => {
   });
 
   const handleDeleteWorkout = () => {
-    deleteWorkoutExercise(props.workout.id)
+    deleteWorkout(props.workout.id)
       .then(() => {
         navigate("/");
       })
