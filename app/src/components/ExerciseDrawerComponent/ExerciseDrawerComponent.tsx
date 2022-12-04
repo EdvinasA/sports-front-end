@@ -5,11 +5,12 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton/ListItemButton";
 import {Edit, Delete, MoreVert, MoveUp, ChangeCircle, History, BarChart, Star, Settings} from "@mui/icons-material";
 import {SwipeableDrawer} from "@mui/material";
-import {WorkoutExercise} from "../../models/workout";
+import {Exercise, WorkoutExercise} from "../../models/workout";
 
 type ExerciseDrawerProps = {
   workoutExercise: WorkoutExercise;
   deleteExercise: (workoutExerciseId: number) => void;
+  openEditExerciseNoteDialog: (exercise: WorkoutExercise) => void;
   children: React.ReactNode;
 }
 
@@ -23,13 +24,17 @@ const ExerciseDrawerComponent = (props: ExerciseDrawerProps) => {
     props.deleteExercise(props.workoutExercise.id);
   }
 
+  const handleEditExerciseNote = () => {
+    props.openEditExerciseNoteDialog(props.workoutExercise);
+  }
+
   const list = (anchor: Anchor) => (
       <Box
           onClick={toggleDrawer(anchor, false)}
           onKeyDown={toggleDrawer(anchor, false)}
       >
         <List>
-          <ListItemButton><Edit/> Edit Note</ListItemButton>
+          <ListItemButton onClick={handleEditExerciseNote}><Edit/> Edit Note</ListItemButton>
           <ListItemButton><MoveUp/> Reorder</ListItemButton>
           <ListItemButton><ChangeCircle/> Replace</ListItemButton>
           <ListItemButton onClick={handleDeleteExercise}><Delete/> Delete</ListItemButton>

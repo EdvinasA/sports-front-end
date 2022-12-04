@@ -88,6 +88,13 @@ div {
 
 .exercise-title {
   padding: 8px 0 0 20px;
+  font-size: 18px;
+  font-weight: 501;
+}
+
+.exercise-note {
+  padding: 8px 0 15px 20px;
+  word-break: break-all;
 }
 
 .sets {
@@ -193,4 +200,16 @@ div {
   display: flex;
   width: 100%;
   justify-content: space-between;
+}
+
+.edit-exercise-note-dialog-title {
+  padding-bottom: 15px;
+}
+
+.edit-exercise-note-wrapper {
+  padding: 20px;
+}
+
+.edit-exercise-note-input {
+  padding-bottom: 15px;
 }
