@@ -374,7 +374,7 @@ function WorkoutDetailsPage() {
                                              label="Weight"
                                              variant="outlined"
                                              InputLabelProps={{shrink: true}}
-                                             placeholder={set.exerciseSetPreviousValues.weight.toString() || ""}
+                                             placeholder={set.exerciseSetPreviousValues === null ?  "" : set.exerciseSetPreviousValues.weight.toString() }
                                              onChange={(event) => handleExerciseSetChange(event, workout, set)}
                                              onBlur={() => updateOnBlurExerciseSet(workout, set)}/>
                                 </div>
@@ -384,7 +384,7 @@ function WorkoutDetailsPage() {
                                              label="Reps"
                                              variant="outlined"
                                              InputLabelProps={{shrink: true}}
-                                             placeholder={set.exerciseSetPreviousValues.reps.toString() || ""}
+                                             placeholder={set.exerciseSetPreviousValues === null ?  "" : set.exerciseSetPreviousValues.reps.toString()}
                                              onChange={(event) => handleExerciseSetChange(event, workout, set)}
                                              onBlur={() => updateOnBlurExerciseSet(workout, set)}/>
                                 </div>
@@ -394,7 +394,7 @@ function WorkoutDetailsPage() {
                                              label="Notes"
                                              variant="outlined"
                                              InputLabelProps={{shrink: true}}
-                                             placeholder={set.exerciseSetPreviousValues.notes || ""}
+                                             placeholder={set.exerciseSetPreviousValues === null ?  "" : set.exerciseSetPreviousValues.notes}
                                              onChange={(event) => handleExerciseSetChange(event, workout, set)}
                                              onBlur={() => updateOnBlurExerciseSet(workout, set)}/>
                                 </div>
