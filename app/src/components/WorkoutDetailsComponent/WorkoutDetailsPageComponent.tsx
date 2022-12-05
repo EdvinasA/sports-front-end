@@ -5,13 +5,13 @@ import {Divider, IconButton, Slide, TextField, Dialog, Button, FormControl} from
 import './WorkoutDetailsPageComponent.scss';
 import {Link, useParams} from "react-router-dom";
 import {getDayOfTheMonth, getMonth} from "../../services/FormatterService";
-import {Search, Star, BarChart, History, Timer, ArrowBack, AddCircleOutline} from '@mui/icons-material';
+import {Star, BarChart, History, Timer, ArrowBack} from '@mui/icons-material';
 import {LocalizationProvider, MobileDatePicker, TimePicker} from "@mui/x-date-pickers";
 import produce from "immer";
 import defaultExerciseSetCreate from "../../shared/DefaultObjects";
 import {TransitionProps} from "@mui/material/transitions";
 import {addExerciseSet, deleteExerciseSet, updateExerciseSetRequest} from "../../services/ExerciseSetService";
-import {addExercise, getExercisesByCategory, updateExercise} from "../../services/ExerciseService";
+import {addExercise, createExercise, updateExercise} from "../../services/ExerciseService";
 import {ExerciseSetsDrawerComponent} from '../ExerciseSetsDrawerComponent/ExerciseSetsDrawerComponent';
 import {ExerciseDrawerComponent} from "../ExerciseDrawerComponent/ExerciseDrawerComponent";
 import {WorkoutDrawerComponent} from "../WorkoutDrawerComponent/WorkoutDrawerComponent";
@@ -20,6 +20,8 @@ import {convertToWorkoutDetails} from "../../services/ConverterService";
 import {deleteWorkoutExercise, getWorkoutById, updateWorkout} from "../../services/WorkoutService";
 import {getExerciseCategories} from "../../services/ExerciseCategoryService";
 import WorkoutExerciseReorder from "../WorkoutExerciseReorder/WorkoutExerciseReorder";
+import WorkoutDetailsAddExerciseComponent from "./WorkoutDetailsAddExerciseComponent/WorkoutDetailsAddExerciseComponent";
+import "typeface-roboto";
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -33,9 +35,8 @@ const Transition = React.forwardRef(function Transition(
 function WorkoutDetailsPage() {
   const [openDialog, setOpenDialog] = React.useState<boolean>(false);
   const [reorderOpenDialog, setReorderOpenDialog] = React.useState<boolean>(false);
-  const [exerciseCategories, setExerciseCategories] = React.useState<ExerciseCategory[]>([]);
-  const [exercises, setExercises] = React.useState<Exercise[]>([]);
   const [activeStep, setActiveStep] = React.useState<number>(0);
+  const [exerciseCategories, setExerciseCategories] = React.useState<ExerciseCategory[]>([]);
   const [workout, setWorkout] = React.useState<WorkoutDetails>({
     notes: "",
     bodyWeight: 0,
@@ -81,6 +82,7 @@ function WorkoutDetailsPage() {
 
   const handleClose = () => {
     setOpenDialog(false);
+    setActiveStep(0);
   };
 
   const getWorkout = () => {
@@ -158,6 +160,13 @@ function WorkoutDetailsPage() {
     );
   }
 
+  const handleCreateExercise = (event: any, exerciseToCreate: Exercise) => {
+    createExercise(exerciseToCreate)
+      .then((response) => {
+        handleAddExercise(event, response);
+      });
+  }
+
   const handleAddExercise = (event: any, exerciseToAdd: Exercise) => {
     event.preventDefault();
     addExercise(exerciseToAdd, (workout.exercises.length + 1), workout.id)
@@ -167,16 +176,6 @@ function WorkoutDetailsPage() {
           }))
           setActiveStep(0);
           setOpenDialog(false);
-        }
-    );
-  };
-
-  const handleGetExercisesByBodyType = (event: any, input: number) => {
-    event.preventDefault();
-    getExercisesByCategory(input)
-    .then((response) => {
-          setExercises(response);
-          setActiveStep(1);
         }
     );
   };
@@ -433,52 +432,15 @@ function WorkoutDetailsPage() {
             <div className='add-exercise-action'>
               <button onClick={handleClickOpen}>+ ADD EXERCISE</button>
             </div>
-            <Dialog
-                fullScreen
-                open={openDialog}
-                onClose={handleClose}
-                TransitionComponent={Transition}
-            >
-              <div className='exercise-add-wrapper'>
-                <div className='exercise-add-header'>
-                  <div className='exercise-back-and-title'>
-                    <div>
-                      <ArrowBack onClick={handleClose}/>
-                    </div>
-                    <div>Select Exercise</div>
-                  </div>
-                  <div className='exercise-search-and-add'>
-                    <div><Search/></div>
-                    <div><AddCircleOutline/></div>
-                  </div>
-                </div>
-                <div>
-                  {activeStep === 0 &&
-                      <div>
-                        {exerciseCategories &&
-                            exerciseCategories.map((category: ExerciseCategory) => (
-                                <div key={category.id} className='body-part'>
-                                  <div>
-                                    <Button size="large" onClick={(event) => handleGetExercisesByBodyType(event, category.id)}>{category.name}</Button>
-                                  </div>
-                                </div>
-                            ))}
-                      </div>
-                  }
-                  {activeStep === 1 &&
-                      <div>
-                        {exercises &&
-                            exercises.map((exercise: Exercise) => (
-                                <div className='exercise-select-wrapper' key={exercise.id}>
-                                  <div><Button size='small' onClick={(event: any) => handleAddExercise(event, exercise)}>{exercise.name}</Button></div>
-                                  <div><Button size='small'>Edit</Button></div>
-                                </div>
-                            ))}
-                      </div>
-                  }
-                </div>
-              </div>
-            </Dialog>
+              <WorkoutDetailsAddExerciseComponent
+                  openDialog={openDialog}
+                  handleClose={handleClose}
+                  exerciseCategories={exerciseCategories}
+                  handleAddExercise={handleAddExercise}
+                  activeStep={activeStep}
+                  setActiveStep={setActiveStep}
+                  handleCreateExercise={handleCreateExercise}
+              ></WorkoutDetailsAddExerciseComponent>
           </div>
           <Dialog
               fullScreen

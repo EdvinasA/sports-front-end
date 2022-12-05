@@ -158,20 +158,19 @@ div {
 }
 
 .exercise-add-wrapper {
-  width: 350px;
-  padding: 0 5px;
-  margin: 0 auto;
+  max-width: 415px;
 }
 
 .exercise-add-header {
   display: flex;
   justify-content: space-between;
-  padding: 10px 5px;
+  padding: 15px 0 15px 15px;
+  max-width: 380px;
+  width: 100%;
 }
 
 .exercise-back-and-title {
   display: flex;
-  justify-content: space-between;
   width: 145px;
   svg {
     cursor: pointer;
@@ -188,18 +187,20 @@ div {
 }
 
 .body-part {
-  padding-bottom: 10px;
-  padding-left: 9px;
-  button {
-    width: 100%;
-    justify-content: left;
-  }
+  padding: 10px 0 9px 19px;
+  cursor: pointer;
+  font-family: Roboto;
 }
 
 .exercise-select-wrapper {
   display: flex;
   width: 100%;
   justify-content: space-between;
+  padding: 10px 0 9px 20px;
+  max-width: 370px;
+  div {
+    cursor: pointer;
+  }
 }
 
 .edit-exercise-note-dialog-title {
