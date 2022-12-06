@@ -2,9 +2,9 @@ import React from 'react';
 import './WorkoutDetailsAddExerciseComponent.scss';
 import {Add, ArrowBack, Search, Close} from "@mui/icons-material";
 import {Exercise, ExerciseCategory, UpdateObject} from "../../../models/workout";
-import {Button, Dialog, Divider, Slide} from "@mui/material";
+import {Button, Dialog, Divider, Slide, TextField} from "@mui/material";
 import {TransitionProps} from "@mui/material/transitions";
-import {getExercisesByCategory} from "../../../services/ExerciseService";
+import {getAllExercises, getExercisesByCategory} from "../../../services/ExerciseService";
 import ExerciseFormComponent from "../../shared/ExerciseFormComponent/ExerciseFormComponent";
 
 interface WorkoutDetailsAddExerciseComponentProps {
@@ -28,6 +28,7 @@ const Transition = React.forwardRef(function Transition(
 
 const WorkoutDetailsAddExerciseComponent = (props: WorkoutDetailsAddExerciseComponentProps) => {
   const [exercises, setExercises] = React.useState<Exercise[]>([]);
+  const [allExercises, setAllExercises] = React.useState<Exercise[]>([]);
   const [previousStep, setPreviousStep] = React.useState<number>(1);
   const [category, setCategory] = React.useState<string>("");
   const [defaultExercise, setDefaultExercise] = React.useState<Exercise>({
@@ -59,6 +60,15 @@ const WorkoutDetailsAddExerciseComponent = (props: WorkoutDetailsAddExerciseComp
     props.setActiveStep(2);
   }
 
+  const handleGetAllExercises = () => {
+    getAllExercises()
+    .then((response) => {
+      setPreviousStep(props.activeStep);
+      props.setActiveStep(3);
+      setAllExercises(response);
+    })
+  }
+
   return (
       <Dialog
           fullScreen
@@ -67,44 +77,23 @@ const WorkoutDetailsAddExerciseComponent = (props: WorkoutDetailsAddExerciseComp
           TransitionComponent={Transition}
       >
         <div className='exercise-add-wrapper'>
-          <div className='exercise-add-header'>
-            <div className='exercise-back-and-title'>
-              <div>
-                {props.activeStep === 0 &&
-                    <Close onClick={props.handleClose}/>
-                }
-                {props.activeStep === 1 &&
-                    <ArrowBack onClick={() => props.setActiveStep(0)}/>
-                }
-                {props.activeStep === 2 &&
-                    <ArrowBack onClick={() => props.setActiveStep(previousStep)}/>
-                }
-              </div>
-              {props.activeStep === 0 &&
-                  <div className='add-exercise-title'>Select Exercise</div>
-              }
-              {props.activeStep === 1 &&
-                  <div className='add-exercise-title'>{category}</div>
-              }
-              {props.activeStep === 2 &&
-                  <div className='add-exercise-title'>Add Exercise</div>
-              }
-            </div>
-            {props.activeStep !== 2 &&
-                <div className='exercise-search-and-add'>
-                  <div><Search/></div>
-                  <div><Add onClick={handleChangeStepToCreate}/></div>
-                </div>
-            }
-            {props.activeStep === 2 &&
-                <div className='exercise-search-and-add'>
-                  <div onClick={(event: any) => props.handleCreateExercise(event, defaultExercise)}>SAVE</div>
-                </div>
-            }
-          </div>
           <div>
             {props.activeStep === 0 &&
                 <div>
+                  <div className='exercise-add-header'>
+                    <div className='exercise-back-and-title'>
+                      <div>
+                        <Close onClick={props.handleClose}/>
+                      </div>
+                      <div>
+                        <div className='add-exercise-title'>Select Exercise</div>
+                      </div>
+                    </div>
+                    <div className='exercise-search-and-add'>
+                      <div><Search onClick={handleGetAllExercises}/></div>
+                      <div><Add onClick={handleChangeStepToCreate}/></div>
+                    </div>
+                  </div>
                   {props.exerciseCategories &&
                       props.exerciseCategories.map((category: ExerciseCategory) => (
                           <div>
@@ -120,6 +109,20 @@ const WorkoutDetailsAddExerciseComponent = (props: WorkoutDetailsAddExerciseComp
             }
             {props.activeStep === 1 &&
                 <div>
+                  <div className='exercise-add-header'>
+                    <div className='exercise-back-and-title'>
+                      <div>
+                        <ArrowBack onClick={() => props.setActiveStep(0)}/>
+                      </div>
+                      <div>
+                        <div className='add-exercise-title'>{category}</div>
+                      </div>
+                    </div>
+                    <div className='exercise-search-and-add'>
+                      <div><Search onClick={handleGetAllExercises}/></div>
+                      <div><Add onClick={handleChangeStepToCreate}/></div>
+                    </div>
+                  </div>
                   {exercises &&
                       exercises.map((exercise: Exercise) => (
                           <div>
@@ -134,7 +137,47 @@ const WorkoutDetailsAddExerciseComponent = (props: WorkoutDetailsAddExerciseComp
             }
             {props.activeStep === 2 &&
                 <div>
+                  <div className='exercise-add-header'>
+                    <div className='exercise-back-and-title'>
+                      <div>
+                        <ArrowBack onClick={() => props.setActiveStep(previousStep)}/>
+                      </div>
+                      <div>
+                        <div className='add-exercise-title'>Add Exercise</div>
+                      </div>
+                    </div>
+                    <div className='exercise-search-and-add'>
+                      <div onClick={(event: any) => props.handleCreateExercise(event, defaultExercise)}>SAVE</div>
+                    </div>
+                  </div>
                   <ExerciseFormComponent categories={props.exerciseCategories} exerciseUpdate={handleDefaultExerciseChanges} exercise={defaultExercise}/>
+                </div>
+            }
+            {props.activeStep === 3 &&
+                <div>
+                  <div className='exercise-add-header'>
+                    <div className='exercise-back-and-title'>
+                      <div>
+                        <ArrowBack onClick={() => props.setActiveStep(previousStep)}/>
+                      </div>
+                      <div>
+                        <TextField value=""
+                          size="small"
+                          variant="standard"
+                          placeholder="Search"
+                        ></TextField>
+                      </div>
+                    </div>
+                  </div>
+                  {allExercises &&
+                      allExercises.map((exercise: Exercise) => (
+                          <div>
+                            <div className='exercise-select-wrapper' key={exercise.id}>
+                              <div onClick={(event: any) => props.handleAddExercise(event, exercise)}>{exercise.name}</div>
+                            </div>
+                            <Divider></Divider>
+                          </div>
+                      ))}
                 </div>
             }
           </div>
