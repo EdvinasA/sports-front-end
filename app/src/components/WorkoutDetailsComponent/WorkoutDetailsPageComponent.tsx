@@ -121,11 +121,12 @@ function WorkoutDetailsPage() {
       workoutDraft.exercises[exercisesIndex].exerciseSets[exerciseSetsIndex] =
           {
             id: set.id, weight: updatedExerciseSet.weight || null, reps: updatedExerciseSet.reps || null, exerciseType: updatedExerciseSet.exerciseType,
-            notes: updatedExerciseSet.notes, exerciseSetPreviousValues: {
-              reps: updatedExerciseSet.exerciseSetPreviousValues.reps,
-              weight: updatedExerciseSet.exerciseSetPreviousValues.weight,
-              notes: updatedExerciseSet.exerciseSetPreviousValues.notes,
-            }
+            notes: updatedExerciseSet.notes,
+            exerciseSetPreviousValues: workout.exercises[exercisesIndex].exerciseSets[exerciseSetsIndex].exerciseSetPreviousValues !== null ? {
+              reps: updatedExerciseSet.exerciseSetPreviousValues === null ? null : updatedExerciseSet.exerciseSetPreviousValues.reps,
+              weight: updatedExerciseSet.exerciseSetPreviousValues === null ? null : updatedExerciseSet.exerciseSetPreviousValues.weight,
+              notes: updatedExerciseSet.exerciseSetPreviousValues === null ? null : updatedExerciseSet.exerciseSetPreviousValues.notes,
+            } : null
           }
     }));
   }
@@ -369,6 +370,7 @@ function WorkoutDetailsPage() {
                                 </div>
                                 <div className='workout-weight-input'>
                                   <TextField value={set.weight}
+                                             type="number"
                                              name="weight"
                                              label="Weight"
                                              variant="outlined"
@@ -379,6 +381,7 @@ function WorkoutDetailsPage() {
                                 </div>
                                 <div className='workout-weight-input'>
                                   <TextField value={set.reps}
+                                             type="number"
                                              name="reps"
                                              label="Reps"
                                              variant="outlined"

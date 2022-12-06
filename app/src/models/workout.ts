@@ -41,10 +41,10 @@ export type ExerciseSet = {
   notes: string | null;
   exerciseType: string;
   exerciseSetPreviousValues: {
-    weight: number;
-    reps: number;
-    notes: string;
-  }
+    weight: number | null;
+    reps: number | null;
+    notes: string | null;
+  } | null;
 }
 
 export type ExerciseSetCreateInput = {
