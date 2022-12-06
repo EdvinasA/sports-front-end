@@ -137,7 +137,6 @@ const WorkoutDetailsAddExerciseComponent = (props: WorkoutDetailsAddExerciseComp
                           <div>
                             <div className='exercise-select-wrapper' key={exercise.id}>
                               <div onClick={(event: any) => props.handleAddExercise(event, exercise)}>{exercise.name}</div>
-                              <div>Edit</div>
                             </div>
                             <Divider></Divider>
                           </div>
