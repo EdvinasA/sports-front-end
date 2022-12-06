@@ -28,7 +28,9 @@ const Transition = React.forwardRef(function Transition(
 
 const WorkoutDetailsAddExerciseComponent = (props: WorkoutDetailsAddExerciseComponentProps) => {
   const [exercises, setExercises] = React.useState<Exercise[]>([]);
+  const [input, setInput] = React.useState<string>("");
   const [allExercises, setAllExercises] = React.useState<Exercise[]>([]);
+  const [filteredAllExercises, setFilteredAllExercises] = React.useState<Exercise[]>([]);
   const [previousStep, setPreviousStep] = React.useState<number>(1);
   const [category, setCategory] = React.useState<string>("");
   const [defaultExercise, setDefaultExercise] = React.useState<Exercise>({
@@ -66,7 +68,14 @@ const WorkoutDetailsAddExerciseComponent = (props: WorkoutDetailsAddExerciseComp
       setPreviousStep(props.activeStep);
       props.setActiveStep(3);
       setAllExercises(response);
+      setFilteredAllExercises(response);
     })
+  }
+
+  const handleFilteringExercises = (event: { target: { value: any } }) => {
+    setInput(event.target.value);
+    setDefaultExercise({...defaultExercise, name: event.target.value})
+    setFilteredAllExercises(allExercises.filter(o => o.name.includes(event.target.value)));
   }
 
   return (
@@ -155,22 +164,23 @@ const WorkoutDetailsAddExerciseComponent = (props: WorkoutDetailsAddExerciseComp
             }
             {props.activeStep === 3 &&
                 <div>
-                  <div className='exercise-add-header'>
-                    <div className='exercise-back-and-title'>
+                  <div className='exercise-add-header3'>
+                    <div className='exercise-back-and-title3'>
                       <div>
-                        <ArrowBack onClick={() => props.setActiveStep(previousStep)}/>
+                        <ArrowBack onClick={() => props.setActiveStep(1)}/>
                       </div>
-                      <div>
-                        <TextField value=""
-                          size="small"
-                          variant="standard"
-                          placeholder="Search"
+                      <div className='filter-exercises-input'>
+                        <TextField value={input}
+                                   size="small"
+                                   variant="standard"
+                                   placeholder="Search"
+                                   onChange={handleFilteringExercises}
                         ></TextField>
                       </div>
                     </div>
                   </div>
-                  {allExercises &&
-                      allExercises.map((exercise: Exercise) => (
+                  {filteredAllExercises &&
+                      filteredAllExercises.map((exercise: Exercise) => (
                           <div>
                             <div className='exercise-select-wrapper' key={exercise.id}>
                               <div onClick={(event: any) => props.handleAddExercise(event, exercise)}>{exercise.name}</div>
@@ -178,6 +188,17 @@ const WorkoutDetailsAddExerciseComponent = (props: WorkoutDetailsAddExerciseComp
                             <Divider></Divider>
                           </div>
                       ))}
+                  <div className='exercise-select-wrapper aligned'>
+                    <div onClick={handleChangeStepToCreate}>
+                      <div>
+                        <Add/>
+                      </div>
+                      <div>
+                        Add {input}
+                      </div>
+                    </div>
+                  </div>
+                  <Divider></Divider>
                 </div>
             }
           </div>

@@ -2,3 +2,18 @@
   padding-left: 10px;
   font-size: 16px;
 }
+
+.filter-exercises-input {
+  padding-left: 10px;
+  width: 100%;
+
+  .MuiFormControl-root {
+    width: 100%;
+  }
+}
+
+.aligned {
+  div {
+    display: flex;
+  }
+}

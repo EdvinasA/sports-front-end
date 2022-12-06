@@ -160,7 +160,7 @@ div {
 .exercise-add-wrapper {
   max-width: 415px;
 }
-
+.exercise-add-header3,
 .exercise-add-header {
   display: flex;
   justify-content: space-between;
@@ -169,12 +169,21 @@ div {
   width: 100%;
 }
 
+.exercise-add-header3 {
+  justify-content: unset;
+}
+
+.exercise-back-and-title3,
 .exercise-back-and-title {
   display: flex;
   width: 145px;
   svg {
     cursor: pointer;
   }
+}
+
+.exercise-back-and-title3 {
+  width: 380px;
 }
 
 .exercise-search-and-add {
