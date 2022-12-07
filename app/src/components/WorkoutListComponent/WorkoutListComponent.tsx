@@ -96,6 +96,9 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState> {
               <div className='workout-list-header-menu'><WorkoutListDrawerComponent children={undefined}></WorkoutListDrawerComponent></div>
               <div className='workout-list-header-month'>{getMonth(new Date())}</div>
             </div>
+            <div className='workout-list-header-image'>
+              <img className='image-size' src={require('./logo-background.png')} alt='logo'/>
+            </div>
           </div>
           <div className='application-wrapper'>
             {this.state.workout &&
