@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import './ExerciseCategoryDialogComponent.scss';
 import {ExerciseCategory} from "../../../models/workout";
 import {Dialog, DialogActions, DialogContent, DialogTitle, TextField} from "@mui/material";

@@ -1,10 +1,10 @@
-import React, { FC } from 'react';
+import React from 'react';
 import './ExerciseCategoryListDrawerComponent.scss';
-import {ExerciseCategory, WorkoutExercise} from "../../models/workout";
+import {ExerciseCategory} from "../../models/workout";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton/ListItemButton";
-import {BarChart, ChangeCircle, Delete, Edit, History, MoreVert, MoveUp, Settings, Star} from "@mui/icons-material";
+import {Delete, Edit, MoreVert} from "@mui/icons-material";
 import {Divider, SwipeableDrawer} from "@mui/material";
 
 interface ExerciseCategoryListDrawerComponentProps {

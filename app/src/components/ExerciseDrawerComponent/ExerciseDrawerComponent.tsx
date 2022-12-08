@@ -5,7 +5,7 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton/ListItemButton";
 import {Edit, Delete, MoreVert, MoveUp, ChangeCircle, History, BarChart, Star, Settings} from "@mui/icons-material";
 import {SwipeableDrawer} from "@mui/material";
-import {Exercise, WorkoutExercise} from "../../models/workout";
+import {WorkoutExercise} from "../../models/workout";
 
 type ExerciseDrawerProps = {
   workoutExercise: WorkoutExercise;

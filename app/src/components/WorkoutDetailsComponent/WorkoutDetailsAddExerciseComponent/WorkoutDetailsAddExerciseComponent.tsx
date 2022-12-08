@@ -2,7 +2,7 @@ import React from 'react';
 import './WorkoutDetailsAddExerciseComponent.scss';
 import {Add, ArrowBack, Search, Close} from "@mui/icons-material";
 import {Exercise, ExerciseCategory, UpdateObject} from "../../../models/workout";
-import {Button, Dialog, Divider, Slide, TextField} from "@mui/material";
+import {Dialog, Divider, Slide, TextField} from "@mui/material";
 import {TransitionProps} from "@mui/material/transitions";
 import {getAllExercises, getExercisesByCategory} from "../../../services/ExerciseService";
 import ExerciseFormComponent from "../../shared/ExerciseFormComponent/ExerciseFormComponent";
