@@ -28,7 +28,7 @@ async function updateWorkout(workoutDetails: WorkoutDetailsUpdateInput) {
     method: 'PUT',
     body: JSON.stringify(workoutDetails)
   };
-  return await createRequestWithoutResponse(`/api/workout/update`, requestOptions);
+  return await createRequestWithoutResponse(`api/workout/update`, requestOptions);
 }
 
 async function deleteWorkout(workoutId: number) {

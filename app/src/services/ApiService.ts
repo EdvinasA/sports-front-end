@@ -1,7 +1,15 @@
+const findToken = () => {
+  return `bearer ${localStorage.getItem("token")}`;
+}
+
 const ROOT_URL = process.env.REACT_APP_API_URL;
-const token = `bearer ${localStorage.getItem("token")}`;
+let token: string | null = `bearer ${localStorage.getItem("token")}`;
+
 
 async function createRequestWithoutResponse(url: string, requestOptions: any) {
+  if (token === undefined || token === null) {
+    token = findToken();
+  }
   const request = {
     ...requestOptions,
     headers: new Headers({
@@ -14,6 +22,9 @@ async function createRequestWithoutResponse(url: string, requestOptions: any) {
 }
 
 async function createRequestWithResponse(url: string, requestOptions: any) {
+  if (token === undefined || token === null) {
+    token = findToken();
+  }
   const request = {
     ...requestOptions,
     headers: new Headers({

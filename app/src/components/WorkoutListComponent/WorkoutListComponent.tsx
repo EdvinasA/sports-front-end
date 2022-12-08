@@ -43,20 +43,24 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState> {
     }
   }
 
+  private token: string | null = localStorage.getItem("token");
+
   componentDidMount() {
-    getWorkouts()
-    .then((response) =>
-        this.setState({
-          workout: response,
-          isActiveWorkout: this.checkIfThereIsActiveWorkout(response),
-        })
-    )
-    .catch((error) =>
-        this.setState({
-          loading: false,
-          error: true,
-        })
-    );
+    if (this.token) {
+      getWorkouts()
+      .then((response) =>
+          this.setState({
+            workout: response,
+            isActiveWorkout: this.checkIfThereIsActiveWorkout(response),
+          })
+      )
+      .catch((error) =>
+          this.setState({
+            loading: false,
+            error: true,
+          })
+      );
+    }
   }
 
   private checkIfThereIsActiveWorkout(response: WorkoutDetails[]) {
