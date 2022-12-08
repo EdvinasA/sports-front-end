@@ -9,6 +9,7 @@ import {
 import BottomMenuComponent from "./components/BottomMenuComponent/BottomMenuComponent";
 import StatisticsComponent from "./components/StatisticsComponent/StatisticsComponent";
 import LoginComponent from "./components/LoginComponent/LoginComponent";
+import RegisterComponent from "./components/RegisterComponent/RegisterComponent";
 
 export type Route = {
   route: string;
@@ -33,6 +34,10 @@ export const routes = createBrowserRouter(
       {
         path: "/login",
         element: <LoginComponent/>,
+      },
+      {
+        path: "/register",
+        element: <RegisterComponent/>,
       },
       {
         path: "/",
