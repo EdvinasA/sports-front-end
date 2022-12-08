@@ -1,1 +1,49 @@
-.LoginComponent {}
+.login-title {
+  display: flex;
+  justify-content: center;
+  padding: 60px 0 0 0;
+}
+
+.login-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 20px;
+}
+
+.login-input {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding-top: 20px;
+}
+
+.login-forgot-password {
+  color: cornflowerblue;
+  cursor: pointer;
+  display: flex;
+  padding-top: 5px;
+  justify-content: flex-end;
+  text-decoration: underline;
+}
+
+.login-button {
+  padding: 10px 0;
+  .MuiButtonBase-root {
+    font-size: 18px;
+    text-transform: unset;
+  }
+}
+
+.register-question {
+  font-size: 14px;
+  display: flex;
+  padding: 10px 0 5px 0;
+  justify-content: center;
+}
+
+.register-button {
+  display: grid;
+  .MuiButtonBase-root {
+    font-size: 18px;
+    text-transform: unset;
+  }
+}
