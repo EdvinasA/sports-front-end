@@ -411,19 +411,19 @@ function WorkoutDetailsPage() {
                           ))}
                       <div className='actions'>
                         <div className='action-add-set'>
-                          <button onClick={(event) => handleAddSet(workout.id, workout.exercise.id, event)}>ADD SET</button>
+                          <button onClick={(event) => handleAddSet(workout.id, workout.exercise.id, event)}>Add Set</button>
                         </div>
-                        <div>
+                        <div className='icon-color'>
                           <IconButton>
                             <History/>
                           </IconButton>
                         </div>
-                        <div>
+                        <div className='icon-color'>
                           <IconButton>
                             <BarChart/>
                           </IconButton>
                         </div>
-                        <div>
+                        <div className='icon-color'>
                           <IconButton>
                             <Star/>
                           </IconButton>
@@ -433,7 +433,7 @@ function WorkoutDetailsPage() {
                     </div>
                 ))}
             <div className='add-exercise-action'>
-              <button onClick={handleClickOpen}>+ ADD EXERCISE</button>
+              <button onClick={handleClickOpen}>+ Add Exercise</button>
             </div>
               <WorkoutDetailsAddExerciseComponent
                   openDialog={openDialog}

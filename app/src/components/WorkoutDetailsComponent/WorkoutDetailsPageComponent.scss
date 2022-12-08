@@ -42,6 +42,9 @@ div {
   text-align: right;
   justify-content: right;
   margin-left: 2px;
+  .MuiSvgIcon-root {
+    color: #a1b19f;
+  }
 }
 
 .dialog-workout-back-action {
@@ -142,12 +145,40 @@ div {
 }
 
 .action-add-set {
+  font-family: Roboto;
   padding: 7px 0 0 20px;
+  button {
+    font-family: Roboto;
+    background-color: #a1b19f;
+    border: unset;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 617;
+    height: 25px;
+    width: 75px;
+  }
+}
+
+.icon-color {
+  .MuiSvgIcon-root {
+    color: #a1b19f;
+  }
 }
 
 .add-exercise-action {
+  font-family: Roboto;
   text-align: center;
-  padding: 30px 0 30px 0
+  padding: 30px 0 30px 0;
+  button {
+    font-family: Roboto;
+    background-color: #a1b19f;
+    border: unset;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 617;
+    height: 28px;
+    width: 110px;
+  }
 }
 
 .date {
@@ -157,6 +188,9 @@ div {
 .menu-button {
   padding-top: 8px;
   cursor: pointer;
+  .MuiSvgIcon-root {
+    color: #a1b19f;
+  }
 }
 
 .exercise-menu-options {
