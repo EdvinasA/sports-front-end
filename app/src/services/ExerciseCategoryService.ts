@@ -1,21 +1,12 @@
 import {ExerciseCategory} from "../models/workout";
-
-const ROOT_URL = process.env.REACT_APP_API_URL;
+import {createRequestWithoutResponse, createRequestWithResponse} from "./ApiService";
 
 async function getExerciseCategories() {
   const requestOptions = {
     method: 'GET',
     headers: {'Content-Type': 'application/json'},
   };
-  const response = await fetch(`${ROOT_URL}/api/exercise-category/1`, requestOptions);
-
-  const data = await response.json();
-
-  if (data.error) {
-    throw new Error(data.error);
-  }
-
-  return data;
+  return await createRequestWithResponse(`api/exercise-category`, requestOptions);
 }
 
 async function createExerciseCategories(category: ExerciseCategory) {
@@ -24,15 +15,7 @@ async function createExerciseCategories(category: ExerciseCategory) {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(category),
   };
-  const response = await fetch(`${ROOT_URL}/api/exercise-category/1`, requestOptions);
-
-  const data = await response.json();
-
-  if (data.error) {
-    throw new Error(data.error);
-  }
-
-  return data;
+  return await createRequestWithResponse(`api/exercise-category`, requestOptions);
 }
 
 async function updateExerciseCategories(category: ExerciseCategory) {
@@ -41,7 +24,7 @@ async function updateExerciseCategories(category: ExerciseCategory) {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(category),
   };
-  return await fetch(`${ROOT_URL}/api/exercise-category/1`, requestOptions);
+  return await createRequestWithoutResponse(`api/exercise-category`, requestOptions);
 }
 
 async function deleteExerciseCategory(exerciseCategoryId: number) {
@@ -49,7 +32,7 @@ async function deleteExerciseCategory(exerciseCategoryId: number) {
     method: 'DELETE',
     headers: {'Content-Type': 'application/json'}
   };
-  return await fetch(`${ROOT_URL}/api/exercise-category/1/${exerciseCategoryId}`, requestOptions);
+  return await createRequestWithoutResponse(`api/exercise-category/${exerciseCategoryId}`, requestOptions);
 }
 
 export { getExerciseCategories, createExerciseCategories, updateExerciseCategories, deleteExerciseCategory }

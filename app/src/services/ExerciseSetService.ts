@@ -1,6 +1,5 @@
 import {ExerciseSet, ExerciseSetCreateInput} from "../models/workout";
-
-const ROOT_URL = process.env.REACT_APP_API_URL;
+import {createRequestWithoutResponse, createRequestWithResponse} from "./ApiService";
 
 async function addExerciseSet(exerciseSetCreate: ExerciseSetCreateInput) {
   const requestOptions = {
@@ -8,15 +7,8 @@ async function addExerciseSet(exerciseSetCreate: ExerciseSetCreateInput) {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(exerciseSetCreate)
   };
-  const response = await fetch(`${ROOT_URL}/api/exercise-set/1`, requestOptions);
 
-  const data = await response.json();
-
-  if (data.error) {
-    throw new Error(data.error);
-  }
-
-  return data;
+  return await createRequestWithResponse(`api/exercise-set`, requestOptions);
 }
 
 async function deleteExerciseSet(exerciseSetId: number) {
@@ -24,7 +16,7 @@ async function deleteExerciseSet(exerciseSetId: number) {
     method: 'DELETE',
     headers: {'Content-Type': 'application/json'}
   };
-  return await fetch(`${ROOT_URL}/api/exercise-set/1/${exerciseSetId}`, requestOptions);
+  return await createRequestWithoutResponse(`api/exercise-set/${exerciseSetId}`, requestOptions);
 }
 
 async function updateExerciseSetRequest(exerciseSet: ExerciseSet) {
@@ -34,7 +26,7 @@ async function updateExerciseSetRequest(exerciseSet: ExerciseSet) {
     body: JSON.stringify(exerciseSet)
   };
 
-  return await fetch(`${ROOT_URL}/api/exercise-set/1`, requestOptions);
+  return await createRequestWithoutResponse(`api/exercise-set`, requestOptions);
 }
 
 export { addExerciseSet, deleteExerciseSet, updateExerciseSetRequest }

@@ -18,3 +18,5 @@ async function register(registerRequest: UserRegisterRequest) {
 
   return await createRequestWithResponse("api/user/register", requestOptions);
 }
+
+export { login, register };

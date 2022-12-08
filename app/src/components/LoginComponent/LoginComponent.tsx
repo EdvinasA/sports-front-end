@@ -2,11 +2,14 @@ import React from 'react';
 import './LoginComponent.scss';
 import {UserLoginRequest} from "../../models/User";
 import {Button, Checkbox, FormControlLabel, FormGroup, TextField} from "@mui/material";
+import {login} from "../../services/UserService";
+import {useNavigate} from "react-router-dom";
 
 interface LoginComponentProps {
 }
 
 const LoginComponent = (props: LoginComponentProps) => {
+  let navigation = useNavigate();
   const [terms, setTerms] = React.useState<boolean>(false);
   const [loginRequest, setLoginRequest] = React.useState<UserLoginRequest>(
       {
@@ -17,6 +20,14 @@ const LoginComponent = (props: LoginComponentProps) => {
 
   const handleRequestChange = (event: { target: { name: string, value: any } }) => {
     setLoginRequest({...loginRequest, [event.target.name]: event.target.value})
+  }
+
+  const handleSubmitLoginRequest = () => {
+    login(loginRequest)
+      .then((response) => {
+        localStorage.setItem("token", response.token);
+        navigation("/");
+      })
   }
 
   return (
@@ -55,7 +66,7 @@ const LoginComponent = (props: LoginComponentProps) => {
             </FormGroup>
           </div>
           <div className="login-button">
-            <Button variant="contained">Login</Button>
+            <Button onClick={handleSubmitLoginRequest} disabled={loginRequest.email === "" && loginRequest.password === ""} variant="contained">Login</Button>
           </div>
           <div className="register-question">
             Don't have an Account?
