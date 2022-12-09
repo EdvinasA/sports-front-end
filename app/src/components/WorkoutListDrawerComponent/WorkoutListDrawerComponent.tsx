@@ -50,7 +50,7 @@ const WorkoutListDrawerComponent = (props: WorkoutListDrawerProps) => {
 
   return (
       <React.Fragment key={'left'}>
-        <div className='menu-button' onClick={toggleDrawer('left', true)}><Menu/></div>
+        <div className='menu-button header-color' onClick={toggleDrawer('left', true)}><Menu/></div>
         <SwipeableDrawer
             anchor={'left'}
             open={state['left']}
