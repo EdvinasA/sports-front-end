@@ -175,6 +175,9 @@ function WorkoutDetailsPage() {
           setWorkout(produce(workout, workoutDraft => {
             workoutDraft.exercises.push(response)
           }))
+          setWorkoutExercises(produce(workoutExercises, draft => {
+            draft.push(response);
+          }))
           setActiveStep(0);
           setOpenDialog(false);
         }
