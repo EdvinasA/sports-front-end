@@ -5,10 +5,9 @@ import {
 } from "react-router-dom";
 import {routes} from "./routes";
 
-class App extends React.Component<{}, {}> {
+class App extends React.Component {
   constructor(props: any) {
     super(props)
-    this.state = {}
   }
   render() {
     return (

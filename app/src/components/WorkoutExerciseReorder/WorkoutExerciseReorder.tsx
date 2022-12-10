@@ -1,52 +1,45 @@
 import React from 'react';
 import './WorkoutExerciseReorder.scss';
+import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
 import {WorkoutExercise} from "../../models/workout";
-import {ArrowBack} from "@mui/icons-material";
 
 interface WorkoutExerciseReorderProps {
   workoutExercises: WorkoutExercise[];
-  updateWorkoutExercise: (exercises: WorkoutExercise[]) => void;
+  updateWorkoutExercises: (result: any) => void;
   close: () => void;
 }
 
 const WorkoutExerciseReorder = (props: WorkoutExerciseReorderProps) => {
-  const dragItem = React.useRef<any>(null);
-  const dragOverItem = React.useRef<any>(null);
 
-  const handleSort = () => {
-    //duplicate items
-    let items = [...props.workoutExercises];
-
-    //remove and save the dragged item content
-    const draggedItemContent = items.splice(dragItem.current, 1)[0];
-
-    //switch the position
-    items.splice(dragOverItem.current, 0, draggedItemContent);
-
-    //reset the position ref
-    dragItem.current = null;
-    dragOverItem.current = null;
-
-    //update the actual array
-    props.updateWorkoutExercise(items);
-  }
+  const onDragEnd = (result: any) => {
+    props.updateWorkoutExercises(result)
+  };
 
   return (
-      <div className="list-container">
-        <div onClick={props.close}><ArrowBack/> Reorder</div>
-        {props.workoutExercises.map((item, index) => (
-            <div
-                key={index}
-                className="list-item"
-                draggable
-                onDragStart={(e) => (dragItem.current = index)}
-                onDragEnter={(e) => (dragOverItem.current = index)}
-                onDragEnd={handleSort}
-                onDragOver={(e) => (dragOverItem.current = index)}>
-              <i className="fa-solid fa-bars"></i>
-              <h3>{item.exercise.name}</h3>
-            </div>
-        ))}
+      <div className="App">
+        <div>
+          <button onClick={props.close}>Back</button>
+        </div>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId={`droppable`}>
+            {(provided) => (
+                <div {...provided.droppableProps} ref={provided.innerRef}>
+                  {props.workoutExercises.map((item, index) => (
+                      <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
+                        {(provided, snapshot) => (
+                            <div className="draggable-item"
+                                 ref={provided.innerRef}
+                                 snapshot={snapshot}
+                                 {...provided.draggableProps}
+                                 {...provided.dragHandleProps}
+                                >{`${index + 1}.  ${item.exercise.name}`}</div>
+                        )}
+                      </Draggable>
+                  ))}
+                </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       </div>
   );
 }

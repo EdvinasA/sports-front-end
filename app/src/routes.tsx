@@ -10,6 +10,7 @@ import BottomMenuComponent from "./components/BottomMenuComponent/BottomMenuComp
 import StatisticsComponent from "./components/StatisticsComponent/StatisticsComponent";
 import LoginComponent from "./components/LoginComponent/LoginComponent";
 import RegisterComponent from "./components/RegisterComponent/RegisterComponent";
+import React from "react";
 
 export type Route = {
   route: string;

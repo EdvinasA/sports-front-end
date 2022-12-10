@@ -1,4 +1,4 @@
-import {WorkoutDetails, WorkoutDetailsUpdateInput} from "../models/workout";
+import {WorkoutDetails, WorkoutDetailsUpdateInput, WorkoutExercise} from "../models/workout";
 import {createRequestWithoutResponse, createRequestWithResponse} from "./ApiService";
 
 async function getWorkouts(): Promise<WorkoutDetails[]> {
@@ -31,6 +31,14 @@ async function updateWorkout(workoutDetails: WorkoutDetailsUpdateInput) {
   return await createRequestWithoutResponse(`api/workout/update`, requestOptions);
 }
 
+async function updateExercises(workoutExercises: WorkoutExercise[]) {
+  const requestOptions = {
+    method: 'PUT',
+    body: JSON.stringify(workoutExercises)
+  };
+  return await createRequestWithoutResponse(`api/workout/update-exercise`, requestOptions);
+}
+
 async function deleteWorkout(workoutId: number) {
   const requestOptions = {
     method: 'DELETE'
@@ -45,4 +53,4 @@ async function deleteWorkoutExercise(workoutExerciseId: number) {
   return await createRequestWithoutResponse(`api/workout/${workoutExerciseId}`, requestOptions);
 }
 
-export {getWorkouts, updateWorkout, deleteWorkoutExercise, createWorkout, getWorkoutById, deleteWorkout};
+export {getWorkouts, updateWorkout, updateExercises, deleteWorkoutExercise, createWorkout, getWorkoutById, deleteWorkout};

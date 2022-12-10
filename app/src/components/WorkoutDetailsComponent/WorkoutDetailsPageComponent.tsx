@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
 import dayjs from 'dayjs';
 import {Exercise, ExerciseCategory, ExerciseSet, WorkoutDetails, WorkoutExercise} from '../../models/workout';
-import {Divider, IconButton, Slide, TextField, Dialog, Button, FormControl} from '@mui/material';
+import {Button, Dialog, Divider, FormControl, IconButton, Slide, TextField} from '@mui/material';
 import './WorkoutDetailsPageComponent.scss';
 import {Link, useParams} from "react-router-dom";
 import {getDayOfTheMonth, getMonth} from "../../services/FormatterService";
-import {Star, BarChart, History, Timer, ArrowBack} from '@mui/icons-material';
+import {ArrowBack, BarChart, History, Star, Timer} from '@mui/icons-material';
 import {LocalizationProvider, MobileDatePicker, TimePicker} from "@mui/x-date-pickers";
 import produce from "immer";
 import defaultExerciseSetCreate from "../../shared/DefaultObjects";
@@ -17,7 +17,7 @@ import {ExerciseDrawerComponent} from "../ExerciseDrawerComponent/ExerciseDrawer
 import {WorkoutDrawerComponent} from "../WorkoutDrawerComponent/WorkoutDrawerComponent";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {convertToWorkoutDetails} from "../../services/ConverterService";
-import {deleteWorkoutExercise, getWorkoutById, updateWorkout} from "../../services/WorkoutService";
+import {deleteWorkoutExercise, getWorkoutById, updateExercises, updateWorkout} from "../../services/WorkoutService";
 import {getExerciseCategories} from "../../services/ExerciseCategoryService";
 import WorkoutExerciseReorder from "../WorkoutExerciseReorder/WorkoutExerciseReorder";
 import WorkoutDetailsAddExerciseComponent from "./WorkoutDetailsAddExerciseComponent/WorkoutDetailsAddExerciseComponent";
@@ -89,7 +89,7 @@ function WorkoutDetailsPage() {
     getWorkoutById(workoutId)
     .then((response) => {
       setWorkout(response);
-      setWorkoutExercises(response.exercises);
+      setWorkoutExercises(response.exercises.sort((a, b) => a.rowNumber > b.rowNumber ? 1 : -1));
     })
     .catch((error) =>
         console.log(error)
@@ -246,6 +246,21 @@ function WorkoutDetailsPage() {
       }))
       closeEditNoteDialog();
     })
+  }
+
+  const handleUpdateExerciseOrder = (result: any) => {
+    const newItems = Array.from(workoutExercises);
+    const sourceRow = newItems[result.source.index].rowNumber;
+    newItems[result.source.index].rowNumber = newItems[result.destination.index].rowNumber;
+    newItems[result.destination.index].rowNumber = sourceRow;
+    const [removed] = newItems.splice(result.source.index, 1);
+    newItems.splice(result.destination.index, 0, removed);
+
+    updateExercises(newItems)
+      .then(() => {
+        setWorkoutExercises(newItems);
+        setWorkout({...workout, exercises: newItems});
+      })
   }
 
   return (
@@ -448,9 +463,9 @@ function WorkoutDetailsPage() {
           <Dialog
               fullScreen
               open={reorderOpenDialog}
-              onClose={() => setReorderOpenDialog(false)}
+              onClose={closeReorderDialog}
               TransitionComponent={Transition}>
-            <WorkoutExerciseReorder workoutExercises={workoutExercises} updateWorkoutExercise={setWorkoutExercises} close={closeReorderDialog}/>
+            <WorkoutExerciseReorder workoutExercises={workoutExercises} updateWorkoutExercises={handleUpdateExerciseOrder} close={closeReorderDialog}/>
           </Dialog>
           <Dialog
               open={openEditNote}
