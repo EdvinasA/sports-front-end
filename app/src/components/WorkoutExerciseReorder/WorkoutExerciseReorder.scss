@@ -1,3 +1,25 @@
+.workout-reorder-wrapper {
+  width: 375px;
+}
+
+.workout-reorder-header {
+  padding-left: 15px;
+  display: flex;
+  h2 {
+    padding-bottom: 5px;
+    font-weight: 400;
+  }
+  .MuiSvgIcon-root {
+    color: #a1b19f;
+  }
+}
+
 .draggable-item {
   cursor: grab;
+  padding: 5px 25px;
+  display: flex;
+  justify-content: space-between;
+  .MuiSvgIcon-root {
+    color: #a1b19f;
+  }
 }

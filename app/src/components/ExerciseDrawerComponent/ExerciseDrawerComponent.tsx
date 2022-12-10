@@ -12,6 +12,7 @@ type ExerciseDrawerProps = {
   deleteExercise: (workoutExerciseId: number) => void;
   openEditExerciseNoteDialog: (exercise: WorkoutExercise) => void;
   children: React.ReactNode;
+  reorderOpen: () => void;
 }
 
 const ExerciseDrawerComponent = (props: ExerciseDrawerProps) => {
@@ -35,7 +36,7 @@ const ExerciseDrawerComponent = (props: ExerciseDrawerProps) => {
       >
         <List>
           <ListItemButton onClick={handleEditExerciseNote}><Edit/> Edit Note</ListItemButton>
-          <ListItemButton><MoveUp/> Reorder</ListItemButton>
+          <ListItemButton onClick={props.reorderOpen}><MoveUp/> Reorder</ListItemButton>
           <ListItemButton><ChangeCircle/> Replace</ListItemButton>
           <ListItemButton onClick={handleDeleteExercise}><Delete/> Delete</ListItemButton>
           <ListItemButton><History/> History</ListItemButton>

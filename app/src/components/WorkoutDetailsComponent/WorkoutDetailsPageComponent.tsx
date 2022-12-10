@@ -372,6 +372,7 @@ function WorkoutDetailsPage() {
                                 workoutExercise={workout}
                                 openEditExerciseNoteDialog={openEditNoteDialog}
                                 deleteExercise={handleDeleteWorkoutExercise}
+                                reorderOpen={openReorderDialog}
                             >
                             </ExerciseDrawerComponent>
                           </div>
