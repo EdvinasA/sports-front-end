@@ -13,7 +13,7 @@ const CreateComponent = (props: CreateComponentProps) => {
 
   const createNewRoutine = () => {
     createRoutine().then((response) => {
-      navigation(`/routine/${response}`);
+      navigation(`/routines/${response}`);
     });
   }
 

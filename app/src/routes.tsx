@@ -11,6 +11,7 @@ import StatisticsComponent from "./components/StatisticsComponent/StatisticsComp
 import LoginComponent from "./components/LoginComponent/LoginComponent";
 import RegisterComponent from "./components/RegisterComponent/RegisterComponent";
 import React from "react";
+import WorkoutRoutineDetailsComponent from "./components/WorkoutRoutineDetailsComponent/WorkoutRoutineDetailsComponent";
 
 export type Route = {
   route: string;
@@ -39,6 +40,10 @@ export const routes = createBrowserRouter(
       {
         path: "/register",
         element: <RegisterComponent/>,
+      },
+      {
+        path: "/routines/:routineId",
+        element: <WorkoutRoutineDetailsComponent/>,
       },
       {
         path: "/",

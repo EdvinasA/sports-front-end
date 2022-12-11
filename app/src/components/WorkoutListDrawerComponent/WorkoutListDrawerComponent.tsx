@@ -27,8 +27,6 @@ const WorkoutListDrawerComponent = (props: WorkoutListDrawerProps) => {
           <ListItemButton><Link to='/categories'>Edit Categories</Link></ListItemButton>
           <ListItemButton>Upgrade</ListItemButton>
           <ListItemButton>Account</ListItemButton>
-          <ListItemButton>Send Feedback</ListItemButton>
-          <ListItemButton>Help and Support</ListItemButton>
         </List>
       </Box>
   );

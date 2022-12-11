@@ -1,1 +1,28 @@
-.WorkoutRoutineDetailsComponent {}
+.routine-details-header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.routine-details-main {
+  padding: 5px 20px;
+}
+
+.routine-details-input {
+  padding-bottom: 10px;
+}
+
+.routine-details-header-column1,
+.routine-details-header-column2 {
+  display: flex;
+  padding: 10px;
+}
+
+.routine-details-header-column1-title {
+  padding: 8px 0 0 8px;
+}
+
+.routine-details-header-column2-start {
+  cursor: pointer;
+  padding: 8px 10px 0 0;
+}

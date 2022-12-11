@@ -5,9 +5,12 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton/ListItemButton";
 import {Delete, Menu, MoveUp, HelpOutline, ContentCopy, MoreVert} from "@mui/icons-material";
 import {SwipeableDrawer} from "@mui/material";
+import { WorkoutRoutine } from '../../../models/Routine';
 
 interface WorkoutRoutineListDrawerProps {
   isMain: boolean;
+  isDetails: boolean;
+  routine: WorkoutRoutine;
   children: React.ReactNode;
 }
 
@@ -24,15 +27,16 @@ const WorkoutRoutineListDrawer = (props: WorkoutRoutineListDrawerProps) => {
       >
         <List>
           <ListItemButton><MoveUp/> Reorder</ListItemButton>
-          {!props.isMain &&
+          {!props.isMain && !props.isDetails &&
               <>
                 <ListItemButton><ContentCopy/>Copy</ListItemButton>
                 <ListItemButton><Delete/> Delete</ListItemButton>
               </>
           }
-          {props.isMain &&
+          {props.isDetails &&
               <>
-                <ListItemButton><HelpOutline/> Help and Support</ListItemButton>
+                <ListItemButton><ContentCopy/>Copy</ListItemButton>
+                <ListItemButton><Delete/> Delete</ListItemButton>
               </>
           }
         </List>
