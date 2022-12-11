@@ -12,9 +12,10 @@ import {Exercise, ExerciseCategory} from "../../models/workout";
 import {getExerciseCategories} from "../../services/ExerciseCategoryService";
 import {addExercise, createExercise} from "../../services/ExerciseService";
 import produce from "immer";
-import {addExerciseToRoutine} from "../../services/RoutineExerciseService";
+import {addExerciseToRoutine, deleteRoutineExercise} from "../../services/RoutineExerciseService";
 import {convertToAddExerciseToRoutineInput} from "../../services/ConverterService";
 import WorkoutRoutineExerciseDrawer from "./WorkoutRoutineExerciseDrawer/WorkoutRoutineExerciseDrawer";
+import {deleteWorkoutExercise} from "../../services/WorkoutService";
 
 interface WorkoutRoutineDetailsComponentProps {
 }
@@ -89,6 +90,16 @@ const WorkoutRoutineDetailsComponent = (props: WorkoutRoutineDetailsComponentPro
     );
   }
 
+  const handleDeleteExerciseFromRoutine = (exercise: WorkoutRoutineExercise) => {
+    deleteRoutineExercise(exercise.id)
+    .then(() =>
+        setRoutine(produce(routine, draft => {
+          const exercisesIndex: number = draft.workoutRoutineExercises.findIndex(object => object.id === exercise.id);
+          draft.workoutRoutineExercises.splice(exercisesIndex, 1)
+        }))
+    );
+  }
+
   return (
       <div>
         <div className='routine-details-header'>
@@ -150,7 +161,11 @@ const WorkoutRoutineDetailsComponent = (props: WorkoutRoutineDetailsComponentPro
                       <div>{exercise.exercise.name}</div>
                       <div>{exercise.numberOfSets === 0 || exercise.numberOfSets === null ? "" : `${exercise.numberOfSets} Sets`}</div>
                     </div>
-                    <div className='routine-details-exercise-more'><WorkoutRoutineExerciseDrawer /></div>
+                    <div className='routine-details-exercise-more'>
+                      <WorkoutRoutineExerciseDrawer
+                          routineExercise={exercise}
+                          deleteRoutineExercise={handleDeleteExerciseFromRoutine}/>
+                    </div>
                   </div>
               ))}
         </div>

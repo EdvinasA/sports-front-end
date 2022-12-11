@@ -1,5 +1,5 @@
 import {AddExerciseToRoutineInput, WorkoutRoutineExercise} from "../models/Routine";
-import {createRequestWithResponse} from "./ApiService";
+import {createRequestWithResponse, createRequestWithoutResponse} from "./ApiService";
 
 async function addExerciseToRoutine(input: AddExerciseToRoutineInput): Promise<WorkoutRoutineExercise> {
   const requestOptions = {
@@ -9,4 +9,11 @@ async function addExerciseToRoutine(input: AddExerciseToRoutineInput): Promise<W
   return await createRequestWithResponse(`api/workout-routine-exercise`, requestOptions);
 }
 
-export { addExerciseToRoutine };
+async function deleteRoutineExercise(routineExerciseId: number): Promise<Response> {
+  const requestOptions = {
+    method: 'DELETE'
+  };
+  return await createRequestWithoutResponse(`api/workout-routine-exercise/${routineExerciseId}`, requestOptions);
+}
+
+export { addExerciseToRoutine, deleteRoutineExercise };

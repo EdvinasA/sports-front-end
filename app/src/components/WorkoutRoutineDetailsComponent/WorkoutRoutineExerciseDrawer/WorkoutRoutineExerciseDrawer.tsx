@@ -6,8 +6,12 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton/ListItemButton";
 import {Edit, Delete, MoreVert, MoveUp} from "@mui/icons-material";
 import {SwipeableDrawer} from "@mui/material";
+import {WorkoutRoutineExercise} from "../../../models/Routine";
 
-interface WorkoutRoutineExerciseDrawerProps {}
+interface WorkoutRoutineExerciseDrawerProps {
+  deleteRoutineExercise: (routineExercise: WorkoutRoutineExercise) => void;
+  routineExercise: WorkoutRoutineExercise;
+}
 
 const WorkoutRoutineExerciseDrawer = (props: WorkoutRoutineExerciseDrawerProps) => {
   let navigate = useNavigate();
@@ -24,7 +28,7 @@ const WorkoutRoutineExerciseDrawer = (props: WorkoutRoutineExerciseDrawerProps) 
         <List>
           <ListItemButton><Edit/> Edit</ListItemButton>
           <ListItemButton><MoveUp/> Reorder</ListItemButton>
-          <ListItemButton><Delete/> Delete</ListItemButton>
+          <ListItemButton onClick={() => props.deleteRoutineExercise(props.routineExercise)}><Delete/> Delete</ListItemButton>
         </List>
       </Box>
   );
