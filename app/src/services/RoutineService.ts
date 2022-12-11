@@ -1,4 +1,4 @@
-import {createRequestWithResponse} from "./ApiService";
+import {createRequestWithoutResponse, createRequestWithResponse} from "./ApiService";
 import {WorkoutRoutine} from "../models/Routine";
 
 async function createRoutine(): Promise<number> {
@@ -6,6 +6,14 @@ async function createRoutine(): Promise<number> {
     method: 'POST'
   };
   return await createRequestWithResponse(`api/workout-routine`, requestOptions);
+}
+
+async function updateRoutine(workoutRoutine: WorkoutRoutine): Promise<Response> {
+  const requestOptions = {
+    method: 'PUT',
+    body: JSON.stringify(workoutRoutine)
+  };
+  return await createRequestWithoutResponse(`api/workout-routine`, requestOptions);
 }
 
 async function getRoutines(): Promise<WorkoutRoutine[]> {
@@ -22,4 +30,4 @@ async function getRoutine(routineId: number): Promise<WorkoutRoutine> {
   return await createRequestWithResponse(`api/workout-routine/${routineId}`, requestOptions);
 }
 
-export { createRoutine, getRoutines, getRoutine };
+export { createRoutine, getRoutines, getRoutine, updateRoutine };

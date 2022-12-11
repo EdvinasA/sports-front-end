@@ -61,7 +61,7 @@ class WorkoutRoutineListComponent extends React.Component<WorkoutRoutineListComp
               {this.state.routines &&
                   this.state.routines.map((routine: WorkoutRoutine) => (
                       <>
-                        <div>
+                        <div key={routine.id}>
                           <Link to={`/routines/${routine.id}`}>
                             <div className='routine-title'>{routine.name || 'Routine'}</div>
                           </Link>

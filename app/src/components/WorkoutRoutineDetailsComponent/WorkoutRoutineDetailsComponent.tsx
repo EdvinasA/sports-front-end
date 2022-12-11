@@ -5,7 +5,7 @@ import {Divider, FormControl, IconButton, InputLabel, MenuItem, Select, TextFiel
 import WorkoutRoutineListDrawer from "../WorkoutRoutineListComponent/WorkoutRoutineListDrawer/WorkoutRoutineListDrawer";
 import {useNavigate, useParams} from "react-router-dom";
 import {WorkoutRoutine} from "../../models/Routine";
-import {getRoutine} from "../../services/RoutineService";
+import {getRoutine, updateRoutine} from "../../services/RoutineService";
 import produce from "immer";
 
 interface WorkoutRoutineDetailsComponentProps {
@@ -41,6 +41,11 @@ const WorkoutRoutineDetailsComponent = (props: WorkoutRoutineDetailsComponentPro
     setRoutine({...routine, [event.target.name]: event.target.value});
   }
 
+  const onBlurUpdate = () => {
+    updateRoutine(routine)
+      .then();
+  }
+
   return (
       <div>
         <div className='routine-details-header'>
@@ -61,7 +66,8 @@ const WorkoutRoutineDetailsComponent = (props: WorkoutRoutineDetailsComponentPro
                 name='name'
                 label='Name'
                 variant="outlined"
-                onChange={handleChange}/>
+                onChange={handleChange}
+                onBlur={onBlurUpdate}/>
           </div>
           <div className='routine-details-input'>
           <FormControl sx={{ minWidth: 335 }}>
@@ -85,7 +91,8 @@ const WorkoutRoutineDetailsComponent = (props: WorkoutRoutineDetailsComponentPro
                 name='notes'
                 label='Notes'
                 variant="outlined"
-                onChange={handleChange}/>
+                onChange={handleChange}
+                onBlur={onBlurUpdate}/>
           </div>
         </div>
         <Divider></Divider>
