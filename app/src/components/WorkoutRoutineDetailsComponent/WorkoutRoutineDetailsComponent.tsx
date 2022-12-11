@@ -14,6 +14,7 @@ import {addExercise, createExercise} from "../../services/ExerciseService";
 import produce from "immer";
 import {addExerciseToRoutine} from "../../services/RoutineExerciseService";
 import {convertToAddExerciseToRoutineInput} from "../../services/ConverterService";
+import WorkoutRoutineExerciseDrawer from "./WorkoutRoutineExerciseDrawer/WorkoutRoutineExerciseDrawer";
 
 interface WorkoutRoutineDetailsComponentProps {
 }
@@ -149,7 +150,7 @@ const WorkoutRoutineDetailsComponent = (props: WorkoutRoutineDetailsComponentPro
                       <div>{exercise.exercise.name}</div>
                       <div>{exercise.numberOfSets === 0 || exercise.numberOfSets === null ? "" : `${exercise.numberOfSets} Sets`}</div>
                     </div>
-                    <div className='routine-details-exercise-more'><MoreVert/></div>
+                    <div className='routine-details-exercise-more'><WorkoutRoutineExerciseDrawer /></div>
                   </div>
               ))}
         </div>
