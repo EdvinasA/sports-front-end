@@ -57,19 +57,19 @@ class WorkoutRoutineListComponent extends React.Component<WorkoutRoutineListComp
             <div className='routine-drawer-menu'><WorkoutRoutineListDrawer routine={this.state.emptyRoutine} isDetails={false} isMain={true} children={undefined}/></div>
           </div>
           <div className='routine-list-wrapper'>
-            <div className='routine'>
-              {this.state.routines &&
-                  this.state.routines.map((routine: WorkoutRoutine) => (
-                      <>
-                        <div key={routine.id}>
+            {this.state.routines &&
+                this.state.routines.map((routine: WorkoutRoutine) => (
+                    <>
+                      <div className='routine' key={routine.id}>
+                        <div>
                           <Link to={`/routines/${routine.id}`}>
                             <div className='routine-title'>{routine.name || 'Routine'}</div>
                           </Link>
                         </div>
                         <div><WorkoutRoutineListDrawer routine={routine} isDetails={false} isMain={false} children={undefined}/></div>
-                      </>
+                      </div>
+                    </>
                 ))}
-            </div>
           </div>
           <div className='create-routine-button'>
             <CreateComponent></CreateComponent>

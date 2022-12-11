@@ -26,3 +26,49 @@
   cursor: pointer;
   padding: 8px 10px 0 0;
 }
+
+.routine-details-exercises {
+  padding: 10px 10px 10px 22px;
+}
+
+.routine-details-exercises-title {
+  font-size: 12px;
+  color: gray;
+}
+
+.routine-details-exercise-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+
+.routine-details-exercise-more {
+  padding: 11px 0 0 0;
+}
+
+.routine-add-exercise {
+  font-family: Roboto;
+  text-align: center;
+
+  button {
+    font-family: Roboto;
+    background-color: #a1b19f;
+    border: unset;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 617;
+    height: 28px;
+    width: 110px;
+  }
+}
+
+.create-routine-wrapper {
+  bottom: 25px;
+  position: fixed;
+  width: 100%;
+}
+
+.routine-details-exercise-column1 {
+  cursor: pointer;
+  width: 100%;
+}

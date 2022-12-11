@@ -1,12 +1,19 @@
-import React, {FC, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import './WorkoutRoutineDetailsComponent.scss';
-import {ArrowBack} from "@mui/icons-material";
+import {ArrowBack, MoreVert} from "@mui/icons-material";
 import {Divider, FormControl, IconButton, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import WorkoutRoutineListDrawer from "../WorkoutRoutineListComponent/WorkoutRoutineListDrawer/WorkoutRoutineListDrawer";
 import {useNavigate, useParams} from "react-router-dom";
-import {WorkoutRoutine} from "../../models/Routine";
+import {WorkoutRoutine, WorkoutRoutineExercise} from "../../models/Routine";
 import {getRoutine, updateRoutine} from "../../services/RoutineService";
+import "typeface-roboto"
+import WorkoutDetailsAddExerciseComponent from "../WorkoutDetailsComponent/WorkoutDetailsAddExerciseComponent/WorkoutDetailsAddExerciseComponent";
+import {Exercise, ExerciseCategory} from "../../models/workout";
+import {getExerciseCategories} from "../../services/ExerciseCategoryService";
+import {addExercise, createExercise} from "../../services/ExerciseService";
 import produce from "immer";
+import {addExerciseToRoutine} from "../../services/RoutineExerciseService";
+import {convertToAddExerciseToRoutineInput} from "../../services/ConverterService";
 
 interface WorkoutRoutineDetailsComponentProps {
 }
@@ -19,6 +26,9 @@ const WorkoutRoutineDetailsComponent = (props: WorkoutRoutineDetailsComponentPro
     notes: "",
     workoutRoutineExercises: []
   });
+  const [openDialog, setOpenDialog] = React.useState<boolean>(false);
+  const [activeStep, setActiveStep] = React.useState<number>(0);
+  const [exerciseCategories, setExerciseCategories] = React.useState<ExerciseCategory[]>([]);
   let navigation = useNavigate();
 
   // @ts-ignore
@@ -37,13 +47,45 @@ const WorkoutRoutineDetailsComponent = (props: WorkoutRoutineDetailsComponentPro
     }
   });
 
+  const handleOpenDialog = () => {
+    getExerciseCategories()
+    .then((response) => {
+      setExerciseCategories(response);
+      setOpenDialog(true);
+    });
+  }
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  }
+
   const handleChange = (event: { target: { name: any, value: any } }) => {
     setRoutine({...routine, [event.target.name]: event.target.value});
   }
 
   const onBlurUpdate = () => {
     updateRoutine(routine)
-      .then();
+    .then();
+  }
+
+  const handleCreateExercise = (event: any, exerciseToCreate: Exercise) => {
+    createExercise(exerciseToCreate)
+    .then((response) => {
+      handleAddExercise(event, response);
+    });
+  }
+
+  const handleAddExercise = (event: any, exerciseToAdd: Exercise) => {
+    event.preventDefault();
+    addExerciseToRoutine(convertToAddExerciseToRoutineInput(exerciseToAdd, (routine.workoutRoutineExercises.length + 1), routine.id))
+    .then((response) => {
+          setRoutine(produce(routine, draft => {
+            draft.workoutRoutineExercises.push(response)
+          }))
+          setActiveStep(0);
+          setOpenDialog(false);
+        }
+    );
   }
 
   return (
@@ -70,19 +112,19 @@ const WorkoutRoutineDetailsComponent = (props: WorkoutRoutineDetailsComponentPro
                 onBlur={onBlurUpdate}/>
           </div>
           <div className='routine-details-input'>
-          <FormControl sx={{ minWidth: 335 }}>
-            <InputLabel id="Targets">Targets</InputLabel>
-            <Select
-                fullWidth
-                labelId='Targets'
-                value='Latest'
-                name='targets'
-                label='Targe'
-                variant='outlined'
-            >
-              <MenuItem value={'Latest'}>Latest</MenuItem>
-            </Select>
-          </FormControl>
+            <FormControl sx={{minWidth: 335}}>
+              <InputLabel id="Targets">Targets</InputLabel>
+              <Select
+                  fullWidth
+                  labelId='Targets'
+                  value='Latest'
+                  name='targets'
+                  label='Targe'
+                  variant='outlined'
+              >
+                <MenuItem value={'Latest'}>Latest</MenuItem>
+              </Select>
+            </FormControl>
           </div>
           <div className='routine-details-input'>
             <TextField
@@ -97,7 +139,34 @@ const WorkoutRoutineDetailsComponent = (props: WorkoutRoutineDetailsComponentPro
         </div>
         <Divider></Divider>
         <div className='routine-details-exercises'>
+          <div className='routine-details-exercises-title'>
+            Exercises
+          </div>
+          {routine.workoutRoutineExercises &&
+              routine.workoutRoutineExercises.map((exercise: WorkoutRoutineExercise) => (
+                  <div className='routine-details-exercise-wrapper'>
+                    <div className='routine-details-exercise-column1' key={exercise.id}>
+                      <div>{exercise.exercise.name}</div>
+                      <div>{exercise.numberOfSets === 0 || exercise.numberOfSets === null ? "" : `${exercise.numberOfSets} Sets`}</div>
+                    </div>
+                    <div className='routine-details-exercise-more'><MoreVert/></div>
+                  </div>
+              ))}
         </div>
+        <div className='create-routine-wrapper'>
+          <div className='routine-add-exercise'>
+            <button onClick={handleOpenDialog}>+ Add Exercise</button>
+          </div>
+        </div>
+        <WorkoutDetailsAddExerciseComponent
+            openDialog={openDialog}
+            handleClose={handleCloseDialog}
+            exerciseCategories={exerciseCategories}
+            handleAddExercise={handleAddExercise}
+            activeStep={activeStep}
+            setActiveStep={setActiveStep}
+            handleCreateExercise={handleCreateExercise}
+        ></WorkoutDetailsAddExerciseComponent>
       </div>
   );
 }
