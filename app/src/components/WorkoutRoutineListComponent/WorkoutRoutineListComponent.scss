@@ -1,21 +1,38 @@
-.workout-list-header {
+.routine-header {
   width: 100%;
   display: flex;
+  justify-content: space-between;
   font-family: Roboto;
   background-color: #a1b19f;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
-.workout-list-header-wrapper {
+.routine-header-wrapper {
   padding: 5px 5px 5px 20px;
   display: flex;
 }
 
-.workout-list-header-menu {
+.routine-header-menu {
   padding-right: 10px;
   cursor: pointer;
 }
 
-.workout-list-header-month {
+.routine-header-title {
   padding-top: 11px;
+}
+
+.routine-drawer-menu {
+  padding: 5px 10px 0 0 ;
+}
+
+.routine-list-wrapper {
+  display: flex;
+  padding: 15px 10px 15px 23px;
+}
+
+.routine {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
