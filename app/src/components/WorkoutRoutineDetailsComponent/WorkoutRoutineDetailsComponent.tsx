@@ -5,7 +5,7 @@ import {Dialog, Divider, FormControl, IconButton, InputLabel, MenuItem, Select, 
 import WorkoutRoutineListDrawer from "../WorkoutRoutineListComponent/WorkoutRoutineListDrawer/WorkoutRoutineListDrawer";
 import {useNavigate, useParams} from "react-router-dom";
 import {WorkoutRoutine, WorkoutRoutineExercise} from "../../models/Routine";
-import {getRoutine, updateRoutine} from "../../services/RoutineService";
+import {deleteRoutine, getRoutine, updateRoutine} from "../../services/RoutineService";
 import "typeface-roboto"
 import WorkoutDetailsAddExerciseComponent from "../WorkoutDetailsComponent/WorkoutDetailsAddExerciseComponent/WorkoutDetailsAddExerciseComponent";
 import {Exercise, ExerciseCategory} from "../../models/workout";
@@ -18,6 +18,7 @@ import WorkoutRoutineExerciseDrawer from "./WorkoutRoutineExerciseDrawer/Workout
 import WorkoutRoutineExerciseReorder from "./WorkoutRoutineExerciseReorder/WorkoutRoutineExerciseReorder";
 import {TransitionProps} from "@mui/material/transitions";
 import WorkoutRoutineExerciseEdit from "./WorkoutRoutineExerciseEdit/WorkoutRoutineExerciseEdit";
+import WorkoutRoutineDetailsDrawer from "./WorkoutRoutineDetailsDrawer/WorkoutRoutineDetailsDrawer";
 
 interface WorkoutRoutineDetailsComponentProps {
 }
@@ -30,7 +31,6 @@ const Transition = React.forwardRef(function Transition(
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
 
 const WorkoutRoutineDetailsComponent = (props: WorkoutRoutineDetailsComponentProps) => {
   const [reorderOpenDialog, setReorderOpenDialog] = React.useState<boolean>(false);
@@ -109,6 +109,13 @@ const WorkoutRoutineDetailsComponent = (props: WorkoutRoutineDetailsComponentPro
     });
   }
 
+  const handleDeleteRoutine = (routine: WorkoutRoutine) => {
+    deleteRoutine(routine.id)
+      .then(() => {
+        navigation("/routines")
+      })
+  }
+
   const handleAddExercise = (event: any, exerciseToAdd: Exercise) => {
     event.preventDefault();
     addExerciseToRoutine(convertToAddExerciseToRoutineInput(exerciseToAdd, (routine.workoutRoutineExercises.length + 1), routine.id))
@@ -134,7 +141,6 @@ const WorkoutRoutineDetailsComponent = (props: WorkoutRoutineDetailsComponentPro
 
   const handleOpenReorderDialog = () => {
     setReorderOpenDialog(true);
-    console.log("Reached");
   }
 
   const handleCloseReorderDialog = () => {
@@ -186,12 +192,10 @@ const WorkoutRoutineDetailsComponent = (props: WorkoutRoutineDetailsComponentPro
           </div>
           <div className='routine-details-header-column2'>
             <div className='routine-details-header-column2-start'>Start</div>
-            <div><WorkoutRoutineListDrawer
-                openReorder={handleOpenReorderDialog}
-                routine={routine}
-                isDetails={true}
-                isMain={false}
-                children={undefined}></WorkoutRoutineListDrawer></div>
+            <div><WorkoutRoutineDetailsDrawer
+                  routine={routine}
+                  handleDeleteRoutine={handleDeleteRoutine}
+                  handleOpenReorderDialog={handleOpenReorderDialog}/></div>
           </div>
         </div>
         <div className='routine-details-main'>

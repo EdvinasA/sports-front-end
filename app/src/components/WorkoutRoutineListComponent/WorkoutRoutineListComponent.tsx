@@ -6,7 +6,8 @@ import "typeface-roboto";
 import CreateComponent from "../shared/CreateComponent/CreateComponent";
 import {Link} from "react-router-dom";
 import {WorkoutRoutine} from "../../models/Routine";
-import {getRoutines} from "../../services/RoutineService";
+import {deleteRoutine, getRoutines} from "../../services/RoutineService";
+import produce from "immer";
 
 interface WorkoutRoutineListComponentProps {
 }
@@ -33,6 +34,7 @@ class WorkoutRoutineListComponent extends React.Component<WorkoutRoutineListComp
     }
 
     this.token = localStorage.getItem("token");
+    this.handleDeleteRoutine = this.handleDeleteRoutine.bind(this);
   }
 
   private readonly token: string | null;
@@ -48,8 +50,11 @@ class WorkoutRoutineListComponent extends React.Component<WorkoutRoutineListComp
     }
   }
 
-  handleOpenReorder() {
-    this.setState({reorderDialog: true})
+  handleDeleteRoutine(routine: WorkoutRoutine) {
+    deleteRoutine(routine.id)
+      .then(() => {
+        this.setState({routines: this.state.routines.filter(o => o.id !== routine.id)});
+      })
   }
 
   render() {
@@ -60,12 +65,6 @@ class WorkoutRoutineListComponent extends React.Component<WorkoutRoutineListComp
               <div className='routine-header-menu'><WorkoutListDrawerComponent children={undefined}></WorkoutListDrawerComponent></div>
               <div className='routine-header-title'>Routines</div>
             </div>
-            <div className='routine-drawer-menu'><WorkoutRoutineListDrawer
-                routine={this.state.emptyRoutine}
-                openReorder={this.handleOpenReorder}
-                isDetails={false}
-                isMain={true}
-                children={undefined}/></div>
           </div>
           <div className='routine-list-wrapper'>
             {this.state.routines &&
@@ -78,10 +77,8 @@ class WorkoutRoutineListComponent extends React.Component<WorkoutRoutineListComp
                           </Link>
                         </div>
                         <div><WorkoutRoutineListDrawer
-                            openReorder={this.handleOpenReorder}
                             routine={routine}
-                            isDetails={false}
-                            isMain={false}
+                            deleteRoutine={this.handleDeleteRoutine}
                             children={undefined}/></div>
                       </div>
                     </>

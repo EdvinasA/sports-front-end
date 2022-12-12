@@ -30,4 +30,11 @@ async function getRoutine(routineId: number): Promise<WorkoutRoutine> {
   return await createRequestWithResponse(`api/workout-routine/${routineId}`, requestOptions);
 }
 
-export { createRoutine, getRoutines, getRoutine, updateRoutine };
+async function deleteRoutine(routineId: number): Promise<Response> {
+  const requestOptions = {
+    method: 'DELETE'
+  };
+  return await createRequestWithoutResponse(`api/workout-routine/${routineId}`, requestOptions);
+}
+
+export { createRoutine, getRoutines, getRoutine, updateRoutine, deleteRoutine };
