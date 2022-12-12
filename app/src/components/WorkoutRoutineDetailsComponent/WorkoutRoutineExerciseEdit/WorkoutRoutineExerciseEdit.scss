@@ -19,3 +19,30 @@
 .routine-exercise-details-input {
   padding-bottom: 10px;
 }
+
+.delete-button,
+.replace-button {
+  padding-top: 10px;
+  width: 100%;
+  button {
+    width: 100%;
+    border: unset;
+    border-radius: 10px;
+    height: 25px;
+    color: white;
+    font-weight: 601;
+  }
+}
+
+.replace-button {
+  button {
+    background-color: darkslategrey;
+  }
+}
+
+
+.delete-button {
+  button {
+    background-color: red;
+  }
+}

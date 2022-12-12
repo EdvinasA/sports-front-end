@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c54cbabc-0400-4668-a1fa-d06219e16be6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutDetailsComponent/WorkoutDetailsPageComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutDetailsComponent/WorkoutDetailsPageComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutExerciseReorder/WorkoutExerciseReorder.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutExerciseReorder/WorkoutExerciseReorder.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutRoutineDetailsComponent/WorkoutRoutineDetailsComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutRoutineDetailsComponent/WorkoutRoutineDetailsComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutRoutineDetailsComponent/WorkoutRoutineExerciseDrawer/WorkoutRoutineExerciseDrawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutRoutineDetailsComponent/WorkoutRoutineExerciseDrawer/WorkoutRoutineExerciseDrawer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutRoutineDetailsComponent/WorkoutRoutineExerciseEdit/WorkoutRoutineExerciseEdit.scss" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutRoutineDetailsComponent/WorkoutRoutineExerciseEdit/WorkoutRoutineExerciseEdit.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutRoutineDetailsComponent/WorkoutRoutineExerciseEdit/WorkoutRoutineExerciseEdit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutRoutineDetailsComponent/WorkoutRoutineExerciseEdit/WorkoutRoutineExerciseEdit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutRoutineDetailsComponent/WorkoutRoutineExerciseReorder/WorkoutRoutineExerciseReorder.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutRoutineDetailsComponent/WorkoutRoutineExerciseReorder/WorkoutRoutineExerciseReorder.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutRoutineListComponent/WorkoutRoutineListComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutRoutineListComponent/WorkoutRoutineListComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutRoutineListComponent/WorkoutRoutineListDrawer/WorkoutRoutineListDrawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutRoutineListComponent/WorkoutRoutineListDrawer/WorkoutRoutineListDrawer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/models/Routine.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/models/Routine.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/services/RoutineExerciseService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/services/RoutineExerciseService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +75,7 @@
       <updated>1667758313743</updated>
       <workItem from="1667758317651" duration="117967000" />
       <workItem from="1668748219760" duration="303998000" />
-      <workItem from="1670831771001" duration="9493000" />
+      <workItem from="1670831771001" duration="9811000" />
     </task>
     <servers />
   </component>

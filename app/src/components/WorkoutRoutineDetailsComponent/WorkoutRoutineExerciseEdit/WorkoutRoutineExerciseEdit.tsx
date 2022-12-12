@@ -53,10 +53,10 @@ const WorkoutRoutineExerciseEdit = (props: WorkoutRoutineExerciseEditProps) => {
                 onChange={props.updateRoutineExercise}
                 onBlur={props.updateDatabase}/>
           </div>
-          <div className='routine-exercise-details-input'>
+          <div className='routine-exercise-details-input replace-button'>
             <button>Replace</button>
           </div>
-          <div className='routine-exercise-details-input'>
+          <div className='routine-exercise-details-input delete-button'>
             <button onClick={handleCloseAndDelete}>Delete</button>
           </div>
         </div>
