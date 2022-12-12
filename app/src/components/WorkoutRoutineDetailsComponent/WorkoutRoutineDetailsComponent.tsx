@@ -5,7 +5,7 @@ import {Dialog, Divider, FormControl, IconButton, InputLabel, MenuItem, Select, 
 import WorkoutRoutineListDrawer from "../WorkoutRoutineListComponent/WorkoutRoutineListDrawer/WorkoutRoutineListDrawer";
 import {useNavigate, useParams} from "react-router-dom";
 import {WorkoutRoutine, WorkoutRoutineExercise} from "../../models/Routine";
-import {deleteRoutine, getRoutine, updateRoutine} from "../../services/RoutineService";
+import {createWorkoutFromRoutine, deleteRoutine, getRoutine, updateRoutine} from "../../services/RoutineService";
 import "typeface-roboto"
 import WorkoutDetailsAddExerciseComponent from "../WorkoutDetailsComponent/WorkoutDetailsAddExerciseComponent/WorkoutDetailsAddExerciseComponent";
 import {Exercise, ExerciseCategory} from "../../models/workout";
@@ -183,6 +183,13 @@ const WorkoutRoutineDetailsComponent = (props: WorkoutRoutineDetailsComponentPro
     })
   }
 
+  const handleStartWorkoutFromRoutine = () => {
+    createWorkoutFromRoutine(routine.id)
+      .then((response) => {
+        navigation(`/workout/${response}`)
+      });
+  }
+
   return (
       <div>
         <div className='routine-details-header'>
@@ -191,7 +198,7 @@ const WorkoutRoutineDetailsComponent = (props: WorkoutRoutineDetailsComponentPro
             <div className='routine-details-header-column1-title'>{routine.name || ''}</div>
           </div>
           <div className='routine-details-header-column2'>
-            <div className='routine-details-header-column2-start'>Start</div>
+            <div className='routine-details-header-column2-start' onClick={handleStartWorkoutFromRoutine}>Start</div>
             <div><WorkoutRoutineDetailsDrawer
                   routine={routine}
                   handleDeleteRoutine={handleDeleteRoutine}
