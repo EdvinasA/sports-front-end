@@ -1,20 +1,19 @@
 import React from 'react';
 import './WorkoutExerciseReorder.scss';
 import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
-import {WorkoutExercise} from "../../models/workout";
 import {ArrowBack, DragHandle} from "@mui/icons-material";
-import {Divider, IconButton} from "@mui/material";
+import {IconButton} from "@mui/material";
 
 interface WorkoutExerciseReorderProps {
-  workoutExercises: WorkoutExercise[];
-  updateWorkoutExercises: (result: any) => void;
+  items: any[];
+  updateItems: (result: any) => void;
   close: () => void;
 }
 
 const WorkoutExerciseReorder = (props: WorkoutExerciseReorderProps) => {
 
   const onDragEnd = (result: any) => {
-    props.updateWorkoutExercises(result)
+    props.updateItems(result)
   };
 
   return (
@@ -28,7 +27,7 @@ const WorkoutExerciseReorder = (props: WorkoutExerciseReorderProps) => {
             <Droppable droppableId={`droppable`}>
               {(provided) => (
                   <div {...provided.droppableProps} ref={provided.innerRef}>
-                    {props.workoutExercises.map((item, index) => (
+                    {props.items.map((item, index) => (
                         <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
                           {(provided, snapshot) => (
                               <div>

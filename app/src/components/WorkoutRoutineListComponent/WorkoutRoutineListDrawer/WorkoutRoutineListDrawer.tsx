@@ -3,7 +3,7 @@ import './WorkoutRoutineListDrawer.scss';
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton/ListItemButton";
-import {Delete, Menu, MoveUp, HelpOutline, ContentCopy, MoreVert} from "@mui/icons-material";
+import {Delete, MoveUp, ContentCopy, MoreVert} from "@mui/icons-material";
 import {SwipeableDrawer} from "@mui/material";
 import { WorkoutRoutine } from '../../../models/Routine';
 
@@ -11,6 +11,7 @@ interface WorkoutRoutineListDrawerProps {
   isMain: boolean;
   isDetails: boolean;
   routine: WorkoutRoutine;
+  openReorder: () => void;
   children: React.ReactNode;
 }
 
@@ -26,7 +27,7 @@ const WorkoutRoutineListDrawer = (props: WorkoutRoutineListDrawerProps) => {
           onKeyDown={toggleDrawer(anchor, false)}
       >
         <List>
-          <ListItemButton><MoveUp/> Reorder</ListItemButton>
+          <ListItemButton onClick={props.openReorder}><MoveUp/> Reorder</ListItemButton>
           {!props.isMain && !props.isDetails &&
               <>
                 <ListItemButton><ContentCopy/>Copy</ListItemButton>

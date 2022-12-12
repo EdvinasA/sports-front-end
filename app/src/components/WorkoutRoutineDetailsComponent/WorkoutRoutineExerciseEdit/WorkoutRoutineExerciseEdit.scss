@@ -1,1 +1,21 @@
-.WorkoutRoutineExerciseEdit {}
+.routine-exercise-details-header {
+  display: flex;
+  width: 100%;
+}
+
+.routine-exercise-details-header-column1 {
+  display: flex;
+  padding: 10px;
+}
+
+.routine-exercise-details-header-column1-title {
+  padding: 8px 0 0 8px;
+}
+
+.routine-exercise-details-wrapper {
+  padding: 0 15px;
+}
+
+.routine-exercise-details-input {
+  padding-bottom: 10px;
+}

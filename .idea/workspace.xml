@@ -2,7 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c54cbabc-0400-4668-a1fa-d06219e16be6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/app/src/components/ExerciseListComponent/ExerciseListComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/ExerciseListComponent/ExerciseListComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutDetailsComponent/WorkoutDetailsPageComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutDetailsComponent/WorkoutDetailsPageComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutExerciseReorder/WorkoutExerciseReorder.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutExerciseReorder/WorkoutExerciseReorder.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutRoutineDetailsComponent/WorkoutRoutineDetailsComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutRoutineDetailsComponent/WorkoutRoutineDetailsComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutRoutineDetailsComponent/WorkoutRoutineExerciseDrawer/WorkoutRoutineExerciseDrawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutRoutineDetailsComponent/WorkoutRoutineExerciseDrawer/WorkoutRoutineExerciseDrawer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutRoutineDetailsComponent/WorkoutRoutineExerciseEdit/WorkoutRoutineExerciseEdit.scss" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutRoutineDetailsComponent/WorkoutRoutineExerciseEdit/WorkoutRoutineExerciseEdit.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutRoutineDetailsComponent/WorkoutRoutineExerciseEdit/WorkoutRoutineExerciseEdit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutRoutineDetailsComponent/WorkoutRoutineExerciseEdit/WorkoutRoutineExerciseEdit.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutRoutineDetailsComponent/WorkoutRoutineExerciseReorder/WorkoutRoutineExerciseReorder.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutRoutineDetailsComponent/WorkoutRoutineExerciseReorder/WorkoutRoutineExerciseReorder.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutRoutineListComponent/WorkoutRoutineListComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutRoutineListComponent/WorkoutRoutineListComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutRoutineListComponent/WorkoutRoutineListDrawer/WorkoutRoutineListDrawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutRoutineListComponent/WorkoutRoutineListDrawer/WorkoutRoutineListDrawer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/models/Routine.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/models/Routine.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/services/RoutineExerciseService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/services/RoutineExerciseService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +31,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="production" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -33,18 +50,32 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "list.type.of.created.stylesheet": "SCSS",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "ts.external.directory.path": "C:\\Users\\Beast\\Desktop\\Programavimas\\Projects\\sports-front-end\\app\\node_modules\\typescript\\lib"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Beast/Desktop/Programavimas/Projects/sports-front-end/app/src/components/WorkoutListComponent&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Beast\\Desktop\\Programavimas\\Projects\\sports-front-end\\app\\node_modules\\typescript\\lib&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Beast\Desktop\Programavimas\Projects\sports-front-end\app\src\components\WorkoutListComponent" />
+      <recent name="C:\Users\Beast\Desktop\Programavimas\Projects\sports-front-end\app" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Beast\Desktop\Programavimas\Projects\sports-front-end\app\src\components\WorkoutListComponent" />
+      <recent name="C:\Users\Beast\Desktop\Programavimas\Projects\sports-front-end\app\public" />
+      <recent name="C:\Users\Beast\Desktop\Programavimas\Projects\sports-front-end\app\src\components\WorkoutDetailsComponent" />
+      <recent name="C:\Users\Beast\Desktop\Programavimas\Projects\sports-front-end\app\src" />
+      <recent name="C:\Users\Beast\Desktop\Programavimas\Projects\sports-front-end\app" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -54,7 +85,8 @@
       <option name="presentableId" value="Default" />
       <updated>1667758313743</updated>
       <workItem from="1667758317651" duration="117967000" />
-      <workItem from="1668748219760" duration="36345000" />
+      <workItem from="1668748219760" duration="303998000" />
+      <workItem from="1670831771001" duration="9493000" />
     </task>
     <servers />
   </component>
@@ -71,5 +103,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/app/src/components/ExerciseEditComponent/ExerciseEditComponent.tsx</url>
+          <line>30</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

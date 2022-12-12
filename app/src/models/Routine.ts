@@ -13,6 +13,7 @@ export type WorkoutRoutineExercise = {
   exercise: Exercise;
   notes: string;
   numberOfSets: number;
+  rowNumber: number;
 }
 
 export type AddExerciseToRoutineInput = {

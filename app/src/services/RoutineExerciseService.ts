@@ -16,4 +16,20 @@ async function deleteRoutineExercise(routineExerciseId: number): Promise<Respons
   return await createRequestWithoutResponse(`api/workout-routine-exercise/${routineExerciseId}`, requestOptions);
 }
 
-export { addExerciseToRoutine, deleteRoutineExercise };
+async function updateRoutineExercise(routineExercises: WorkoutRoutineExercise): Promise<Response> {
+  const requestOptions = {
+    method: 'PUT',
+    body: JSON.stringify(routineExercises)
+  };
+  return await createRequestWithoutResponse(`api/workout-routine-exercise`, requestOptions);
+}
+
+async function updateRoutineExercises(routineExercises: WorkoutRoutineExercise[]): Promise<Response> {
+  const requestOptions = {
+    method: 'PUT',
+    body: JSON.stringify(routineExercises)
+  };
+  return await createRequestWithoutResponse(`api/workout-routine-exercise/all`, requestOptions);
+}
+
+export { addExerciseToRoutine, deleteRoutineExercise, updateRoutineExercise, updateRoutineExercises };

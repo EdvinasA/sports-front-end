@@ -469,7 +469,7 @@ function WorkoutDetailsPage() {
               open={reorderOpenDialog}
               onClose={closeReorderDialog}
               TransitionComponent={Transition}>
-            <WorkoutExerciseReorder workoutExercises={workoutExercises} updateWorkoutExercises={handleUpdateExerciseOrder} close={closeReorderDialog}/>
+            <WorkoutExerciseReorder items={workoutExercises} updateItems={handleUpdateExerciseOrder} close={closeReorderDialog}/>
           </Dialog>
           <Dialog
               open={openEditNote}

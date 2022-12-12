@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import './WorkoutRoutineListComponent.scss';
 import {WorkoutListDrawerComponent} from "../WorkoutListDrawerComponent/WorkoutListDrawerComponent";
 import WorkoutRoutineListDrawer from "./WorkoutRoutineListDrawer/WorkoutRoutineListDrawer";
@@ -14,6 +14,7 @@ interface WorkoutRoutineListComponentProps {
 interface WorkoutRoutineListComponentState {
   routines: WorkoutRoutine[];
   emptyRoutine: WorkoutRoutine;
+  reorderDialog: boolean;
 }
 
 class WorkoutRoutineListComponent extends React.Component<WorkoutRoutineListComponentProps, WorkoutRoutineListComponentState> {
@@ -27,7 +28,8 @@ class WorkoutRoutineListComponent extends React.Component<WorkoutRoutineListComp
         targets: "",
         notes: "",
         workoutRoutineExercises: []
-      }
+      },
+      reorderDialog: false
     }
 
     this.token = localStorage.getItem("token");
@@ -46,6 +48,10 @@ class WorkoutRoutineListComponent extends React.Component<WorkoutRoutineListComp
     }
   }
 
+  handleOpenReorder() {
+    this.setState({reorderDialog: true})
+  }
+
   render() {
     return (
         <div>
@@ -54,7 +60,12 @@ class WorkoutRoutineListComponent extends React.Component<WorkoutRoutineListComp
               <div className='routine-header-menu'><WorkoutListDrawerComponent children={undefined}></WorkoutListDrawerComponent></div>
               <div className='routine-header-title'>Routines</div>
             </div>
-            <div className='routine-drawer-menu'><WorkoutRoutineListDrawer routine={this.state.emptyRoutine} isDetails={false} isMain={true} children={undefined}/></div>
+            <div className='routine-drawer-menu'><WorkoutRoutineListDrawer
+                routine={this.state.emptyRoutine}
+                openReorder={this.handleOpenReorder}
+                isDetails={false}
+                isMain={true}
+                children={undefined}/></div>
           </div>
           <div className='routine-list-wrapper'>
             {this.state.routines &&
@@ -66,7 +77,12 @@ class WorkoutRoutineListComponent extends React.Component<WorkoutRoutineListComp
                             <div className='routine-title'>{routine.name || 'Routine'}</div>
                           </Link>
                         </div>
-                        <div><WorkoutRoutineListDrawer routine={routine} isDetails={false} isMain={false} children={undefined}/></div>
+                        <div><WorkoutRoutineListDrawer
+                            openReorder={this.handleOpenReorder}
+                            routine={routine}
+                            isDetails={false}
+                            isMain={false}
+                            children={undefined}/></div>
                       </div>
                     </>
                 ))}

@@ -1,6 +1,5 @@
 import React from 'react';
 import './WorkoutRoutineExerciseDrawer.scss';
-import {useNavigate} from "react-router-dom";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton/ListItemButton";
@@ -10,11 +9,12 @@ import {WorkoutRoutineExercise} from "../../../models/Routine";
 
 interface WorkoutRoutineExerciseDrawerProps {
   deleteRoutineExercise: (routineExercise: WorkoutRoutineExercise) => void;
+  openReorder: () => void;
   routineExercise: WorkoutRoutineExercise;
+  openEditDialog: (exercise: WorkoutRoutineExercise) => void;
 }
 
 const WorkoutRoutineExerciseDrawer = (props: WorkoutRoutineExerciseDrawerProps) => {
-  let navigate = useNavigate();
   type Anchor = 'bottom';
   const [state, setState] = React.useState({
     bottom: false,
@@ -26,8 +26,8 @@ const WorkoutRoutineExerciseDrawer = (props: WorkoutRoutineExerciseDrawerProps) 
           onKeyDown={toggleDrawer(anchor, false)}
       >
         <List>
-          <ListItemButton><Edit/> Edit</ListItemButton>
-          <ListItemButton><MoveUp/> Reorder</ListItemButton>
+          <ListItemButton onClick={() => props.openEditDialog(props.routineExercise)}><Edit/> Edit</ListItemButton>
+          <ListItemButton onClick={() => props.openReorder()}><MoveUp/> Reorder</ListItemButton>
           <ListItemButton onClick={() => props.deleteRoutineExercise(props.routineExercise)}><Delete/> Delete</ListItemButton>
         </List>
       </Box>
