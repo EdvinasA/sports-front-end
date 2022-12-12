@@ -15,6 +15,13 @@ async function createWorkoutFromRoutine(routineId: number): Promise<number> {
   return await createRequestWithResponse(`api/workout-routine/workout/${routineId}`, requestOptions);
 }
 
+async function copyRoutine(routineId: number): Promise<WorkoutRoutine> {
+  const requestOptions = {
+    method: 'POST'
+  };
+  return await createRequestWithResponse(`api/workout-routine/copy/${routineId}`, requestOptions);
+}
+
 async function updateRoutine(workoutRoutine: WorkoutRoutine): Promise<Response> {
   const requestOptions = {
     method: 'PUT',
@@ -44,4 +51,4 @@ async function deleteRoutine(routineId: number): Promise<Response> {
   return await createRequestWithoutResponse(`api/workout-routine/${routineId}`, requestOptions);
 }
 
-export { createRoutine, getRoutines, getRoutine, updateRoutine, deleteRoutine, createWorkoutFromRoutine };
+export { createRoutine, getRoutines, getRoutine, updateRoutine, deleteRoutine, createWorkoutFromRoutine, copyRoutine };

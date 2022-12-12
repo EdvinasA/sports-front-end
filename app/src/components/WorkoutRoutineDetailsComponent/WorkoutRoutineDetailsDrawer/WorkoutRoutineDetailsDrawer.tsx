@@ -11,6 +11,7 @@ interface WorkoutRoutineDetailsDrawerProps {
   routine: WorkoutRoutine;
   handleOpenReorderDialog: () => void;
   handleDeleteRoutine: (routine: WorkoutRoutine) => void;
+  handleCopyRoutine: () => void;
 }
 
 const WorkoutRoutineDetailsDrawer = (props: WorkoutRoutineDetailsDrawerProps) => {
@@ -27,7 +28,7 @@ const WorkoutRoutineDetailsDrawer = (props: WorkoutRoutineDetailsDrawerProps) =>
         <List>
           <ListItemButton onClick={props.handleOpenReorderDialog}><MoveUp/> Reorder</ListItemButton>
           <ListItemButton onClick={() => props.handleDeleteRoutine(props.routine)}><Delete/> Delete</ListItemButton>
-          <ListItemButton><ContentCopy/> Copy</ListItemButton>
+          <ListItemButton onClick={props.handleCopyRoutine}><ContentCopy/> Copy</ListItemButton>
         </List>
       </Box>
   );

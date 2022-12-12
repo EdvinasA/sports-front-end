@@ -6,7 +6,7 @@ import "typeface-roboto";
 import CreateComponent from "../shared/CreateComponent/CreateComponent";
 import {Link} from "react-router-dom";
 import {WorkoutRoutine} from "../../models/Routine";
-import {deleteRoutine, getRoutines} from "../../services/RoutineService";
+import {copyRoutine, deleteRoutine, getRoutines} from "../../services/RoutineService";
 import produce from "immer";
 
 interface WorkoutRoutineListComponentProps {
