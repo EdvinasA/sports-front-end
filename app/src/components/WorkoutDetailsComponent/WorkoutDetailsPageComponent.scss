@@ -49,6 +49,15 @@ div {
 
 .dialog-workout-back-action {
   text-align: left;
+  display: flex;
+}
+
+.dialog-workout-finish-action {
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 601;
+  padding-top: 10px;
+  color: #a1b19f;
 }
 
 .inputs-first-row {

@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import {Exercise, ExerciseCategory, ExerciseSet, WorkoutDetails, WorkoutExercise} from '../../models/workout';
 import {Button, Dialog, Divider, FormControl, IconButton, Slide, TextField} from '@mui/material';
 import './WorkoutDetailsPageComponent.scss';
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {getDayOfTheMonth, getMonth} from "../../services/FormatterService";
 import {ArrowBack, BarChart, History, Star, Timer} from '@mui/icons-material';
 import {LocalizationProvider, MobileDatePicker, TimePicker} from "@mui/x-date-pickers";
@@ -62,6 +62,8 @@ function WorkoutDetailsPage() {
     exerciseSets: [],
     rowNumber: 0
   });
+
+  let navigator = useNavigate();
 
   // @ts-ignore
   let {workoutId}: string | unknown = useParams();
@@ -163,9 +165,9 @@ function WorkoutDetailsPage() {
 
   const handleCreateExercise = (event: any, exerciseToCreate: Exercise) => {
     createExercise(exerciseToCreate)
-      .then((response) => {
-        handleAddExercise(event, response);
-      });
+    .then((response) => {
+      handleAddExercise(event, response);
+    });
   }
 
   const handleAddExercise = (event: any, exerciseToAdd: Exercise) => {
@@ -195,6 +197,18 @@ function WorkoutDetailsPage() {
       setWorkout({...workout, startTime: dayjs(result).toDate()});
       updateWorkout(convertToWorkoutDetails(workout)).then(r => r);
     }
+  }
+
+  const handleFinishWorkout = () => {
+    let finishDate = new Date();
+    const newWorkout = workout;
+    newWorkout.endTime = finishDate;
+    updateWorkout(convertToWorkoutDetails(newWorkout)).then(() => {
+      setWorkout(newWorkout);
+      if (newWorkout.endTime !== null) {
+        navigator("/");
+      }
+    });
   }
 
   const handleEndTimeChange = (result: Date | null) => {
@@ -260,10 +274,10 @@ function WorkoutDetailsPage() {
     newItems.splice(result.destination.index, 0, removed);
 
     updateExercises(newItems)
-      .then(() => {
-        setWorkoutExercises(newItems);
-        setWorkout({...workout, exercises: newItems});
-      })
+    .then(() => {
+      setWorkoutExercises(newItems);
+      setWorkout({...workout, exercises: newItems});
+    })
   }
 
   return (
@@ -277,6 +291,9 @@ function WorkoutDetailsPage() {
                     <ArrowBack/>
                   </IconButton>
                 </Link>
+                <div className='dialog-workout-finish-action' onClick={() => handleFinishWorkout()}>
+                  FINISH
+                </div>
               </div>
               <div>
                 {getMonth(workout.date)} {getDayOfTheMonth(workout.date)}
@@ -394,7 +411,7 @@ function WorkoutDetailsPage() {
                                              label="Weight"
                                              variant="outlined"
                                              InputLabelProps={{shrink: true}}
-                                             placeholder={set.exerciseSetPreviousValues === null ?  "" : set.exerciseSetPreviousValues.weight === null ? "0" :  set.exerciseSetPreviousValues.weight.toString()}
+                                             placeholder={set.exerciseSetPreviousValues === null ? "" : set.exerciseSetPreviousValues.weight === null ? "0" : set.exerciseSetPreviousValues.weight.toString()}
                                              onChange={(event) => handleExerciseSetChange(event, workout, set)}
                                              onBlur={() => updateOnBlurExerciseSet(workout, set)}/>
                                 </div>
@@ -405,7 +422,7 @@ function WorkoutDetailsPage() {
                                              label="Reps"
                                              variant="outlined"
                                              InputLabelProps={{shrink: true}}
-                                             placeholder={set.exerciseSetPreviousValues === null ?  "" : set.exerciseSetPreviousValues.reps === null ? "0" :  set.exerciseSetPreviousValues.reps.toString()}
+                                             placeholder={set.exerciseSetPreviousValues === null ? "" : set.exerciseSetPreviousValues.reps === null ? "0" : set.exerciseSetPreviousValues.reps.toString()}
                                              onChange={(event) => handleExerciseSetChange(event, workout, set)}
                                              onBlur={() => updateOnBlurExerciseSet(workout, set)}/>
                                 </div>
@@ -415,7 +432,7 @@ function WorkoutDetailsPage() {
                                              label="Notes"
                                              variant="outlined"
                                              InputLabelProps={{shrink: true}}
-                                             placeholder={set.exerciseSetPreviousValues === null ?  "" : set.exerciseSetPreviousValues.notes === null ? "Notes" : set.exerciseSetPreviousValues.notes}
+                                             placeholder={set.exerciseSetPreviousValues === null ? "" : set.exerciseSetPreviousValues.notes === null ? "Notes" : set.exerciseSetPreviousValues.notes}
                                              onChange={(event) => handleExerciseSetChange(event, workout, set)}
                                              onBlur={() => updateOnBlurExerciseSet(workout, set)}/>
                                 </div>
@@ -454,15 +471,15 @@ function WorkoutDetailsPage() {
             <div className='add-exercise-action'>
               <button onClick={handleClickOpen}>+ Add Exercise</button>
             </div>
-              <WorkoutDetailsAddExerciseComponent
-                  openDialog={openDialog}
-                  handleClose={handleClose}
-                  exerciseCategories={exerciseCategories}
-                  handleAddExercise={handleAddExercise}
-                  activeStep={activeStep}
-                  setActiveStep={setActiveStep}
-                  handleCreateExercise={handleCreateExercise}
-              ></WorkoutDetailsAddExerciseComponent>
+            <WorkoutDetailsAddExerciseComponent
+                openDialog={openDialog}
+                handleClose={handleClose}
+                exerciseCategories={exerciseCategories}
+                handleAddExercise={handleAddExercise}
+                activeStep={activeStep}
+                setActiveStep={setActiveStep}
+                handleCreateExercise={handleCreateExercise}
+            ></WorkoutDetailsAddExerciseComponent>
           </div>
           <Dialog
               fullScreen
