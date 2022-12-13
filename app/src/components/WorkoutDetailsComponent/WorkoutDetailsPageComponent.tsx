@@ -17,7 +17,7 @@ import {ExerciseDrawerComponent} from "../ExerciseDrawerComponent/ExerciseDrawer
 import {WorkoutDrawerComponent} from "../WorkoutDrawerComponent/WorkoutDrawerComponent";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {convertToWorkoutDetails} from "../../services/ConverterService";
-import {deleteWorkoutExercise, getWorkoutById, updateExercises, updateWorkout} from "../../services/WorkoutService";
+import {deleteWorkoutExercise, getWorkoutById, repeatWorkout, updateExercises, updateWorkout} from "../../services/WorkoutService";
 import {getExerciseCategories} from "../../services/ExerciseCategoryService";
 import WorkoutExerciseReorder from "../WorkoutExerciseReorder/WorkoutExerciseReorder";
 import WorkoutDetailsAddExerciseComponent from "./WorkoutDetailsAddExerciseComponent/WorkoutDetailsAddExerciseComponent";
@@ -289,6 +289,14 @@ function WorkoutDetailsPage() {
       })
   }
 
+  const handleRepeatWorkout = () => {
+    repeatWorkout(workout.id)
+      .then((response) => {
+        navigator(`/workout/${response}`);
+        window.location.reload();
+      })
+  }
+
   return (
       <div>
         <div className='workout-details-display'>
@@ -317,6 +325,7 @@ function WorkoutDetailsPage() {
                   <div className='workout-header-menu'>
                     <WorkoutDrawerComponent
                         workout={workout}
+                        handleRepeatWorkout={handleRepeatWorkout}
                         reorderOpen={openReorderDialog}>
                     </WorkoutDrawerComponent>
                   </div>

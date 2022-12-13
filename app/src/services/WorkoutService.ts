@@ -23,6 +23,13 @@ async function createWorkout(): Promise<number> {
   return await createRequestWithResponse(`api/workout`, requestOptions);
 }
 
+async function repeatWorkout(workoutId: number): Promise<number> {
+  const requestOptions = {
+    method: 'POST'
+  };
+  return await createRequestWithResponse(`api/workout/repeat/${workoutId}`, requestOptions);
+}
+
 async function updateWorkout(workoutDetails: WorkoutDetailsUpdateInput) {
   const requestOptions = {
     method: 'PUT',
@@ -53,4 +60,4 @@ async function deleteWorkoutExercise(workoutExerciseId: number) {
   return await createRequestWithoutResponse(`api/workout/${workoutExerciseId}`, requestOptions);
 }
 
-export {getWorkouts, updateWorkout, updateExercises, deleteWorkoutExercise, createWorkout, getWorkoutById, deleteWorkout};
+export {getWorkouts, updateWorkout, repeatWorkout, updateExercises, deleteWorkoutExercise, createWorkout, getWorkoutById, deleteWorkout};

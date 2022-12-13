@@ -12,6 +12,7 @@ import {useNavigate} from "react-router-dom";
 type WorkoutDrawerProps = {
   workout: WorkoutDetails;
   reorderOpen: () => void;
+  handleRepeatWorkout: () => void;
   children: React.ReactNode;
 }
 
@@ -38,7 +39,7 @@ const WorkoutDrawerComponent = (props: WorkoutDrawerProps) => {
           <ListItemButton onClick={props.reorderOpen}><MoveUp/> Reorder</ListItemButton>
           <ListItemButton><Adjust/> Targets</ListItemButton>
           <ListItemButton><Share/> Share</ListItemButton>
-          <ListItemButton><Repeat/> Repeat Workout</ListItemButton>
+          <ListItemButton onClick={props.handleRepeatWorkout}><Repeat/> Repeat Workout</ListItemButton>
           <ListItemButton><FitnessCenter/> Save as Routine</ListItemButton>
           <ListItemButton onClick={handleDeleteWorkout}> <Delete/> Delete</ListItemButton>
         </List>
