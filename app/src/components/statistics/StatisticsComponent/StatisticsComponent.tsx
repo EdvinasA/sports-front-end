@@ -1,14 +1,22 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './StatisticsComponent.scss';
-import { ArrowForward } from '@mui/icons-material';
+import {ArrowForward} from '@mui/icons-material';
 import {WorkoutListDrawerComponent} from "../../WorkoutListDrawerComponent/WorkoutListDrawerComponent";
 import "typeface-roboto";
 import {IconButton} from "@mui/material";
-
-interface StatisticsComponentProps {
-}
+import {ExerciseCategory} from "../../../models/workout";
+import {getExerciseCategories} from "../../../services/ExerciseCategoryService";
 
 const StatisticsComponent = () => {
+  const [categories, setCategories] = React.useState<ExerciseCategory[]>([]);
+
+  useEffect(() => {
+    getExerciseCategories()
+    .then((response) => {
+      setCategories(response);
+    })
+  })
+
   return (
       <div>
         <div className='statistics-header'>
@@ -33,15 +41,11 @@ const StatisticsComponent = () => {
               <div>0</div>
             </div>
             <div className='statistics-display-values'>
-              <div >Total Sets</div>
+              <div>Total Sets</div>
               <div>0</div>
             </div>
             <div className='statistics-display-values'>
               <div>Total Reps</div>
-              <div>0</div>
-            </div>
-            <div className='statistics-display-values'>
-              <div>Total Reps per Set</div>
               <div>0</div>
             </div>
             <div className='statistics-display-values'>
@@ -51,34 +55,13 @@ const StatisticsComponent = () => {
           </div>
           <div className='statistics-display-category'>
             <div className='statistics-display-title'>Category Statistics</div>
-            <div className='statistics-display-values'>
-              <div>Number of Workouts</div>
-              <div><IconButton><ArrowForward/></IconButton></div>
-            </div>
-            <div className='statistics-display-values'>
-              <div>Workout Duration</div>
-              <div><IconButton><ArrowForward/></IconButton></div>
-            </div>
-            <div className='statistics-display-values'>
-              <div>Volume</div>
-              <div><IconButton><ArrowForward/></IconButton></div>
-            </div>
-            <div className='statistics-display-values'>
-              <div>Total Sets</div>
-              <div><IconButton><ArrowForward/></IconButton></div>
-            </div>
-            <div className='statistics-display-values'>
-              <div>Total Reps</div>
-              <div><IconButton><ArrowForward/></IconButton></div>
-            </div>
-            <div className='statistics-display-values'>
-              <div>Total Reps per Set</div>
-              <div><IconButton><ArrowForward/></IconButton></div>
-            </div>
-            <div className='statistics-display-values'>
-              <div>Bodyweight</div>
-              <div><IconButton><ArrowForward/></IconButton></div>
-            </div>
+            {categories && categories.map((category: ExerciseCategory) => (
+                <div className='statistics-display-values'>
+                  <div>{category.name}</div>
+                  <div><ArrowForward/></div>
+                </div>
+            ))
+            }
           </div>
         </div>
       </div>
