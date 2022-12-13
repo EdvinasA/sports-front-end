@@ -7,7 +7,7 @@ import {WorkoutListDrawerComponent} from "../WorkoutListDrawerComponent/WorkoutL
 import WorkoutCreateComponent from "../WorkoutCreateComponent/WorkoutCreateComponent";
 import {getWorkouts} from "../../services/WorkoutService";
 import {PlayArrow} from "@mui/icons-material"
-import {IconButton} from "@mui/material";
+import {Divider, IconButton} from "@mui/material";
 import "typeface-roboto";
 
 export interface WorkoutState {
@@ -92,6 +92,40 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState> {
     return '';
   }
 
+  private getTotalVolumeOfWorkout(workout: WorkoutDetails) {
+    let sumOfVolume = 0;
+    if (workout.exercises.length !== 0) {
+      workout.exercises.forEach((o) => {
+        if (o.exerciseSets.length !== 0) {
+          o.exerciseSets.forEach((es) => {
+            if (es.weight !== null) {
+              return sumOfVolume += es.weight;
+            }
+          })
+        }
+        return sumOfVolume;
+      });
+    }
+    return sumOfVolume;
+  }
+
+  private getTotalSetsOfWorkout(workout: WorkoutDetails) {
+    let sumOfSets = 0;
+    if (workout.exercises !== null && workout.exercises.length !== 0) {
+      workout.exercises.forEach((o) => {
+        if (o.exerciseSets !== null && o.exerciseSets.length !== 0) {
+          return sumOfSets += o.exerciseSets.length;
+        }
+        return sumOfSets;
+      });
+    }
+    return sumOfSets;
+  }
+
+  private getFormattedDate(workout: WorkoutDetails) {
+    return new Date(workout.date).toLocaleDateString("en-us", { year: "numeric", month: "short", day: "numeric" });
+  }
+
   render() {
     return (
         <div>
@@ -111,25 +145,52 @@ class WorkoutListComponent extends React.Component<{}, WorkoutState> {
                       <Link to={`/workout/${workout.id}`}>
                         <div className="workout-item">
                           <div className="workout-item-column1">
-                            <div>{getDayOfTheWeekForDate(workout.date)}</div>
-                            <div>{getDayOfTheMonth(workout.date)}</div>
-                            <div>{getMonth(workout.date)}</div>
+                            <div className="workout-item-title">
+                              {workout.name || 'Workout'}
+                            </div>
+                            <div className="workout-item-date">
+                              {this.getFormattedDate(workout)}
+                            </div>
                           </div>
-                          <div className="workout-item-column2">
-                            <div>
-                              <div className='workout-title'>
-                                {workout.name || 'Workout'}
+                          <div className='workout-item-details'>
+                            <div className="workout-item-column2">
+                              <div className="workout-item-title-details">
+                                Time
                               </div>
-                              <div>
-                                {workout.exercises &&
-                                    workout.exercises.map((exercise: WorkoutExercise) => (
-                                        <div key={exercise.id}>{exercise.exerciseSets.length}x {exercise.exercise.name}</div>
-                                    ))}
+                              <div className="workout-item-value-details">
+                                {this.getWorkoutLength(workout) || "Not Finished"}
                               </div>
                             </div>
-                            <div className='workout-duration'>
-                              <div>
-                                {this.getWorkoutLength(workout)}
+                            <div className="workout-item-column2">
+                              <div className="workout-item-title-details">
+                                Volume
+                              </div>
+                              <div className="workout-item-value-details">
+                                {this.getTotalVolumeOfWorkout(workout)} kg
+                              </div>
+                            </div>
+                            <div className="workout-item-column2">
+                              <div className="workout-item-title-details">
+                                Sets
+                              </div>
+                              <div className="workout-item-value-details">
+                                {this.getTotalSetsOfWorkout(workout)}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="workout-divider">
+                            <Divider></Divider>
+                          </div>
+                          <div className="workout-item-column3">
+                            <div>
+                              <div className='workout-exercises-title'>
+                                Workout
+                              </div>
+                              <div className="workout-exercises-wrapper">
+                                {workout.exercises &&
+                                    workout.exercises.map((exercise: WorkoutExercise) => (
+                                        <div className="workout-exercise-sets-and-title" key={exercise.id}>{exercise.exerciseSets.length}x {exercise.exercise.name}</div>
+                                    ))}
                               </div>
                             </div>
                           </div>

@@ -20,7 +20,9 @@
 }
 
 .workout-list-wrapper {
+  padding: 16px 12px 0 12px;
   color: #000000;
+
   a {
     text-decoration: none;
     color: black;
@@ -37,41 +39,76 @@
 }
 
 .application-wrapper {
-  width: 350px;
-  padding: 50px 5px 120px 5px;
+  width: 100%;
+  padding: 50px 0 0 0;
   margin: 0 auto;
   text-align: center;
   color: white;
 }
 
 .workout-item {
-  display: grid;
-  grid-template-columns: 24% 76%;
-  text-align: center;
-  margin: 10px;
-  color: #000000;
+  background: #FFFFFF;
+  border: 1px solid #FFFFFF;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  width: 100%;
 }
 
 .workout-item-column1 {
+  display: flex;
+  justify-content: space-between;
   font-weight: 600;
-  font-family: Roboto;
+  font-family: Roboto, serif;
+  padding: 10px 15px;
+}
+
+.workout-item-title {
+  font-style: normal;
+  font-family: Roboto, serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+}
+
+.workout-item-date {
+  color: #7D7D7D;
+  font-style: normal;
+  font-family: Roboto, serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.workout-item-details {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 0 15px;
+}
+
+.workout-item-title-details {
+  font-family: Roboto, serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 9px;
+  line-height: 11px;
+}
+
+.workout-item-value-details {
+  font-family: Roboto, serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
 }
 
 .workout-item-column2 {
-  background-color: #A1B19F6E;
-  display: grid;
-  font-family: Roboto;
-  grid-template-columns: 80% 20%;
+  font-family: Roboto, serif;
   font-size: 12px;
   text-align: left;
-  padding: 5px;
   position: relative;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 .workout-duration {
-  font-family: Roboto;
+  font-family: Roboto, serif;
   height: 15px;
   position: absolute;
   right: 10px;
@@ -79,12 +116,29 @@
   width: 48px;
 }
 
+.workout-divider {
+  padding: 9px 0;
+}
+
 .workout-title {
   font-weight: 700;
-  font-family: Roboto;
+  font-family: Roboto, serif;
 }
 
 .workout-details-display {
+}
+
+.workout-item-column3 {
+  text-align: left;
+  padding: 0 0 5px 15px;
+}
+
+.workout-exercises-title {
+  font-family: Roboto, serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 14px;
 }
 
 .open-workout-button {
@@ -103,4 +157,17 @@
   justify-content: flex-end;
   width: 100%;
   padding: 5px 20px 5px 5px;
+}
+
+.workout-exercise-sets-and-title {
+  font-family: Roboto,serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  padding-bottom: 5px;
+}
+
+.workout-exercises-wrapper {
+  padding-top: 5px;
 }

@@ -1,7 +1,9 @@
-import React, {FC} from 'react';
+import React from 'react';
 import './StatisticsComponent.scss';
+import { ArrowForward } from '@mui/icons-material';
 import {WorkoutListDrawerComponent} from "../../WorkoutListDrawerComponent/WorkoutListDrawerComponent";
 import "typeface-roboto";
+import {IconButton} from "@mui/material";
 
 interface StatisticsComponentProps {
 }
@@ -18,64 +20,64 @@ const StatisticsComponent = () => {
         <div className='statistics-display'>
           <div className='statistics-display-overall'>
             <div className='statistics-display-title'>Overall Statistics</div>
-            <div>
+            <div className='statistics-display-values'>
               <div>Number of Workouts</div>
-              <div>2</div>
+              <div>0</div>
             </div>
-            <div>
+            <div className='statistics-display-values'>
               <div>Workout Duration</div>
-              <div>2</div>
+              <div>0</div>
             </div>
-            <div>
+            <div className='statistics-display-values'>
               <div>Volume</div>
-              <div>2</div>
+              <div>0</div>
             </div>
-            <div>
-              <div>Total Sets</div>
-              <div>2</div>
+            <div className='statistics-display-values'>
+              <div >Total Sets</div>
+              <div>0</div>
             </div>
-            <div>
+            <div className='statistics-display-values'>
               <div>Total Reps</div>
-              <div>2</div>
+              <div>0</div>
             </div>
-            <div>
+            <div className='statistics-display-values'>
               <div>Total Reps per Set</div>
-              <div>2</div>
+              <div>0</div>
             </div>
-            <div>
+            <div className='statistics-display-values'>
               <div>Bodyweight</div>
-              <div>2</div>
+              <div>0</div>
             </div>
           </div>
           <div className='statistics-display-category'>
             <div className='statistics-display-title'>Category Statistics</div>
-            <div>
+            <div className='statistics-display-values'>
               <div>Number of Workouts</div>
-              <div>1</div>
+              <div><IconButton><ArrowForward/></IconButton></div>
             </div>
-            <div>
+            <div className='statistics-display-values'>
               <div>Workout Duration</div>
-              <div>1</div>
+              <div><IconButton><ArrowForward/></IconButton></div>
             </div>
-            <div>
+            <div className='statistics-display-values'>
               <div>Volume</div>
-              <div>2</div>
+              <div><IconButton><ArrowForward/></IconButton></div>
             </div>
-            <div>
+            <div className='statistics-display-values'>
               <div>Total Sets</div>
-              <div>2</div>
+              <div><IconButton><ArrowForward/></IconButton></div>
             </div>
-            <div>
+            <div className='statistics-display-values'>
               <div>Total Reps</div>
-              <div>2</div>
+              <div><IconButton><ArrowForward/></IconButton></div>
             </div>
-            <div>
+            <div className='statistics-display-values'>
               <div>Total Reps per Set</div>
-              <div>2</div>
+              <div><IconButton><ArrowForward/></IconButton></div>
             </div>
-            <div>
+            <div className='statistics-display-values'>
               <div>Bodyweight</div>
-              <div>2</div>
+              <div><IconButton><ArrowForward/></IconButton></div>
             </div>
           </div>
         </div>
