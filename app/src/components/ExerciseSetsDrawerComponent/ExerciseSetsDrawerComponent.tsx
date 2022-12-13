@@ -10,6 +10,7 @@ export type DrawerProps = {
   exerciseId: number;
   setId: number;
   deleteSet: (workoutId: number, setId: number) => void;
+  copySet: (workoutId: number, setId: number) => void;
   children: React.ReactNode;
 }
 
@@ -32,7 +33,7 @@ const ExerciseSetsDrawerComponent = (props: DrawerProps) => {
           <ListItemButton>Normal</ListItemButton>
           <ListItemButton>Warm up</ListItemButton>
           <ListItemButton>Drop set</ListItemButton>
-          <ListItemButton><ContentCopy/> Copy set</ListItemButton>
+          <ListItemButton onClick={() => props.copySet(props.exerciseId, props.setId)}><ContentCopy/> Copy set</ListItemButton>
           <ListItemButton onClick={() => handleDeleteSet(exerciseId, setId)}><Delete/> Delete</ListItemButton>
         </List>
       </Box>

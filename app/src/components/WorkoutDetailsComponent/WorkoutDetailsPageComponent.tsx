@@ -10,7 +10,7 @@ import {LocalizationProvider, MobileDatePicker, TimePicker} from "@mui/x-date-pi
 import produce from "immer";
 import defaultExerciseSetCreate from "../../shared/DefaultObjects";
 import {TransitionProps} from "@mui/material/transitions";
-import {addExerciseSet, deleteExerciseSet, updateExerciseSetRequest} from "../../services/ExerciseSetService";
+import {addExerciseSet, copyExerciseSet, deleteExerciseSet, updateExerciseSetRequest} from "../../services/ExerciseSetService";
 import {addExercise, createExercise, updateExercise} from "../../services/ExerciseService";
 import {ExerciseSetsDrawerComponent} from '../ExerciseSetsDrawerComponent/ExerciseSetsDrawerComponent';
 import {ExerciseDrawerComponent} from "../ExerciseDrawerComponent/ExerciseDrawerComponent";
@@ -280,6 +280,15 @@ function WorkoutDetailsPage() {
     })
   }
 
+  const handleCopyExerciseSet = (workoutExerciseId: number, exerciseSetId: number) => {
+    copyExerciseSet(exerciseSetId)
+      .then((response) => {
+        setWorkout(produce(workout, draft => {
+          draft.exercises[draft.exercises.findIndex(o => o.id === workoutExerciseId)].exerciseSets.push(response);
+        }))
+      })
+  }
+
   return (
       <div>
         <div className='workout-details-display'>
@@ -440,7 +449,8 @@ function WorkoutDetailsPage() {
                                   <ExerciseSetsDrawerComponent
                                       exerciseId={workout.id}
                                       setId={set.id}
-                                      deleteSet={() => handleDeleteSet(workout.id, set.id)}>
+                                      deleteSet={handleDeleteSet}
+                                      copySet={handleCopyExerciseSet}>
                                   </ExerciseSetsDrawerComponent>
                                 </div>
                               </div>
