@@ -3,19 +3,62 @@ import './StatisticsComponent.scss';
 import {ArrowForward} from '@mui/icons-material';
 import {WorkoutListDrawerComponent} from "../../WorkoutListDrawerComponent/WorkoutListDrawerComponent";
 import "typeface-roboto";
-import {IconButton} from "@mui/material";
 import {ExerciseCategory} from "../../../models/workout";
 import {getExerciseCategories} from "../../../services/ExerciseCategoryService";
+import {OverallStatistics} from "../../../models/Statistics";
+import {getOverallStatistics} from "../../../services/StatisticsService";
+import StatisticsChartDialog from "../StatisticsChartDialog/StatisticsChartDialog";
+import {TransitionProps} from "@mui/material/transitions";
+import {Dialog, Slide} from "@mui/material";
+
+const Transition = React.forwardRef(function Transition(
+    props: TransitionProps & {
+      children: React.ReactElement;
+    },
+    ref: React.Ref<unknown>,
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const StatisticsComponent = () => {
   const [categories, setCategories] = React.useState<ExerciseCategory[]>([]);
+  const [chartDialog, setChartDialog] = React.useState<boolean>(false);
+  const [chartData, setChartData] = React.useState<any[]>([]);
+  const [chartLabel, setChartLabel] = React.useState<string>("");
+  const [stats, setStats] = React.useState<OverallStatistics>({
+    numberOfWorkouts: 0,
+    workoutDuration: [],
+    volume: [],
+    totalSets: [],
+    totalReps: [],
+    bodyWeight: []
+  });
 
   useEffect(() => {
-    getExerciseCategories()
-    .then((response) => {
-      setCategories(response);
-    })
+    if (categories.length === 0) {
+      getExerciseCategories()
+      .then((response) => {
+        setCategories(response);
+      })
+    }
+    if (stats.numberOfWorkouts === 0) {
+      getOverallStatistics()
+      .then((response) => {
+        setStats(response);
+      })
+    }
   })
+
+  const handleCloseChartDialog = () => {
+    setChartDialog(false);
+  }
+
+  const handleOpenChartDialog = (data: any[], label: string) => {
+    setChartLabel(label);
+    setChartData(data);
+    setChartDialog(true);
+  }
+
 
   return (
       <div>
@@ -30,27 +73,27 @@ const StatisticsComponent = () => {
             <div className='statistics-display-title'>Overall Statistics</div>
             <div className='statistics-display-values'>
               <div>Number of Workouts</div>
-              <div>0</div>
+              <div>{stats.numberOfWorkouts}</div>
             </div>
             <div className='statistics-display-values'>
               <div>Workout Duration</div>
-              <div>0</div>
+              <div onClick={() => handleOpenChartDialog(stats.workoutDuration, "Workout Duration")}><ArrowForward/></div>
             </div>
             <div className='statistics-display-values'>
               <div>Volume</div>
-              <div>0</div>
+              <div onClick={() => handleOpenChartDialog(stats.volume, "Volume")}><ArrowForward/></div>
             </div>
             <div className='statistics-display-values'>
               <div>Total Sets</div>
-              <div>0</div>
+              <div onClick={() => handleOpenChartDialog(stats.totalSets, "Total Sets")}><ArrowForward/></div>
             </div>
             <div className='statistics-display-values'>
               <div>Total Reps</div>
-              <div>0</div>
+              <div onClick={() => handleOpenChartDialog(stats.totalReps, "Total Reps")}><ArrowForward/></div>
             </div>
             <div className='statistics-display-values'>
-              <div>Bodyweight</div>
-              <div>0</div>
+              <div>Body Weight</div>
+              <div onClick={() => handleOpenChartDialog(stats.bodyWeight, "Body Weight")}><ArrowForward/></div>
             </div>
           </div>
           <div className='statistics-display-category'>
@@ -64,6 +107,17 @@ const StatisticsComponent = () => {
             }
           </div>
         </div>
+        <Dialog
+        fullScreen
+        open={chartDialog}
+        onClose={handleCloseChartDialog}
+        TransitionComponent={Transition}
+        >
+          <StatisticsChartDialog
+            label={chartLabel}
+            data={chartData}
+            close={handleCloseChartDialog}></StatisticsChartDialog>
+        </Dialog>
       </div>
   );
 }
