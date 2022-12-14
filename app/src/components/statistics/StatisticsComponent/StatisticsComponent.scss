@@ -21,18 +21,35 @@
 }
 
 .statistics-display {
-  padding-top: 25px;
-  font-family: Roboto;
+  padding-top: 5px;
+  font-family: Roboto, serif;
 }
 
 .statistics-display-values {
+  cursor: pointer;
   display: flex;
   font-family: Roboto;
   font-size: 16px;
   justify-content: space-between;
-  padding: 10px;
+  padding: 8px 22px;
+}
+
+.statistics-display-values-value {
+  padding-right: 7px;
 }
 
 .statistics-display-category {
   padding-bottom: 70px;
+}
+
+.statistics-display-values-title {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.statistics-display-title {
+  padding: 22px 0 5px 22px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
 }

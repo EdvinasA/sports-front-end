@@ -9,7 +9,7 @@ import {OverallStatistics} from "../../../models/Statistics";
 import {getOverallStatistics} from "../../../services/StatisticsService";
 import StatisticsChartDialog from "../StatisticsChartDialog/StatisticsChartDialog";
 import {TransitionProps} from "@mui/material/transitions";
-import {Dialog, Slide} from "@mui/material";
+import {Dialog, Divider, Slide} from "@mui/material";
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -25,6 +25,7 @@ const StatisticsComponent = () => {
   const [chartDialog, setChartDialog] = React.useState<boolean>(false);
   const [chartData, setChartData] = React.useState<any[]>([]);
   const [chartLabel, setChartLabel] = React.useState<string>("");
+  const [chartYAxis, setChartYAxis] = React.useState<string>("");
   const [stats, setStats] = React.useState<OverallStatistics>({
     numberOfWorkouts: 0,
     workoutDuration: [],
@@ -53,9 +54,10 @@ const StatisticsComponent = () => {
     setChartDialog(false);
   }
 
-  const handleOpenChartDialog = (data: any[], label: string) => {
+  const handleOpenChartDialog = (data: any[], label: string, YAxis: string) => {
     setChartLabel(label);
     setChartData(data);
+    setChartYAxis(YAxis);
     setChartDialog(true);
   }
 
@@ -73,34 +75,35 @@ const StatisticsComponent = () => {
             <div className='statistics-display-title'>Overall Statistics</div>
             <div className='statistics-display-values'>
               <div>Number of Workouts</div>
-              <div>{stats.numberOfWorkouts}</div>
+              <div className='statistics-display-values-value'>{stats.numberOfWorkouts}</div>
             </div>
-            <div className='statistics-display-values'>
-              <div>Workout Duration</div>
-              <div onClick={() => handleOpenChartDialog(stats.workoutDuration, "Workout Duration")}><ArrowForward/></div>
+            <div className='statistics-display-values' onClick={() => handleOpenChartDialog(stats.workoutDuration, "Workout Duration", "Minutes")}>
+              <div className='statistics-display-values-title'>Workout Duration</div>
+              <div><ArrowForward/></div>
             </div>
-            <div className='statistics-display-values'>
-              <div>Volume</div>
-              <div onClick={() => handleOpenChartDialog(stats.volume, "Volume")}><ArrowForward/></div>
+            <div className='statistics-display-values' onClick={() => handleOpenChartDialog(stats.workoutDuration, "Volume", "Kg")}>
+              <div className='statistics-display-values-title'>Volume</div>
+              <div><ArrowForward/></div>
             </div>
-            <div className='statistics-display-values'>
-              <div>Total Sets</div>
-              <div onClick={() => handleOpenChartDialog(stats.totalSets, "Total Sets")}><ArrowForward/></div>
+            <div className='statistics-display-values' onClick={() => handleOpenChartDialog(stats.totalSets, "Total Sets", "Amount")}>
+              <div className='statistics-display-values-title'>Total Sets</div>
+              <div><ArrowForward/></div>
             </div>
-            <div className='statistics-display-values'>
-              <div>Total Reps</div>
-              <div onClick={() => handleOpenChartDialog(stats.totalReps, "Total Reps")}><ArrowForward/></div>
+            <div className='statistics-display-values' onClick={() => handleOpenChartDialog(stats.totalReps, "Total Reps", "Amount")}>
+              <div className='statistics-display-values-title'>Total Reps</div>
+              <div><ArrowForward/></div>
             </div>
-            <div className='statistics-display-values'>
-              <div>Body Weight</div>
-              <div onClick={() => handleOpenChartDialog(stats.bodyWeight, "Body Weight")}><ArrowForward/></div>
+            <div className='statistics-display-values' onClick={() => handleOpenChartDialog(stats.bodyWeight, "Body Weight", "Kg")}>
+              <div className='statistics-display-values-title'>Body Weight</div>
+              <div><ArrowForward/></div>
             </div>
           </div>
+          <Divider></Divider>
           <div className='statistics-display-category'>
             <div className='statistics-display-title'>Category Statistics</div>
             {categories && categories.map((category: ExerciseCategory) => (
                 <div className='statistics-display-values'>
-                  <div>{category.name}</div>
+                  <div className='statistics-display-values-title'>{category.name}</div>
                   <div><ArrowForward/></div>
                 </div>
             ))
@@ -116,6 +119,7 @@ const StatisticsComponent = () => {
           <StatisticsChartDialog
             label={chartLabel}
             data={chartData}
+            YAxis={chartYAxis}
             close={handleCloseChartDialog}></StatisticsChartDialog>
         </Dialog>
       </div>
