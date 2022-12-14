@@ -38,7 +38,10 @@ const StatisticsChartDialog = (props: StatisticsChartDialogProps) => {
 
   return (
       <div className="StatisticsChartDialog">
-        <IconButton onClick={props.close}><ArrowBack/></IconButton>
+        <div className='chart-header'>
+          <IconButton onClick={props.close}><ArrowBack/></IconButton>
+          <div className='chart-header-label'>{props.label}</div>
+        </div>
         <div className="chart-wrapper">
           <ResponsiveContainer>
             <LineChart data={mapData()} margin={{
