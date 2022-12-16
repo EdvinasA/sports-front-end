@@ -1,5 +1,5 @@
 import {createRequestWithResponse} from "./ApiService";
-import {OverallStatistics} from "../models/Statistics";
+import {ExerciseStatistics, OverallStatistics} from "../models/Statistics";
 
 async function getOverallStatistics(): Promise<OverallStatistics> {
   const requestOptions = {
@@ -8,4 +8,11 @@ async function getOverallStatistics(): Promise<OverallStatistics> {
   return await createRequestWithResponse(`api/stats`, requestOptions);
 }
 
-export { getOverallStatistics };
+async function getExerciseStatistics(exerciseId: number): Promise<ExerciseStatistics[]> {
+  const requestOptions = {
+    method: 'GET',
+  };
+  return await createRequestWithResponse(`api/stats/${exerciseId}`, requestOptions);
+}
+
+export { getOverallStatistics, getExerciseStatistics };

@@ -10,6 +10,7 @@ import {getOverallStatistics} from "../../../services/StatisticsService";
 import StatisticsChartDialog from "../StatisticsChartDialog/StatisticsChartDialog";
 import {TransitionProps} from "@mui/material/transitions";
 import {Dialog, Divider, Slide} from "@mui/material";
+import StatisticsExercise from "../StatisticsExercise/StatisticsExercise";
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -22,7 +23,9 @@ const Transition = React.forwardRef(function Transition(
 
 const StatisticsComponent = () => {
   const [categories, setCategories] = React.useState<ExerciseCategory[]>([]);
+  const [selectedCategoryId, setSelectedCategoryId] = React.useState<number>(0);
   const [chartDialog, setChartDialog] = React.useState<boolean>(false);
+  const [exerciseDialog, setExerciseDialog] = React.useState<boolean>(false);
   const [chartData, setChartData] = React.useState<any[]>([]);
   const [chartLabel, setChartLabel] = React.useState<string>("");
   const [chartYAxis, setChartYAxis] = React.useState<string>("");
@@ -49,6 +52,10 @@ const StatisticsComponent = () => {
       })
     }
   })
+
+  const handleCloseExerciseDialog = () => {
+    setExerciseDialog(false);
+  }
 
   const handleCloseChartDialog = () => {
     setChartDialog(false);
@@ -104,23 +111,30 @@ const StatisticsComponent = () => {
             {categories && categories.map((category: ExerciseCategory) => (
                 <div className='statistics-display-values'>
                   <div className='statistics-display-values-title'>{category.name}</div>
-                  <div><ArrowForward/></div>
+                  {/*<div onCl><ArrowForward/></div>*/}
                 </div>
             ))
             }
           </div>
         </div>
         <Dialog
-        fullScreen
-        open={chartDialog}
-        onClose={handleCloseChartDialog}
-        TransitionComponent={Transition}
+            fullScreen
+            open={chartDialog}
+            onClose={handleCloseChartDialog}
+            TransitionComponent={Transition}
         >
           <StatisticsChartDialog
-            label={chartLabel}
-            data={chartData}
-            YAxis={chartYAxis}
-            close={handleCloseChartDialog}></StatisticsChartDialog>
+              label={chartLabel}
+              data={chartData}
+              YAxis={chartYAxis}
+              close={handleCloseChartDialog}></StatisticsChartDialog>
+        </Dialog>
+        <Dialog
+            fullScreen
+            open={exerciseDialog}
+            onClose={handleCloseExerciseDialog}
+            TransitionComponent={Transition}>
+              {/*<StatisticsExercise exerciseCategory={exer} close={}*/}
         </Dialog>
       </div>
   );

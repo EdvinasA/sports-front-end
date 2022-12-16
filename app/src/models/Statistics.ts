@@ -6,3 +6,8 @@ export type OverallStatistics = {
   totalReps: number[];
   bodyWeight: number[];
 }
+
+export type ExerciseStatistics = {
+  weight: number;
+  reps: number;
+}
