@@ -90,6 +90,7 @@ function WorkoutDetailsPage() {
   const getWorkout = () => {
     getWorkoutById(workoutId)
     .then((response) => {
+      response.exercises.forEach(o => o.exerciseSets.sort((a, b) => a.id > b.id ? 1 : -1));
       setWorkout(response);
       setWorkoutExercises(response.exercises.sort((a, b) => a.rowNumber > b.rowNumber ? 1 : -1));
     })
@@ -282,19 +283,19 @@ function WorkoutDetailsPage() {
 
   const handleCopyExerciseSet = (workoutExerciseId: number, exerciseSetId: number) => {
     copyExerciseSet(exerciseSetId)
-      .then((response) => {
-        setWorkout(produce(workout, draft => {
-          draft.exercises[draft.exercises.findIndex(o => o.id === workoutExerciseId)].exerciseSets.push(response);
-        }))
-      })
+    .then((response) => {
+      setWorkout(produce(workout, draft => {
+        draft.exercises[draft.exercises.findIndex(o => o.id === workoutExerciseId)].exerciseSets.push(response);
+      }))
+    })
   }
 
   const handleRepeatWorkout = () => {
     repeatWorkout(workout.id)
-      .then((response) => {
-        navigator(`/workout/${response}`);
-        window.location.reload();
-      })
+    .then((response) => {
+      navigator(`/workout/${response}`);
+      window.location.reload();
+    })
   }
 
   return (
@@ -308,9 +309,11 @@ function WorkoutDetailsPage() {
                     <ArrowBack/>
                   </IconButton>
                 </Link>
-                <div className='dialog-workout-finish-action' onClick={() => handleFinishWorkout()}>
-                  FINISH
-                </div>
+                {workout.endTime === null &&
+                    <div className='dialog-workout-finish-action' onClick={() => handleFinishWorkout()}>
+                      FINISH
+                    </div>
+                }
               </div>
               <div>
                 {getMonth(workout.date)} {getDayOfTheMonth(workout.date)}

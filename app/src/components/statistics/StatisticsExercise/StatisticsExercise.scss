@@ -1,4 +1,37 @@
 .statistics-exercises {
+  padding: 10px 0 0 0;
+  height: 100%;
+}
+
+.statistics-exercises-list {
+  height: 100%;
+  padding: 10px 12px;
+}
+
+.statistics-exercises-list-header {
+  display: flex;
+  width: 50%;
+}
+
+.statistics-exercises-list-header-title {
+  padding-top: 8px;
+  span {
+    font-weight: 601;
+  }
+}
+
+.statistics-exercises-list-body {
+  padding: 0 10px;
+}
+
+.statistics-exercise-category-list {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+
+.statistics-charts-wrapper {
   width: 90%;
   height: 90%;
 }

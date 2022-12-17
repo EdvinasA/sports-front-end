@@ -3,7 +3,7 @@ import './StatisticsComponent.scss';
 import {ArrowForward} from '@mui/icons-material';
 import {WorkoutListDrawerComponent} from "../../WorkoutListDrawerComponent/WorkoutListDrawerComponent";
 import "typeface-roboto";
-import {ExerciseCategory} from "../../../models/workout";
+import {Exercise, ExerciseCategory} from "../../../models/workout";
 import {getExerciseCategories} from "../../../services/ExerciseCategoryService";
 import {OverallStatistics} from "../../../models/Statistics";
 import {getOverallStatistics} from "../../../services/StatisticsService";
@@ -11,6 +11,7 @@ import StatisticsChartDialog from "../StatisticsChartDialog/StatisticsChartDialo
 import {TransitionProps} from "@mui/material/transitions";
 import {Dialog, Divider, Slide} from "@mui/material";
 import StatisticsExercise from "../StatisticsExercise/StatisticsExercise";
+import {getExercisesByCategory} from "../../../services/ExerciseService";
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -23,7 +24,8 @@ const Transition = React.forwardRef(function Transition(
 
 const StatisticsComponent = () => {
   const [categories, setCategories] = React.useState<ExerciseCategory[]>([]);
-  const [selectedCategoryId, setSelectedCategoryId] = React.useState<number>(0);
+  const [exercises, setExercises] = React.useState<Exercise[]>([]);
+  const [selectedCategory, setSelectedCategory] = React.useState<any>();
   const [chartDialog, setChartDialog] = React.useState<boolean>(false);
   const [exerciseDialog, setExerciseDialog] = React.useState<boolean>(false);
   const [chartData, setChartData] = React.useState<any[]>([]);
@@ -59,6 +61,11 @@ const StatisticsComponent = () => {
 
   const handleCloseChartDialog = () => {
     setChartDialog(false);
+  }
+
+  const handleOpenExerciseDialog = (category: ExerciseCategory) => {
+    setSelectedCategory(category);
+    setExerciseDialog(true);
   }
 
   const handleOpenChartDialog = (data: any[], label: string, YAxis: string) => {
@@ -111,7 +118,7 @@ const StatisticsComponent = () => {
             {categories && categories.map((category: ExerciseCategory) => (
                 <div className='statistics-display-values'>
                   <div className='statistics-display-values-title'>{category.name}</div>
-                  {/*<div onCl><ArrowForward/></div>*/}
+                  <div onClick={() => handleOpenExerciseDialog(category)}><ArrowForward/></div>
                 </div>
             ))
             }
@@ -134,7 +141,7 @@ const StatisticsComponent = () => {
             open={exerciseDialog}
             onClose={handleCloseExerciseDialog}
             TransitionComponent={Transition}>
-              {/*<StatisticsExercise exerciseCategory={exer} close={}*/}
+              <StatisticsExercise exerciseCategory={selectedCategory} close={handleCloseExerciseDialog} />
         </Dialog>
       </div>
   );
