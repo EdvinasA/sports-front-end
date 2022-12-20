@@ -5,7 +5,7 @@
   "testLibrary": "None",
   "component": {
     "default": {
-      "path": "src/components/statistics",
+      "path": "src/components/WorkoutDetailsComponent",
       "withStyle": true,
       "withTest": false,
       "withStory": false,

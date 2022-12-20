@@ -1,3 +1,4 @@
+
 const findToken = () => {
   return `bearer ${localStorage.getItem("token")}`;
 }
@@ -5,10 +6,13 @@ const findToken = () => {
 const ROOT_URL = process.env.REACT_APP_API_URL;
 let token: string | null = `bearer ${localStorage.getItem("token")}`;
 
-
 async function createRequestWithoutResponse(url: string, requestOptions: any) {
   if (token === undefined || token === null) {
     token = findToken();
+    if (findToken() !== "") {
+      window.location.reload();
+    }
+    window.location.href = `${ROOT_URL}/login`;
   }
   const request = {
     ...requestOptions,
@@ -24,6 +28,10 @@ async function createRequestWithoutResponse(url: string, requestOptions: any) {
 async function createRequestWithResponse(url: string, requestOptions: any) {
   if (token === undefined || token === null) {
     token = findToken();
+    if (findToken() !== "") {
+      window.location.reload();
+    }
+    window.location.href = `${ROOT_URL}/login`;
   }
   const request = {
     ...requestOptions,

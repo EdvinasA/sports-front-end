@@ -22,6 +22,8 @@ import {getExerciseCategories} from "../../services/ExerciseCategoryService";
 import WorkoutExerciseReorder from "../WorkoutExerciseReorder/WorkoutExerciseReorder";
 import WorkoutDetailsAddExerciseComponent from "./WorkoutDetailsAddExerciseComponent/WorkoutDetailsAddExerciseComponent";
 import "typeface-roboto";
+import {createRoutineFromWorkout} from "../../services/RoutineService";
+import WorkoutDetailsExerciseEditComponent from "./WorkoutDetailsExerciseEditComponent/WorkoutDetailsExerciseEditComponent";
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -34,6 +36,7 @@ const Transition = React.forwardRef(function Transition(
 
 function WorkoutDetailsPage() {
   const [openDialog, setOpenDialog] = React.useState<boolean>(false);
+  const [openEditExerciseDialog, setOpenEditExerciseDialog] = React.useState<boolean>(false);
   const [reorderOpenDialog, setReorderOpenDialog] = React.useState<boolean>(false);
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [exerciseCategories, setExerciseCategories] = React.useState<ExerciseCategory[]>([]);
@@ -298,6 +301,36 @@ function WorkoutDetailsPage() {
     })
   }
 
+  const handleCreateRoutineFromWorkout = () => {
+    createRoutineFromWorkout(workout.id)
+    .then((response) => {
+      navigator(`/routines/${response}`)
+      window.location.reload();
+    })
+  }
+
+  const handleOpenEditExerciseDialog = (exercise: WorkoutExercise) => {
+    setSelectedUpdateExercise(exercise);
+    getExerciseCategories()
+    .then((response) => {
+      setExerciseCategories(response);
+    })
+    setOpenEditExerciseDialog(true);
+  }
+
+  const handleUpdateExerciseDialog = (exercise: Exercise) => {
+    setWorkout(produce(workout, draft => {
+      const workoutExerciseIndex: number = draft.exercises.findIndex(o => o.id === selectedUpdateExercise.id);
+      draft.exercises[workoutExerciseIndex].exercise = exercise;
+      setOpenEditExerciseDialog(false);
+    }));
+  }
+
+  const handleCloseEditExerciseDialog = () => {
+    setOpenEditExerciseDialog(false);
+  }
+
+
   return (
       <div>
         <div className='workout-details-display'>
@@ -329,7 +362,8 @@ function WorkoutDetailsPage() {
                     <WorkoutDrawerComponent
                         workout={workout}
                         handleRepeatWorkout={handleRepeatWorkout}
-                        reorderOpen={openReorderDialog}>
+                        reorderOpen={openReorderDialog}
+                        handleCreateRoutineFromWorkout={handleCreateRoutineFromWorkout}>
                     </WorkoutDrawerComponent>
                   </div>
                 </div>
@@ -414,6 +448,7 @@ function WorkoutDetailsPage() {
                                 openEditExerciseNoteDialog={openEditNoteDialog}
                                 deleteExercise={handleDeleteWorkoutExercise}
                                 reorderOpen={openReorderDialog}
+                                openEditExerciseDialog={handleOpenEditExerciseDialog}
                             >
                             </ExerciseDrawerComponent>
                           </div>
@@ -530,6 +565,16 @@ function WorkoutDetailsPage() {
               <Button onClick={handleUpdateExerciseNoteMain}>Save</Button>
               <Button onClick={closeEditNoteDialog}>Cancel</Button>
             </div>
+          </Dialog>
+          <Dialog
+              fullScreen
+              open={openEditExerciseDialog}
+              onClose={handleCloseEditExerciseDialog}>
+            <WorkoutDetailsExerciseEditComponent
+                categories={exerciseCategories}
+                closeDialog={handleCloseEditExerciseDialog}
+                exercise={selectedUpdateExercise.exercise}
+                handleUpdateSentExercise={handleUpdateExerciseDialog}/>
           </Dialog>
         </div>
       </div>

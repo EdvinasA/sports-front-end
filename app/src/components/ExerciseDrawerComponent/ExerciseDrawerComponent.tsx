@@ -13,6 +13,7 @@ type ExerciseDrawerProps = {
   openEditExerciseNoteDialog: (exercise: WorkoutExercise) => void;
   children: React.ReactNode;
   reorderOpen: () => void;
+  openEditExerciseDialog: (exercise: WorkoutExercise) => void;
 }
 
 const ExerciseDrawerComponent = (props: ExerciseDrawerProps) => {
@@ -42,7 +43,7 @@ const ExerciseDrawerComponent = (props: ExerciseDrawerProps) => {
           <ListItemButton><History/> History</ListItemButton>
           <ListItemButton><BarChart/> Charts</ListItemButton>
           <ListItemButton><Star/> Personal Records</ListItemButton>
-          <ListItemButton><Settings/> Edit Exercise</ListItemButton>
+          <ListItemButton onClick={() => props.openEditExerciseDialog(props.workoutExercise)}><Settings/> Edit Exercise</ListItemButton>
         </List>
       </Box>
   );

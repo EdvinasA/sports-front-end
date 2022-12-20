@@ -13,6 +13,7 @@ type WorkoutDrawerProps = {
   workout: WorkoutDetails;
   reorderOpen: () => void;
   handleRepeatWorkout: () => void;
+  handleCreateRoutineFromWorkout: () => void;
   children: React.ReactNode;
 }
 
@@ -40,7 +41,7 @@ const WorkoutDrawerComponent = (props: WorkoutDrawerProps) => {
           <ListItemButton><Adjust/> Targets</ListItemButton>
           <ListItemButton><Share/> Share</ListItemButton>
           <ListItemButton onClick={props.handleRepeatWorkout}><Repeat/> Repeat Workout</ListItemButton>
-          <ListItemButton><FitnessCenter/> Save as Routine</ListItemButton>
+          <ListItemButton onClick={props.handleCreateRoutineFromWorkout}><FitnessCenter/> Save as Routine</ListItemButton>
           <ListItemButton onClick={handleDeleteWorkout}> <Delete/> Delete</ListItemButton>
         </List>
       </Box>

@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import './WorkoutRoutineDetailsComponent.scss';
-import {ArrowBack} from "@mui/icons-material";
+import {ArrowBack, MoreVert} from "@mui/icons-material";
 import {Dialog, Divider, FormControl, IconButton, InputLabel, MenuItem, Select, Slide, TextField} from "@mui/material";
 import WorkoutRoutineListDrawer from "../WorkoutRoutineListComponent/WorkoutRoutineListDrawer/WorkoutRoutineListDrawer";
 import {useNavigate, useParams} from "react-router-dom";
@@ -56,6 +56,8 @@ const WorkoutRoutineDetailsComponent = (props: WorkoutRoutineDetailsComponentPro
     workoutRoutineExercises: []
   });
   const [openDialog, setOpenDialog] = React.useState<boolean>(false);
+  const [openRoutineDrawer, setRoutineDrawer] = React.useState<boolean>(false);
+  const [routineExercise, setRoutineExercise] = React.useState<any>();
   const [editExerciseDialog, setEditExerciseDialog] = React.useState<boolean>(false);
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [exerciseCategories, setExerciseCategories] = React.useState<ExerciseCategory[]>([]);
@@ -111,9 +113,9 @@ const WorkoutRoutineDetailsComponent = (props: WorkoutRoutineDetailsComponentPro
 
   const handleDeleteRoutine = (routine: WorkoutRoutine) => {
     deleteRoutine(routine.id)
-      .then(() => {
-        navigation("/routines")
-      })
+    .then(() => {
+      navigation("/routines")
+    })
   }
 
   const handleAddExercise = (event: any, exerciseToAdd: Exercise) => {
@@ -185,9 +187,9 @@ const WorkoutRoutineDetailsComponent = (props: WorkoutRoutineDetailsComponentPro
 
   const handleStartWorkoutFromRoutine = () => {
     createWorkoutFromRoutine(routine.id)
-      .then((response) => {
-        navigation(`/workout/${response}`)
-      });
+    .then((response) => {
+      navigation(`/workout/${response}`)
+    });
   }
 
   const handleCopyRoutine = () => {
@@ -207,10 +209,10 @@ const WorkoutRoutineDetailsComponent = (props: WorkoutRoutineDetailsComponentPro
           <div className='routine-details-header-column2'>
             <div className='routine-details-header-column2-start' onClick={handleStartWorkoutFromRoutine}>Start</div>
             <div><WorkoutRoutineDetailsDrawer
-                  routine={routine}
-                  handleCopyRoutine={handleCopyRoutine}
-                  handleDeleteRoutine={handleDeleteRoutine}
-                  handleOpenReorderDialog={handleOpenReorderDialog}/></div>
+                routine={routine}
+                handleCopyRoutine={handleCopyRoutine}
+                handleDeleteRoutine={handleDeleteRoutine}
+                handleOpenReorderDialog={handleOpenReorderDialog}/></div>
           </div>
         </div>
         <div className='routine-details-main'>
