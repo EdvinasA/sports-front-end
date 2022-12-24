@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c54cbabc-0400-4668-a1fa-d06219e16be6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/components/ExerciseDrawerComponent/ExerciseDrawerComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/ExerciseDrawerComponent/ExerciseDrawerComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutDetailsComponent/WorkoutDetailsPageComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutDetailsComponent/WorkoutDetailsPageComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/services/ExerciseSetService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/services/ExerciseSetService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutDetailsComponent/WorkoutDetailsExerciseHistory/WorkoutDetailsExerciseHistory.scss" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutDetailsComponent/WorkoutDetailsExerciseHistory/WorkoutDetailsExerciseHistory.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutDetailsComponent/WorkoutDetailsExerciseHistory/WorkoutDetailsExerciseHistory.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutDetailsComponent/WorkoutDetailsExerciseHistory/WorkoutDetailsExerciseHistory.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +82,7 @@
       <workItem from="1670831771001" duration="75258000" />
       <workItem from="1671280644968" duration="38557000" />
       <workItem from="1671787503587" duration="10361000" />
-      <workItem from="1671878647719" duration="2633000" />
+      <workItem from="1671878647719" duration="5176000" />
     </task>
     <servers />
   </component>

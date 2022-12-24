@@ -1,9 +1,38 @@
 .exercise-history-wrapper {
+  font-family: Roboto, sans-serif;
   display: flex;
+  padding: 0 20px;
 }
 
 .exercise-history-list {
-  display: flex;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: 25% 25% 50%;
+  grid-gap: 5px;
   width: 100%;
+}
+
+.exercise-history-header {
+  display: flex;
+  width: 388px;
+  padding: 15px 20px;
+}
+
+.exercise-history-back-button {
+  cursor: pointer;
+  padding-right: 15px;
+}
+
+.exercise-history-label {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.49);
+  padding: 5px 0 5px 0;
+}
+
+.exercise-history-value {
+  font-size: 16px;
+  font-weight: 600;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  padding: 5px;
 }

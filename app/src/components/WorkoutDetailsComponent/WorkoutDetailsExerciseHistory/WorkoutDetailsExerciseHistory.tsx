@@ -3,6 +3,7 @@ import './WorkoutDetailsExerciseHistory.scss';
 import {ExerciseSet} from "../../../models/workout";
 import {getHistoryExerciseSets} from "../../../services/ExerciseSetService";
 import {ArrowBack} from "@mui/icons-material";
+import 'typeface-roboto';
 
 interface WorkoutDetailsExerciseHistoryProps {
   workoutExerciseId: number;
@@ -25,35 +26,35 @@ const WorkoutDetailsExerciseHistory = (props: WorkoutDetailsExerciseHistoryProps
   return (
       <div>
         <div className='exercise-history-header'>
-          <div onClick={props.close}><ArrowBack/></div>
+          <div className='exercise-history-back-button' onClick={props.close}><ArrowBack/></div>
           <div>History of {props.exerciseName}</div>
         </div>
-          {history &&
-              history.map((set) => (
-                  <div className='exercise-history-wrapper' key={set.id}>
-                    <div className='exercise-history-list'>
-                      <div>
-                        <div>Weight</div>
-                        <div>
-                          {set.weight}
-                        </div>
-                      </div>
-                      <div>
-                        <div>Reps</div>
-                        <div>
-                          {set.reps}
-                        </div>
-                      </div>
-                      <div>
-                        <div>Notes</div>
-                        <div>{set.notes || 'No notes'}</div>
+        {history &&
+            history.map((set) => (
+                <div className='exercise-history-wrapper' key={set.id}>
+                  <div className='exercise-history-list'>
+                    <div className='exercise-history-column-wrapper'>
+                      <div className='exercise-history-label'>Weight</div>
+                      <div className='exercise-history-value'>
+                        {set.weight}
                       </div>
                     </div>
+                    <div className='exercise-history-column-wrapper'>
+                      <div className='exercise-history-label'>Reps</div>
+                      <div className='exercise-history-value'>
+                        {set.reps}
+                      </div>
+                    </div>
+                    <div className='exercise-history-column-wrapper'>
+                      <div className='exercise-history-label'>Notes</div>
+                      <div className='exercise-history-value'>{set.notes || 'No notes'}</div>
+                    </div>
                   </div>
-              ))
-          }
-        </div>
-        );
+                </div>
+            ))
         }
+      </div>
+  );
+}
 
-        export default WorkoutDetailsExerciseHistory;
+export default WorkoutDetailsExerciseHistory;
