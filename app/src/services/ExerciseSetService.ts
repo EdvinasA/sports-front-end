@@ -11,6 +11,14 @@ async function addExerciseSet(exerciseSetCreate: ExerciseSetCreateInput) {
   return await createRequestWithResponse(`api/exercise-set`, requestOptions);
 }
 
+async function getHistoryExerciseSets(workoutExerciseId: number, exerciseId: number) {
+  const requestOptions = {
+    method: 'GET'
+  };
+
+  return await createRequestWithResponse(`api/exercise-set/${workoutExerciseId}/${exerciseId}`, requestOptions);
+}
+
 async function copyExerciseSet(exerciseSetId: number): Promise<ExerciseSet> {
   const requestOptions = {
     method: 'POST'
@@ -37,4 +45,4 @@ async function updateExerciseSetRequest(exerciseSet: ExerciseSet) {
   return await createRequestWithoutResponse(`api/exercise-set`, requestOptions);
 }
 
-export { addExerciseSet, copyExerciseSet, deleteExerciseSet, updateExerciseSetRequest }
+export { addExerciseSet, getHistoryExerciseSets, copyExerciseSet, deleteExerciseSet, updateExerciseSetRequest }

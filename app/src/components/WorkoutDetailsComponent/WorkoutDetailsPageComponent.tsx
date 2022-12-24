@@ -24,6 +24,7 @@ import WorkoutDetailsAddExerciseComponent from "./WorkoutDetailsAddExerciseCompo
 import "typeface-roboto";
 import {createRoutineFromWorkout} from "../../services/RoutineService";
 import WorkoutDetailsExerciseEditComponent from "./WorkoutDetailsExerciseEditComponent/WorkoutDetailsExerciseEditComponent";
+import WorkoutDetailsExerciseHistory from "./WorkoutDetailsExerciseHistory/WorkoutDetailsExerciseHistory";
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -34,10 +35,33 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+interface DialogsProp {
+  reorderDialog: boolean;
+  editExerciseDialog: boolean;
+  addExerciseDialog: boolean;
+  editExerciseNoteDialog: boolean;
+  exerciseHistoryDialog: boolean;
+}
+
+interface ExerciseHistoryProp {
+  workoutExerciseId: number;
+  exerciseId: number;
+  exerciseName: string;
+}
+
 function WorkoutDetailsPage() {
-  const [openDialog, setOpenDialog] = React.useState<boolean>(false);
-  const [openEditExerciseDialog, setOpenEditExerciseDialog] = React.useState<boolean>(false);
-  const [reorderOpenDialog, setReorderOpenDialog] = React.useState<boolean>(false);
+  const [openDialog, setOpenDialog] = React.useState<DialogsProp>({
+    reorderDialog: false,
+    editExerciseDialog: false,
+    addExerciseDialog: false,
+    editExerciseNoteDialog: false,
+    exerciseHistoryDialog: false
+  });
+  const [exerciseHistoryData, setExerciseHistoryData] = React.useState<ExerciseHistoryProp>({
+    workoutExerciseId: 0,
+    exerciseId: 0,
+    exerciseName: ''
+  });
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [exerciseCategories, setExerciseCategories] = React.useState<ExerciseCategory[]>([]);
   const [workout, setWorkout] = React.useState<WorkoutDetails>({
@@ -51,7 +75,6 @@ function WorkoutDetailsPage() {
     startTime: new Date()
   });
   const [workoutExercises, setWorkoutExercises] = React.useState<WorkoutExercise[]>([]);
-  const [openEditNote, setOpenEditNote] = React.useState<boolean>(false);
   const [selectedUpdateExercise, setSelectedUpdateExercise] = React.useState<WorkoutExercise>({
     id: 0,
     exercise: {
@@ -81,12 +104,12 @@ function WorkoutDetailsPage() {
     getExerciseCategories()
     .then((response) => {
       setExerciseCategories(response);
-      setOpenDialog(true);
+      setOpenDialog({ ...openDialog, addExerciseDialog: true });
     });
   };
 
   const handleClose = () => {
-    setOpenDialog(false);
+    setOpenDialog({ ...openDialog, addExerciseDialog: false });
     setActiveStep(0);
   };
 
@@ -185,7 +208,7 @@ function WorkoutDetailsPage() {
             draft.push(response);
           }))
           setActiveStep(0);
-          setOpenDialog(false);
+          setOpenDialog({ ...openDialog, addExerciseDialog: false });
         }
     );
   };
@@ -237,20 +260,20 @@ function WorkoutDetailsPage() {
   }
 
   const openReorderDialog = () => {
-    setReorderOpenDialog(true);
+    setOpenDialog({...openDialog, reorderDialog: true});
   }
 
   const closeReorderDialog = () => {
-    setReorderOpenDialog(false);
+    setOpenDialog({...openDialog, reorderDialog: false});
   }
 
   const openEditNoteDialog = (exercise: WorkoutExercise) => {
     setSelectedUpdateExercise(exercise);
-    setOpenEditNote(true);
+    setOpenDialog({...openDialog, editExerciseNoteDialog: true});
   }
 
   const closeEditNoteDialog = () => {
-    setOpenEditNote(false);
+    setOpenDialog({...openDialog, editExerciseNoteDialog: false});
   }
 
   const handleExerciseNoteUpdate = (event: { target: { value: string } }) => {
@@ -315,21 +338,38 @@ function WorkoutDetailsPage() {
     .then((response) => {
       setExerciseCategories(response);
     })
-    setOpenEditExerciseDialog(true);
+    setOpenDialog({...openDialog, editExerciseDialog: true});
   }
 
   const handleUpdateExerciseDialog = (exercise: Exercise) => {
     setWorkout(produce(workout, draft => {
       const workoutExerciseIndex: number = draft.exercises.findIndex(o => o.id === selectedUpdateExercise.id);
       draft.exercises[workoutExerciseIndex].exercise = exercise;
-      setOpenEditExerciseDialog(false);
+      setOpenDialog({...openDialog, editExerciseDialog: false});
     }));
   }
 
   const handleCloseEditExerciseDialog = () => {
-    setOpenEditExerciseDialog(false);
+    setOpenDialog({...openDialog, editExerciseDialog: false});
   }
 
+  const handleOpenExerciseHistory = (workoutExercise: WorkoutExercise) => {
+    setOpenDialog({...openDialog, exerciseHistoryDialog: true})
+    setExerciseHistoryData({
+      workoutExerciseId: workoutExercise.id,
+      exerciseId: workoutExercise.exercise.id,
+      exerciseName: workoutExercise.exercise.name
+    });
+  }
+
+  const handleCloseExerciseHistoryDialog = () => {
+    setOpenDialog({...openDialog, exerciseHistoryDialog: false});
+    setExerciseHistoryData({
+      workoutExerciseId: 0,
+      exerciseId: 0,
+      exerciseName: ''
+    });
+  }
 
   return (
       <div>
@@ -449,6 +489,7 @@ function WorkoutDetailsPage() {
                                 deleteExercise={handleDeleteWorkoutExercise}
                                 reorderOpen={openReorderDialog}
                                 openEditExerciseDialog={handleOpenEditExerciseDialog}
+                                openExerciseHistoryDialog={handleOpenExerciseHistory}
                             >
                             </ExerciseDrawerComponent>
                           </div>
@@ -529,7 +570,7 @@ function WorkoutDetailsPage() {
               <button onClick={handleClickOpen}>+ Add Exercise</button>
             </div>
             <WorkoutDetailsAddExerciseComponent
-                openDialog={openDialog}
+                openDialog={openDialog.addExerciseDialog}
                 handleClose={handleClose}
                 exerciseCategories={exerciseCategories}
                 handleAddExercise={handleAddExercise}
@@ -540,15 +581,15 @@ function WorkoutDetailsPage() {
           </div>
           <Dialog
               fullScreen
-              open={reorderOpenDialog}
+              open={openDialog.reorderDialog}
               onClose={closeReorderDialog}
               TransitionComponent={Transition}>
             <WorkoutExerciseReorder items={workoutExercises} updateItems={handleUpdateExerciseOrder} close={closeReorderDialog}/>
           </Dialog>
           <Dialog
-              open={openEditNote}
+              open={openDialog.editExerciseNoteDialog}
               onClose={closeEditNoteDialog}
-              fullWidth={true}
+              fullWidth
               maxWidth="xl">
             <div className="edit-exercise-note-wrapper">
               <div className="edit-exercise-note-dialog-title">Note</div>
@@ -568,13 +609,25 @@ function WorkoutDetailsPage() {
           </Dialog>
           <Dialog
               fullScreen
-              open={openEditExerciseDialog}
+              open={openDialog.editExerciseDialog}
               onClose={handleCloseEditExerciseDialog}>
             <WorkoutDetailsExerciseEditComponent
                 categories={exerciseCategories}
                 closeDialog={handleCloseEditExerciseDialog}
                 exercise={selectedUpdateExercise.exercise}
                 handleUpdateSentExercise={handleUpdateExerciseDialog}/>
+          </Dialog>
+          <Dialog
+              fullScreen
+              open={openDialog.exerciseHistoryDialog}
+              onClose={handleCloseExerciseHistoryDialog}
+              >
+            <WorkoutDetailsExerciseHistory
+                workoutExerciseId={exerciseHistoryData.workoutExerciseId}
+                exerciseId={exerciseHistoryData.exerciseId}
+                exerciseName={exerciseHistoryData.exerciseName}
+                close={handleCloseExerciseHistoryDialog}
+            />
           </Dialog>
         </div>
       </div>

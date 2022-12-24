@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c54cbabc-0400-4668-a1fa-d06219e16be6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/components/ExerciseDrawerComponent/ExerciseDrawerComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/ExerciseDrawerComponent/ExerciseDrawerComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/components/WorkoutDetailsComponent/WorkoutDetailsPageComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/WorkoutDetailsComponent/WorkoutDetailsPageComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/components/statistics/StatisticsComponent/StatisticsComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/statistics/StatisticsComponent/StatisticsComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/components/statistics/StatisticsExercise/StatisticsExercise.scss" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/statistics/StatisticsExercise/StatisticsExercise.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/components/statistics/StatisticsExercise/StatisticsExercise.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/statistics/StatisticsExercise/StatisticsExercise.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/services/ExerciseSetService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/services/ExerciseSetService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +81,9 @@
       <workItem from="1667758317651" duration="117967000" />
       <workItem from="1668748219760" duration="303998000" />
       <workItem from="1670831771001" duration="75258000" />
-      <workItem from="1671280644968" duration="9893000" />
+      <workItem from="1671280644968" duration="38557000" />
+      <workItem from="1671787503587" duration="10361000" />
+      <workItem from="1671878647719" duration="2633000" />
     </task>
     <servers />
   </component>
