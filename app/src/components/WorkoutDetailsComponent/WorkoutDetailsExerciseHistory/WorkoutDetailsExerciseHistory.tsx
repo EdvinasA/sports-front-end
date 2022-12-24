@@ -12,25 +12,43 @@ interface WorkoutDetailsExerciseHistoryProps {
   close: () => void;
 }
 
+interface WorkoutDetailsExerciseHistoryState {
+    sets: ExerciseSet[];
+    isFirstRequest: boolean;
+}
+
 const WorkoutDetailsExerciseHistory = (props: WorkoutDetailsExerciseHistoryProps) => {
-  const [history, setHistory] = React.useState<ExerciseSet[]>([]);
+  const [history, setHistory] = React.useState<WorkoutDetailsExerciseHistoryState>({
+    sets: [],
+    isFirstRequest: false
+  });
 
   useEffect(() => {
-    if (history.length === 0) {
+    if (!history.isFirstRequest) {
       getHistoryExerciseSets(props.workoutExerciseId, props.exerciseId)
       .then((response) => {
-        setHistory(response);
+        setHistory({
+          sets: response,
+          isFirstRequest: true
+        });
       })
     }
-  })
+  });
+
+  const handleClose = () => {
+    setHistory({...history, isFirstRequest: false});
+    props.close();
+  }
+
   return (
       <div>
         <div className='exercise-history-header'>
-          <div className='exercise-history-back-button' onClick={props.close}><ArrowBack/></div>
+          <div className='exercise-history-back-button' onClick={handleClose}><ArrowBack/></div>
           <div>History of {props.exerciseName}</div>
         </div>
-        {history &&
-            history.map((set) => (
+        {history.sets.length === 0 && <div className=''>No history for this exercise.</div>}
+        {history.sets.length !== 0 &&
+            history.sets.map((set) => (
                 <div className='exercise-history-wrapper' key={set.id}>
                   <div className='exercise-history-list'>
                     <div className='exercise-history-column-wrapper'>
